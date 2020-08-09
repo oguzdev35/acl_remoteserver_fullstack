@@ -10,6 +10,7 @@ router.route('/api/persons')
 router.route('/api/persons/:personId')
     .get(personCtrl.read)
     .put(personCtrl.update)
+    .post(personCtrl.assign)
     .delete(personCtrl.remove);
 
 router.param('personId', personCtrl.personByID);

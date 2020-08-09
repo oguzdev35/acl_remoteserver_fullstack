@@ -3,8 +3,8 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "doorId": "12345678",
-  "name": "AF"
+  "doorId": "12345679",
+  "name": "GDF"
 }
 
 ###
@@ -12,7 +12,7 @@ GET http://localhost:2000/api/doors HTTP/1.1
 Accept: application/json
 
 ###
-GET http://localhost:2000/api/doors/5f30021bd7524710ec5107fd HTTP/1.1
+GET http://localhost:2000/api/doors/5f301621d8be7510a8545af0 HTTP/1.1
 Accept: application/json
 
 ###
@@ -27,3 +27,14 @@ Content-Type: application/json
 ###
 DELETE  http://localhost:2000/api/doors/5f30021bd7524710ec5107fd HTTP/1.1
 Accept: application/json
+
+###
+
+POST http://localhost:2000/api/access HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "personId": "1234",
+  "doorId": "12345678"
+}

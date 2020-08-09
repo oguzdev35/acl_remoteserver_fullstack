@@ -61,4 +61,10 @@ const PersonSchema = new mongoose.Schema({
   ]
 });
 
+PersonSchema
+  .virtual('fullname')
+  .get(function(){
+    return `${this.firstName} ${this.lastName}`
+  })
+
 export default mongoose.model('Person', PersonSchema);

@@ -1,4 +1,5 @@
 import Person from '../models/person.model';
+import Door from '../models/door.model';
 import extend from 'lodash/extend';
 import dbErrorHandler from '../helpers/dbErrorHandler';
 
@@ -30,7 +31,9 @@ const personByID = (req, res, next, id) => {
         if(!person)
             return res.status(406).json({
                 'error': "Person not found"
-            })
+            });
+
+        person.populate('doors', '_id doorId');
         req.person = person;
         next();
     })
@@ -55,6 +58,29 @@ const update = (req, res) => {
       }));
 }
 
+const assign = (req, res) => {
+  const { doorId } = req.body;
+  let person = req.person;
+  Door.findOne({'doorId': doorId})
+    .then( door => {
+      if(!door)
+        return res.status(406).json({
+            'error': "Door not found"
+        });
+      person.doors.push(door);
+      person.save()
+        .then(() => res.status(200).json({
+          'message': 'Assignment succeed'
+        }) )
+        .catch( err => res.status(400).json({
+            'error': "Assignment failed"
+        }))
+    })
+    .catch( err => res.status(400).json({
+        'error': "Door not able to be retrived"
+    }))
+}
+
 const remove = (req, res) => {
   let person = req.person;
   person.remove()
@@ -65,5 +91,6 @@ const remove = (req, res) => {
 }
 
 export default {
-  create, list, personByID, read, update, remove
+  create, list, personByID, 
+  read, update, remove, assign
 };

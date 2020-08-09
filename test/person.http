@@ -17,7 +17,7 @@ GET http://localhost:2000/api/persons HTTP/1.1
 Accept: application/json
 
 ###
-GET http://localhost:2000/api/persons/5f3004a00b01650378b3fdd3 HTTP/1.1
+GET http://localhost:2000/api/persons/5f30163ad8be7510a8545af1 HTTP/1.1
 Accept: application/json
 
 ###
@@ -27,6 +27,15 @@ Content-Type: application/json
 
 {
   "phone1": "412-222-222"
+}
+
+###
+POST http://localhost:2000/api/persons/5f30163ad8be7510a8545af1 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "doorId": "12345678"
 }
 
 ###
