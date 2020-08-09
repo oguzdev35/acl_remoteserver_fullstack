@@ -1,16 +1,21 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import { Typography } from '@material-ui/core';
+
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
-    minWidth: '98vw',
-    margin: theme.spacing(0)
+    margin: theme.spacing(0),
   },
+  tab: {
+    textTransform: 'capitalize'
+  }
 }));
 
 export default (props) => {
@@ -21,13 +26,15 @@ export default (props) => {
     setContentValue(newValue);
   };
 
+
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Tabs value={contentValue} onChange={handleChange} >
-          {contents.map( ({label}, index) => <Tab key={index} label={label} />)}
+        <Tabs 
+          orientation="vertical"
+          variant="scrollable"
+          value={contentValue} onChange={handleChange} >
+          {contents.map( ({label}, index) => <Tab className={classes.tab} key={index} label={label} />)}
         </Tabs>
-      </AppBar>
     </div>
   );
 }
