@@ -7,6 +7,10 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     required: 'Name is required.'
   },
+  isMaster: {
+    type: Boolean,
+    default: false
+  },
   email: {
     type: String,
     trim: true,
@@ -37,10 +41,6 @@ const UserSchema = new mongoose.Schema({
       ref: 'Door'
     }
   ],
-  isMaster: {
-    type: Boolean,
-    default: false
-  },
   salt: String,
   secretToken: String
 });

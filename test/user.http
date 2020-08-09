@@ -2,14 +2,16 @@ GET http://localhost:2000/api/users HTTP/1.1
 Accept: application/json
 
 ###
-POST http://localhost:2000/api/users HTTP/1.1
+POST http://localhost:2000/api/users/create/5f305c036392d01f9c650a76 HTTP/1.1
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMwNWMwMzYzOTJkMDFmOWM2NTBhNzYiLCJpYXQiOjE1OTcwMDQ4ODR9.qkER35bCR-9Q2gsUGfavZTB12hRM-n7jtWGhJ6ZF9SI
 
 {
-    "username": "oguz02",
+    "username": "oguz1",
     "password": "123456",
-    "email": "oguz2@mail.com"
+    "email": "oguz1@mail.com",
+    "appID": "maksisoft2020"
 }
 
 ###
@@ -42,8 +44,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "username": "oguz02",
-    "password": "123456"
+    "username": "admin",
+    "password": "admin123"
 }
 
 ###
@@ -54,4 +56,16 @@ Content-Type: application/json
 
 {
     "username": "oguz01"
+}
+
+###
+POST http://localhost:2000/api/master/create HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin123",
+    "email": "admin@mail.com",
+    "isMaster": true
 }

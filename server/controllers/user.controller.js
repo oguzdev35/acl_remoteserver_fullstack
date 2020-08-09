@@ -1,9 +1,9 @@
 import User from '../models/user.model';
+import config from '../../config/config';
 import extend from 'lodash/extend';
 import dbErrorHandler from '../helpers/dbErrorHandler';
 import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
-import config from '../../config/config';
 
 const create = (req, res) => {
     const user = new User(req.body);
@@ -142,6 +142,8 @@ const signout = (req, res) => {
 };
 
 
+
+
 const requireSignin = expressJwt({
     secret: config.jwtSecret,
     algorithms: ['HS256'],
@@ -163,9 +165,24 @@ const requireSignin = expressJwt({
       }
 });
 
+const requiresMaster = (req, res, next) => {
+    const appID = req.body.appID;
+    const user = req.profile;
+
+    if(appID == config.appID && user.isMaster){
+        next();
+    } else {
+        return res.status(403).json({
+            'error': 'User is not a master'
+        })
+    }
+
+};
+
 const hasAuthorization = (req, res, next) => {
 
-    const authorized = req.profile && req.auth && req.profile._id == req.auth._id;
+    const authorized = req.profile.isMaster || 
+        (req.profile && req.auth && req.profile._id == req.auth._id);
     if(!authorized){
         return res.status(403).json({
             'error': "User is not authorized"
@@ -177,5 +194,6 @@ const hasAuthorization = (req, res, next) => {
 
 export default {
     create, list, userByID, read, update, remove,
-    signin, signout, requireSignin, hasAuthorization
+    signin, signout, requireSignin, hasAuthorization,
+    requiresMaster
 };
