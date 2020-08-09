@@ -1,0 +1,29 @@
+POST http://localhost:2000/api/doors HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "doorId": "12345678",
+  "name": "AF"
+}
+
+###
+GET http://localhost:2000/api/doors HTTP/1.1
+Accept: application/json
+
+###
+GET http://localhost:2000/api/doors/5f30021bd7524710ec5107fd HTTP/1.1
+Accept: application/json
+
+###
+PUT http://localhost:2000/api/doors/5f30021bd7524710ec5107fd HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "GF"
+}
+
+###
+DELETE  http://localhost:2000/api/doors/5f30021bd7524710ec5107fd HTTP/1.1
+Accept: application/json

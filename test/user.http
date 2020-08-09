@@ -1,0 +1,57 @@
+GET http://localhost:2000/api/users HTTP/1.1
+Accept: application/json
+
+###
+POST http://localhost:2000/api/users HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+    "username": "oguz01",
+    "password": "123456",
+    "email": "oguz@mail.com"
+}
+
+###
+GET http://localhost:2000/api/users/5f2ee7ae918bd1152c61e8b5 HTTP/1.1
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjJlZDQzZTVjZGVkMzFhMDA0OGI2YWMiLCJpYXQiOjE1OTY5MDQ4MDV9.VR2uHtb3HGWM8OL_4mWABQ66lRroqMpBDgmyLJFdxG8
+
+###
+PUT http://localhost:2000/api/users/5f2ee7ae918bd1152c61e8b5 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjJlZTdhZTkxOGJkMTE1MmM2MWU4YjUiLCJpYXQiOjE1OTY5MDk2OTR9.4X4VpeuKB4Q7th2C_ugJS84oSvudDgzsmsg4ayX2XqA
+
+{
+    "email": "oguz123@gmail.com"
+}
+###
+DELETE  http://localhost:2000/api/users/5f2ee7ae918bd1152c61e8b5 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjJlZTdhZTkxOGJkMTE1MmM2MWU4YjUiLCJpYXQiOjE1OTY5MDk2OTR9.4X4VpeuKB4Q7th2C_ugJS84oSvudDgzsmsg4ayX2XqA
+
+{
+    "email": "oguz123@gmail.com"
+}
+
+###
+POST http://localhost:2000/auth/signin HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+    "username": "oguz01",
+    "password": "123456"
+}
+
+###
+
+GET  http://localhost:2000/auth/signout HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+    "username": "oguz01"
+}
