@@ -23,8 +23,11 @@ const create = (req, res) => {
 }
 
 const list = (req, res) => {
+  const user = req.profile;
   Door.find().select('name logs createdAt updatedAt')
-    .then( doors => res.status(200).json(doors))
+    .then( doors => res.status(200).json(
+        doors.filter( door => user.doors.includes(door.id))
+    ))
     .catch( err => res.status(400).json({
         'error': dbErrorHandler.getErrorMessage(err)
     }));

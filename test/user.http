@@ -7,13 +7,13 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "username": "oguz01",
+    "username": "oguz02",
     "password": "123456",
-    "email": "oguz@mail.com"
+    "email": "oguz2@mail.com"
 }
 
 ###
-GET http://localhost:2000/api/users/5f30403bee83451364614843 HTTP/1.1
+GET http://localhost:2000/api/users/5f30505e4d7f1410f02ba66b HTTP/1.1
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjJlZDQzZTVjZGVkMzFhMDA0OGI2YWMiLCJpYXQiOjE1OTY5MDQ4MDV9.VR2uHtb3HGWM8OL_4mWABQ66lRroqMpBDgmyLJFdxG8
 
@@ -42,7 +42,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "username": "oguz01",
+    "username": "oguz02",
     "password": "123456"
 }
 
