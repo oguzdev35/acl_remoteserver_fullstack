@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Mongoose } from 'mongoose';
 import crypto from 'crypto';
 
 const UserSchema = new mongoose.Schema({
@@ -24,6 +24,22 @@ const UserSchema = new mongoose.Schema({
   hashed_password: {
     type: String,
     required: 'Password is required'
+  },
+  persons: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Person'
+    }
+  ],
+  doors: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Door'
+    }
+  ],
+  isMaster: {
+    type: Boolean,
+    default: false
   },
   salt: String,
   secretToken: String

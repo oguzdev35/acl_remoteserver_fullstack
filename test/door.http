@@ -1,6 +1,7 @@
-POST http://localhost:2000/api/doors HTTP/1.1
+POST http://localhost:2000/api/doors/5f30403bee83451364614843 HTTP/1.1
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMwNDAzYmVlODM0NTEzNjQ2MTQ4NDMiLCJpYXQiOjE1OTY5OTc3NTd9.oXR_oTx2UelshMmj-RvcnSa5Zf2869-L12tpGaFJ8_Q
 
 {
   "doorId": "12345679",
@@ -8,8 +9,9 @@ Accept: application/json
 }
 
 ###
-GET http://localhost:2000/api/doors HTTP/1.1
+GET http://localhost:2000/api/doors/list/5f30403bee83451364614843 HTTP/1.1
 Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMwNDAzYmVlODM0NTEzNjQ2MTQ4NDMiLCJpYXQiOjE1OTY5OTc3NTd9.oXR_oTx2UelshMmj-RvcnSa5Zf2869-L12tpGaFJ8_Q
 
 ###
 GET http://localhost:2000/api/doors/5f301621d8be7510a8545af0 HTTP/1.1
@@ -25,9 +27,14 @@ Content-Type: application/json
 }
 
 ###
-DELETE  http://localhost:2000/api/doors/5f30021bd7524710ec5107fd HTTP/1.1
+DELETE  http://localhost:2000/api/doors/5f30403bee83451364614843 HTTP/1.1
 Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMwNDAzYmVlODM0NTEzNjQ2MTQ4NDMiLCJpYXQiOjE1OTY5OTc3NTd9.oXR_oTx2UelshMmj-RvcnSa5Zf2869-L12tpGaFJ8_Q
 
+{
+  "id": "5f30454b8514a21088aeca1a"
+}
 ###
 
 POST http://localhost:2000/api/access HTTP/1.1

@@ -5,10 +5,18 @@ import dbErrorHandler from '../helpers/dbErrorHandler';
 
 const create = (req, res) => {
   const door = new Door(req.body);
+  const user = req.profile;
   door.save()
-    .then( () => res.status(200).json({
-        'message': "Door successfully registerd!"
-    }))
+    .then( () => {
+      user.doors.push(door);
+      user.save()
+        .then( () => res.status(200).json({
+          'message': "Door successfully registerd!"
+        }))
+        .catch( err => res.status(400).json({
+            'error': dbErrorHandler.getErrorMessage(err)
+        }))
+    })
     .catch( err => res.status(400).json({
         'error': dbErrorHandler.getErrorMessage(err)
     }));
@@ -23,7 +31,8 @@ const list = (req, res) => {
 }
 
 
-const doorByID = (req, res, next, id) => {
+const doorId = (req, res, next) => {
+  const { id } = req.body;
   Door.findById(id)
     .then( door => {
         if(!door)
@@ -56,13 +65,22 @@ const update = (req, res) => {
 
 const remove = (req, res) => {
   let door = req.door;
+  const user = req.profile;
   door.remove()
-      .then( deletedDoor => res.status(406).json(deletedDoor))
+      .then( deletedDoor => {
+        user.doors.pull(deletedDoor);
+        user.save()
+          .then( () => res.status(200).json(deletedDoor))
+          .catch( err => res.status(400).json({
+              'error': dbErrorHandler.getErrorMessage(err)
+          }))
+      })
       .catch( err => res.status(400).json({
           'error': dbErrorHandler.getErrorMessage(err)
       }));
 }
 
 export default {
-  create, list, doorByID, read, update, remove
+  create, list, doorId, read, 
+  update, remove
 };

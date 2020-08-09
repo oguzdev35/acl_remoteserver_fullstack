@@ -1,12 +1,12 @@
 import express from 'express';
-import authCtrl from '../controllers/auth.controller';
+import userCtrl from '../controllers/user.controller';
 
 const router = express.Router();
 
 router.route('/auth/signin')
-    .post(authCtrl.signin);
+    .post(userCtrl.signin);
 
 router.route('/auth/signout')
-    .get(authCtrl.signout);
+    .get(userCtrl.signout);
 
 export default router;
