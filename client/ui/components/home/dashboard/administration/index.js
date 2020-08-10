@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
+
 import VerticalTab from './VerticalTab';
 import Content from './Content';
 
@@ -26,7 +27,8 @@ const contentInjection = (Component, props) => () => {
 }
 
 const ContentA = () => <>ContentA</>;
-const ContentB = () => <>ContentB</>;
+
+import AddPerson from './addperson';
 
 const contents = [
   {
@@ -34,8 +36,8 @@ const contents = [
     Component: contentInjection(ContentA, {name: "Oguz"})
   },
   {
-    idx: 1, label: 'Content B', 
-    Component: contentInjection(ContentB)
+    idx: 1, label: 'Üye Kaydı', 
+    Component: contentInjection(AddPerson)
   }
 ]
 

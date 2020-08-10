@@ -1,6 +1,7 @@
 import { createStore, compose, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import userReducer from './reducers/user.reducer';
+import personReducer from './reducers/person.reducer';
 import userMiddleware from './middlewares/user.middleware';
 import apiMiddleware from './middlewares/api.middleware';
 import normalizeMiddleware from './middlewares/normalize.middleware';
@@ -9,12 +10,13 @@ import loggerMiddleware from './middlewares/logger.middleware';
 import actionSplitterMiddleware from './middlewares/actionSplitter.middleware';
 import uiReducer from './reducers/ui.reducer';
 import notificationReducer from './reducers/notification.reducer';
-import undoableEnhancer from './enhancers/undoable.enhancer';
+
 
 
 // shape the state structure
 const rootReducer = combineReducers({
     user: userReducer,
+    person: personReducer,
     ui: uiReducer,
     notification: notificationReducer
 });

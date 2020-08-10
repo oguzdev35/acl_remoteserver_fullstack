@@ -5,7 +5,8 @@ import { setNotification } from '../actions/notification.action';
 
 const LOGIN_API_URI = '/auth/signin';
 
-export default () => next => action => {
+export default store => next => action => {
+    console.log(store.getState())
     next(action);
     switch(action.type){
         case LOGIN_USER_BY_EMAIL:

@@ -6,10 +6,10 @@ export default ({dispatch}) => next => action => {
     next(action);
 
     if(action.type.includes(API_REQUEST)){
-        const { url, method, feature } = action.meta;
-        Axios({url, method, data: action.payload})
+        const { url, method, headers, feature, docAction } = action.meta;
+        Axios({url, method, headers, data: action.payload})
             .then( ({data}) => data)
-            .then( response => dispatch(apiSuccess({response, feature})))
+            .then( response => dispatch(apiSuccess({response, feature, docAction})))
             .catch( error => dispatch(apiError({error, feature})))
     }
 };

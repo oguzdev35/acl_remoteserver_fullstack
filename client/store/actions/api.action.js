@@ -10,13 +10,13 @@ export const apiRequest = ({body, method, url, feature}) => ({
     meta: {method, url, feature}
 });
 
-export const apiSuccess = ({response, feature}) => ({
+export const apiSuccess = ({response, feature, docAction}) => ({
     type: `${feature} ${API_SUCCESS}`,
     payload: response,
-    meta: {feature}
+    meta: {feature, docAction}
 });
 
-export const apiError = ({error, feature}) => ({
+export const apiError = ({error, feature, docAction}) => ({
     type: `${feature} ${API_ERROR}`,
     payload: error,
     meta: {feature}

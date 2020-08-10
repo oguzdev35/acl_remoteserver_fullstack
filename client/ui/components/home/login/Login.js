@@ -1,7 +1,7 @@
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import {
-  Grid, Typography, TextField, Button,
+  TextField, Button,
   AppBar, Tabs, Tab, Box
 } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
