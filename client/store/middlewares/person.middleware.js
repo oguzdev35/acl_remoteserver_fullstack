@@ -14,15 +14,19 @@ let headers = {};
 let url = '';
 
 export default store => next => action => {
+    const secretToken = store.getState().user.secretToken;
+    const userId = store.getState().user._id;
+    console.log(action.payload)
     next(action);
     switch(action.type){
         case LIST_PERSON:
+            console.log(store.getState())
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${store.getState().user.secretToken}` 
+                'Authorization': `Bearer ${secretToken}` 
             };
-            url = `/api/persons/list/${store.getState().user._id}`;
+            url = `/api/persons/list/${userId}`;
             next(apiRequest({body: action.payload, method: 'GET', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
@@ -30,20 +34,20 @@ export default store => next => action => {
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${store.getState().user.secretToken}` 
+                'Authorization': `Bearer ${secretToken}` 
             };
-            url = `/api/persons/${store.getState().user._id}`;
+            url = `/api/persons/${userId}`;
             next(apiRequest({body: action.payload, method: 'GET', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
         case CREATE_PERSON:
-            console.log('hes')
+            console.log(store.getState())
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${store.getState().user.secretToken}` 
+                'Authorization': `Bearer ${secretToken}` 
             };
-            url = `/api/persons/create/${store.getState().user._id}`;
+            url = `/api/persons/create/${userId}`;
             next(apiRequest({body: action.payload, method: 'POST', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
@@ -51,9 +55,9 @@ export default store => next => action => {
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${store.getState().user.secretToken}` 
+                'Authorization': `Bearer ${secretToken}` 
             };
-            url = `/api/persons/${store.getState().user._id}`;
+            url = `/api/persons/${userId}`;
             next(apiRequest({body: action.payload, method: 'POST', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
@@ -62,9 +66,9 @@ export default store => next => action => {
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${store.getState().user.secretToken}` 
+                'Authorization': `Bearer ${secretToken}` 
             };
-            url = `/api/persons/${store.getState().user._id}`;
+            url = `/api/persons/${userId}`;
             next(apiRequest({body: action.payload, method: 'PUT', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
@@ -73,9 +77,9 @@ export default store => next => action => {
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${store.getState().user.secretToken}` 
+                'Authorization': `Bearer ${secretToken}` 
             };
-            url = `/api/persons/${store.getState().user._id}`;
+            url = `/api/persons/${userId}`;
             next(apiRequest({body: action.payload, method: 'DELETE', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;

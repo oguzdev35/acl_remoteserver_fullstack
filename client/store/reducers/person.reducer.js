@@ -1,8 +1,6 @@
 import { SET_PERSON, REMOVE_PERSON, LOAD_PERSON } from '../actions/person.action';
 
-const initialState = {
-    persons: []
-};
+const initialState = [];
 
 export default (persons = initialState, action) => {
     switch(action.type){

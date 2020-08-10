@@ -1,41 +1,12 @@
-GET http://localhost:2000/api/users HTTP/1.1
-Accept: application/json
-
-###
-POST http://localhost:2000/api/users/create/5f30f3f49602c6460cbe9986 HTTP/1.1
+POST http://localhost:2000/api/master/create HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMwNWMwMzYzOTJkMDFmOWM2NTBhNzYiLCJpYXQiOjE1OTcwMDQ4ODR9.qkER35bCR-9Q2gsUGfavZTB12hRM-n7jtWGhJ6ZF9SI
 
 {
-    "username": "oguz1",
-    "password": "123456",
-    "email": "oguz1@mail.com",
-    "appID": "maksisoft2020"
-}
-
-###
-GET http://localhost:2000/api/users/5f30f51a9602c6460cbe9987 HTTP/1.1
-Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMwZjUxYTk2MDJjNjQ2MGNiZTk5ODciLCJpYXQiOjE1OTcwNzIzMTR9._69K49mU4uSMnjm_mRrWa1mKk-SWgr07d_RwmvhzubA
-
-###
-PUT http://localhost:2000/api/users/5f2ee7ae918bd1152c61e8b5 HTTP/1.1
-Accept: application/json
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjJlZTdhZTkxOGJkMTE1MmM2MWU4YjUiLCJpYXQiOjE1OTY5MDk2OTR9.4X4VpeuKB4Q7th2C_ugJS84oSvudDgzsmsg4ayX2XqA
-
-{
-    "email": "oguz123@gmail.com"
-}
-###
-DELETE  http://localhost:2000/api/users/5f2ee7ae918bd1152c61e8b5 HTTP/1.1
-Accept: application/json
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjJlZTdhZTkxOGJkMTE1MmM2MWU4YjUiLCJpYXQiOjE1OTY5MDk2OTR9.4X4VpeuKB4Q7th2C_ugJS84oSvudDgzsmsg4ayX2XqA
-
-{
-    "email": "oguz123@gmail.com"
+    "username": "admin",
+    "password": "admin123",
+    "email": "admin@mail.com",
+    "isMaster": true
 }
 
 ###
@@ -47,15 +18,78 @@ Content-Type: application/json
     "username": "admin",
     "password": "admin123"
 }
+###
+
+GET  http://localhost:2000/auth/signout/5f31c425c6dd2b08d85abde1 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMxYzQyNWM2ZGQyYjA4ZDg1YWJkZTEiLCJpYXQiOjE1OTcwOTcyNzZ9.9nFylodesyQURak37xk4dfLHLpS63USfnOSmFUBWhHg
 
 ###
 
-GET  http://localhost:2000/auth/signout HTTP/1.1
+GET http://localhost:2000/api/users/list/5f31c425c6dd2b08d85abde1 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMxYzQyNWM2ZGQyYjA4ZDg1YWJkZTEiLCJpYXQiOjE1OTcwOTczMjh9.U18XXE_uQpxJByleCOIOPvWNzX48upIDOmvlyA4mxNs
+x-app-id: maksisoft2020
+
+###
+POST http://localhost:2000/api/users/create/5f31c425c6dd2b08d85abde1 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMxYzQyNWM2ZGQyYjA4ZDg1YWJkZTEiLCJpYXQiOjE1OTcwOTczMjh9.U18XXE_uQpxJByleCOIOPvWNzX48upIDOmvlyA4mxNs
+x-app-id: maksisoft2020
+
+{
+    "username": "oguz1",
+    "password": "123456",
+    "email": "oguz1@mail.com"
+}
+
+###
+GET http://localhost:2000/api/users/5f31c425c6dd2b08d85abde1 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMxYzQyNWM2ZGQyYjA4ZDg1YWJkZTEiLCJpYXQiOjE1OTcwOTczMjh9.U18XXE_uQpxJByleCOIOPvWNzX48upIDOmvlyA4mxNs
+x-app-id: maksisoft2020
+
+{
+    "id": "5f31c5f20b93e71790db5125"
+}
+###
+
+POST http://localhost:2000/auth/signin HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
 {
-    "username": "oguz01"
+    "username": "oguz1",
+    "password": "123456"
+}
+
+###
+PUT http://localhost:2000/api/users/5f31c425c6dd2b08d85abde1 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMxYzQyNWM2ZGQyYjA4ZDg1YWJkZTEiLCJpYXQiOjE1OTcwOTczMjh9.U18XXE_uQpxJByleCOIOPvWNzX48upIDOmvlyA4mxNs
+x-app-id: maksisoft2020
+
+{
+    "id": "5f31c5f20b93e71790db5125",
+    "updatedProperties": {
+        "email":"oguz1234@gmail.com"
+    }
+}
+
+###
+DELETE  http://localhost:2000/api/users/5f31c425c6dd2b08d85abde1 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMxYzQyNWM2ZGQyYjA4ZDg1YWJkZTEiLCJpYXQiOjE1OTcwOTczMjh9.U18XXE_uQpxJByleCOIOPvWNzX48upIDOmvlyA4mxNs
+x-app-id: maksisoft2020
+
+{
+    "id": "5f31c5f20b93e71790db5125"
 }
 
 ###

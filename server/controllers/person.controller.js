@@ -7,16 +7,11 @@ import dbErrorHandler from '../helpers/dbErrorHandler';
 const create = (req, res) => {
   const person = new Person(req.body);
   const user = req.profile;
-  console.table({
-    user, person
-  })
   person.save()
     .then( () => {
       user.persons.push(person);
       user.save()
-        .then( () => res.status(200).json({
-          'message': "Person successfully registerd!"
-        }))
+        .then( () => res.status(200).json(person))
         .catch( err => res.status(400).json({
             'error': dbErrorHandler.getErrorMessage(err)
         }))
@@ -114,7 +109,20 @@ const remove = (req, res) => {
       }));
 }
 
+const hasAuthorization = (req, res, next) => {
+  const authorized = req.profile.isMaster || (req.profile  && req.auth && (req.profile._id == req.auth._id));
+  console.log(authorized)
+  if(!authorized){
+      return res.status(403).json({
+          'error': "User is not authorized"
+      });
+  }
+
+  next();
+}
+
 export default {
   create, list, personId, 
-  read, update, remove, assign
+  read, update, remove, assign,
+  hasAuthorization
 };
