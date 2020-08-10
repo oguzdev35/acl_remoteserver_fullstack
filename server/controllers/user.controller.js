@@ -150,6 +150,7 @@ const requireSignin = expressJwt({
     credentialsRequired: false,
     userProperty: "auth",
     getToken: (req) => {
+        console.log('require signin')
         let token = null;
         if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
             token = req.headers.authorization.split(' ')[1];
@@ -180,7 +181,7 @@ const requiresMaster = (req, res, next) => {
 };
 
 const hasAuthorization = (req, res, next) => {
-
+    console.log('has auth')
     const authorized = req.profile.isMaster || 
         (req.profile && req.auth && req.profile._id == req.auth._id);
     if(!authorized){

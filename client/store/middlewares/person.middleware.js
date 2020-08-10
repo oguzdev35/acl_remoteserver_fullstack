@@ -10,69 +10,72 @@ import { API_ERROR, API_SUCCESS, apiRequest } from '../actions/api.action';
 import { setLoader } from '../actions/ui.action';
 import { setNotification } from '../actions/notification.action';
 
+let headers = {};
+let url = '';
 
 export default store => next => action => {
     next(action);
     switch(action.type){
         case LIST_PERSON:
-            const headers = {
+            headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${store.getState().user.secretToken}` 
             };
-            const url = `/api/persons/list/${store.getState().user._id}`;
+            url = `/api/persons/list/${store.getState().user._id}`;
             next(apiRequest({body: action.payload, method: 'GET', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
         case GET_PERSON:
-            const headers = {
+            headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${store.getState().user.secretToken}` 
             };
-            const url = `/api/persons/${store.getState().user._id}`;
+            url = `/api/persons/${store.getState().user._id}`;
             next(apiRequest({body: action.payload, method: 'GET', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
         case CREATE_PERSON:
-            const headers = {
+            console.log('hes')
+            headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${store.getState().user.secretToken}` 
             };
-            const url = `/api/persons/create/${store.getState().user._id}`;
+            url = `/api/persons/create/${store.getState().user._id}`;
             next(apiRequest({body: action.payload, method: 'POST', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
         case ASSIGN_PERSON:
-            const headers = {
+            headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${store.getState().user.secretToken}` 
             };
-            const url = `/api/persons/${store.getState().user._id}`;
+            url = `/api/persons/${store.getState().user._id}`;
             next(apiRequest({body: action.payload, method: 'POST', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
 
         case UPDATE_PERSON:
-            const headers = {
+            headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${store.getState().user.secretToken}` 
             };
-            const url = `/api/persons/${store.getState().user._id}`;
+            url = `/api/persons/${store.getState().user._id}`;
             next(apiRequest({body: action.payload, method: 'PUT', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
 
         case DELETE_PERSON:
-            const headers = {
+            headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${store.getState().user.secretToken}` 
             };
-            const url = `/api/persons/${store.getState().user._id}`;
+            url = `/api/persons/${store.getState().user._id}`;
             next(apiRequest({body: action.payload, method: 'DELETE', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
@@ -93,7 +96,7 @@ export default store => next => action => {
             }
             next(setLoader({state: false, feature: PERSON}));
             break;
-        case `${USER} ${API_ERROR}`:
+        case `${PERSON} ${API_ERROR}`:
             next(setNotification({message: action.payload, feature: PERSON}))
             next(setLoader({state: false, feature: PERSON}))
             break;

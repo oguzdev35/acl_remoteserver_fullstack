@@ -3,6 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import userReducer from './reducers/user.reducer';
 import personReducer from './reducers/person.reducer';
 import userMiddleware from './middlewares/user.middleware';
+import personMiddleware from './middlewares/person.middleware';
 import apiMiddleware from './middlewares/api.middleware';
 import normalizeMiddleware from './middlewares/normalize.middleware';
 import notificationMiddleware from './middlewares/notification.middleware';
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
 
 // the feature middlewares
 const featureMiddleware = [
-    userMiddleware
+    userMiddleware,
+    personMiddleware
 ];
 
 //core middlewares for development

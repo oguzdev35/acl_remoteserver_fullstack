@@ -7,9 +7,12 @@ import dbErrorHandler from '../helpers/dbErrorHandler';
 const create = (req, res) => {
   const person = new Person(req.body);
   const user = req.profile;
+  console.table({
+    user, person
+  })
   person.save()
     .then( () => {
-      user.persons.push(door);
+      user.persons.push(person);
       user.save()
         .then( () => res.status(200).json({
           'message': "Person successfully registerd!"

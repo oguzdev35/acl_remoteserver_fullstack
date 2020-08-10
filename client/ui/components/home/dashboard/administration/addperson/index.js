@@ -6,10 +6,15 @@ import {
 import {
     Table, TableBody, TableContainer,
     Paper, TableRow, Button
-} from '@material-ui/core'
+} from '@material-ui/core';
+import {
+    useDispatch
+} from 'react-redux';
 
 import Title from './Title';
 import TextForm from './TextForm';
+
+import { createPerson } from '../../../../../../store/actions/person.action';
 
 const useStyles = makeStyles( (theme) => ({
     root: {
@@ -25,19 +30,21 @@ const useStyles = makeStyles( (theme) => ({
 }));
 
 const formElements = [
-    {varName: 'firstname', id: 0, type: 'text', label: 'İsim', required: true}, 
-    {varName: 'lastname', id: 1, type: 'text', label: 'Soyisim', required: true}, 
-    {varName: 'email', id: 2, type: 'text', label: 'Email Adresi'}, 
-    {varName: 'tel1', id: 3, type: 'text', label: 'Telefon numarası(1)', required: true}, 
-    {varName: 'tel2', id: 4, type: 'text', label: 'Telefon numarası(2)'}, 
-    {varName: 'address1', id: 5, type: 'text', label: 'Adres(1)', required: true}, 
-    {varName: 'address2', id: 6, type: 'text', label: 'Adres(2)'}, 
+    {varName: 'personid', id: 0, type: 'text', label: 'Personel ID', required: true},
+    {varName: 'firstname', id: 1, type: 'text', label: 'İsim', required: true}, 
+    {varName: 'lastname', id: 2, type: 'text', label: 'Soyisim', required: true}, 
+    {varName: 'email', id: 3, type: 'text', label: 'Email Adresi'}, 
+    {varName: 'phone1', id: 4, type: 'text', label: 'Telefon numarası(1)', required: true}, 
+    {varName: 'phone2', id: 5, type: 'text', label: 'Telefon numarası(2)'}, 
+    {varName: 'address1', id: 6, type: 'text', label: 'Adres(1)', required: true}, 
+    {varName: 'address2', id: 7, type: 'text', label: 'Adres(2)'}, 
 ];
 
 export default () => {
 
     const [initialValues, setInitialValues] = React.useState({});
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     React.useEffect( () => {
         let newInitialValues = {};
@@ -52,8 +59,6 @@ export default () => {
             }
         });
 
-        console.log(newInitialValues)
-
         setInitialValues(newInitialValues);
 
     }, []);
@@ -63,7 +68,17 @@ export default () => {
     const formik = useFormik({
         initialValues: initialValues,
         onSubmit: values => {
-            console.log(values)
+            const newUser = {
+                personId: values.personid,
+                firstName: values.firstname,
+                lastName: values.lastname,
+                phone1: values.phone1,
+                phone2: values.phone2,
+                address1: values.address1,
+                address2: values.address2,
+                email: values.email
+            }
+            dispatch(createPerson(newUser))
         }
     });
 
