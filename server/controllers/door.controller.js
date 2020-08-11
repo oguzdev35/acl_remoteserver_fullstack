@@ -10,9 +10,7 @@ const create = (req, res) => {
     .then( () => {
       user.doors.push(door);
       user.save()
-        .then( () => res.status(200).json({
-          'message': "Door successfully registerd!"
-        }))
+        .then( () => res.status(200).json(door))
         .catch( err => res.status(400).json({
             'error': dbErrorHandler.getErrorMessage(err)
         }))
@@ -34,20 +32,19 @@ const list = (req, res) => {
 }
 
 
-const doorId = (req, res, next) => {
-  const { id } = req.body;
+const doorByID = (req, res, next, id) => {
   Door.findById(id)
-    .then( door => {
-        if(!door)
-            return res.status(406).json({
-                'error': "Door not found"
-            })
-        req.door = door;
-        next();
-    })
-    .catch( err => res.status(400).json({
-        'error': "Door not able to be retrived"
-    }))
+      .then( door => {
+          if(!door)
+              return res.status(406).json({
+                  'error': "Door not found"
+              })
+          req.door = door;
+          next();
+      })
+      .catch( err => res.status(400).json({
+          'error': "Door not able to be retrived"
+      }))
 }
 
 const read = (req, res) => {
@@ -84,6 +81,6 @@ const remove = (req, res) => {
 }
 
 export default {
-  create, list, doorId, read, 
+  create, list, doorByID, read, 
   update, remove
 };

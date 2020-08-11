@@ -1,56 +1,37 @@
-POST http://localhost:2000/api/doors/5f3051d84d7f1410f02ba670 HTTP/1.1
-Content-Type: application/json
+GET http://localhost:2000/api/doors/5f3254dd517dd31a08e1bb45 HTTP/1.1
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMwNTFkODRkN2YxNDEwZjAyYmE2NzAiLCJpYXQiOjE1OTcwMDIyMjl9.LOvytWsUxPV3wJdEKie4QhI5MzsI0UepBLP4NDbvxSI
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyNTRkZDUxN2RkMzFhMDhlMWJiNDUiLCJpYXQiOjE1OTcxMzQwNjR9.NYYrzmifhFz7-ZvmqDNE0bhj5ufn9RImhNryuE5EPRU
+
+###
+POST http://localhost:2000/api/doors/5f3254dd517dd31a08e1bb45
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyNTRkZDUxN2RkMzFhMDhlMWJiNDUiLCJpYXQiOjE1OTcxMzQwNjR9.NYYrzmifhFz7-ZvmqDNE0bhj5ufn9RImhNryuE5EPRU
 
 {
-  "doorId": "12345678",
-  "name": "GDF"
+  "doorId": "123",
+  "name": "AB"
 }
 
 ###
-GET http://localhost:2000/api/doors/list/5f30505e4d7f1410f02ba66b HTTP/1.1
+GET http://localhost:2000/api/doors/5f3256826482ec28a861e811/5f3254dd517dd31a08e1bb45 HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMwNTA1ZTRkN2YxNDEwZjAyYmE2NmIiLCJpYXQiOjE1OTcwMDE4NTB9.8ChxRy-NfpTHLFcHqdLAbOKajreqSWQFMy4l850X36Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyNTRkZDUxN2RkMzFhMDhlMWJiNDUiLCJpYXQiOjE1OTcxMzQwNjR9.NYYrzmifhFz7-ZvmqDNE0bhj5ufn9RImhNryuE5EPRU
 
 ###
-GET http://localhost:2000/api/doors/5f30505e4d7f1410f02ba66b HTTP/1.1
+PUT http://localhost:2000/api/doors/5f3256826482ec28a861e811/5f3254dd517dd31a08e1bb45 HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMwNTA1ZTRkN2YxNDEwZjAyYmE2NmIiLCJpYXQiOjE1OTcwMDE4NTB9.8ChxRy-NfpTHLFcHqdLAbOKajreqSWQFMy4l850X36Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyNTRkZDUxN2RkMzFhMDhlMWJiNDUiLCJpYXQiOjE1OTcxMzQwNjR9.NYYrzmifhFz7-ZvmqDNE0bhj5ufn9RImhNryuE5EPRU
 
 {
-  "id": "5f3050c04d7f1410f02ba66c"
+  "name": "CD"
 }
 
 ###
-PUT http://localhost:2000/api/doors/5f30505e4d7f1410f02ba66b HTTP/1.1
+DELETE  http://localhost:2000/api/doors/5f3256826482ec28a861e811/5f3254dd517dd31a08e1bb45 HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMwNTA1ZTRkN2YxNDEwZjAyYmE2NmIiLCJpYXQiOjE1OTcwMDE4NTB9.8ChxRy-NfpTHLFcHqdLAbOKajreqSWQFMy4l850X36Q
-
-{
-  "id": "5f3050c04d7f1410f02ba66c",
-  "name": "GF"
-}
-
-###
-DELETE  http://localhost:2000/api/doors/5f30505e4d7f1410f02ba66b HTTP/1.1
-Accept: application/json
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMwNTA1ZTRkN2YxNDEwZjAyYmE2NmIiLCJpYXQiOjE1OTcwMDE4NTB9.8ChxRy-NfpTHLFcHqdLAbOKajreqSWQFMy4l850X36Q
-
-{
-  "id": "5f3050c04d7f1410f02ba66c"
-}
-###
-
-POST http://localhost:2000/api/access HTTP/1.1
-Accept: application/json
-Content-Type: application/json
-
-{
-  "personId": "1234",
-  "doorId": "12345678"
-}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyNTRkZDUxN2RkMzFhMDhlMWJiNDUiLCJpYXQiOjE1OTcxMzQwNjR9.NYYrzmifhFz7-ZvmqDNE0bhj5ufn9RImhNryuE5EPRU

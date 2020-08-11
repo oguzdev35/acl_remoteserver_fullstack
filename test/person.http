@@ -1,52 +1,53 @@
-POST http://localhost:2000/api/persons/create/5f31d13a0f11f90ae0221cd4 HTTP/1.1
+GET http://localhost:2000/api/persons/5f3254dd517dd31a08e1bb45 HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMxZDEzYTBmMTFmOTBhZTAyMjFjZDQiLCJpYXQiOjE1OTcxMDAzNTR9.gElJ_2ygBos_CWtFh8YXFCwOzqAHl8EecqVi3GOPbzc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyNTRkZDUxN2RkMzFhMDhlMWJiNDUiLCJpYXQiOjE1OTcxMzQwNjR9.NYYrzmifhFz7-ZvmqDNE0bhj5ufn9RImhNryuE5EPRU
+
+###
+POST http://localhost:2000/api/persons/5f3254dd517dd31a08e1bb45
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyNTRkZDUxN2RkMzFhMDhlMWJiNDUiLCJpYXQiOjE1OTcxMzQwNjR9.NYYrzmifhFz7-ZvmqDNE0bhj5ufn9RImhNryuE5EPRU
 
 {
-  "personId": "1234",
-  "firstName": "Oğuz",
-  "lastName": "Kurttutan",
-  "phone1": "523-232-22-22",
-  "address1": "Izmir Buca Turkiye",
-  "email": "mert@mail.com"
-
+  "personId": "543",
+  "firstName": "Oguz",
+  "lastName": "Kuro",
+  "phone1": "533-344-11-11",
+  "address1": "buca izmir",
+  "email": "oguz@mail.com"
 }
 
 ###
-GET http://localhost:2000/api/persons/list/5f31d13a0f11f90ae0221cd4 HTTP/1.1
+GET http://localhost:2000/api/persons/5f325dab717ac519885e85db/5f3254dd517dd31a08e1bb45
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMxZDEzYTBmMTFmOTBhZTAyMjFjZDQiLCJpYXQiOjE1OTcxMDAzNTR9.gElJ_2ygBos_CWtFh8YXFCwOzqAHl8EecqVi3GOPbzc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyNTRkZDUxN2RkMzFhMDhlMWJiNDUiLCJpYXQiOjE1OTcxMzQwNjR9.NYYrzmifhFz7-ZvmqDNE0bhj5ufn9RImhNryuE5EPRU
 
 ###
-GET http://localhost:2000/api/persons/5f30505e4d7f1410f02ba66b HTTP/1.1
-Accept: application/json
-
-###
-PUT http://localhost:2000/api/persons/5f3004a00b01650378b3fdd3 HTTP/1.1
+PUT http://localhost:2000/api/persons/5f325dab717ac519885e85db/5f3254dd517dd31a08e1bb45
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyNTRkZDUxN2RkMzFhMDhlMWJiNDUiLCJpYXQiOjE1OTcxMzQwNjR9.NYYrzmifhFz7-ZvmqDNE0bhj5ufn9RImhNryuE5EPRU
 
 {
-  "phone1": "412-222-222"
+  "firstName": "Mehmet"
 }
 
 ###
-POST http://localhost:2000/api/persons/5f30163ad8be7510a8545af1 HTTP/1.1
+DELETE  http://localhost:2000/api/persons/5f325b091043db3fa8687cad/5f3254dd517dd31a08e1bb45
 Accept: application/json
 Content-Type: application/json
-
-{
-  "doorId": "12345678"
-}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyNTRkZDUxN2RkMzFhMDhlMWJiNDUiLCJpYXQiOjE1OTcxMzQwNjR9.NYYrzmifhFz7-ZvmqDNE0bhj5ufn9RImhNryuE5EPRU
 
 ###
-DELETE  http://localhost:2000/api/persons/5f30403bee83451364614843 HTTP/1.1
+POST http://localhost:2000/api/persons/5f325dab717ac519885e85db/5f325d9c717ac519885e85da/5f3254dd517dd31a08e1bb45
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMwNDAzYmVlODM0NTEzNjQ2MTQ4NDMiLCJpYXQiOjE1OTY5OTk3NTF9.h2Oxi2sdjJxYUbHxetTJwKtZzHXqxHu7RraElKxRyMU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyNTRkZDUxN2RkMzFhMDhlMWJiNDUiLCJpYXQiOjE1OTcxMzQwNjR9.NYYrzmifhFz7-ZvmqDNE0bhj5ufn9RImhNryuE5EPRU
 
-{
-  "id": "5f30488b4582ca13f8aa4da6"
-}
+###
+DELETE http://localhost:2000/api/persons/5f325dab717ac519885e85db/5f325d9c717ac519885e85da/5f3254dd517dd31a08e1bb45
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyNTRkZDUxN2RkMzFhMDhlMWJiNDUiLCJpYXQiOjE1OTcxMzQwNjR9.NYYrzmifhFz7-ZvmqDNE0bhj5ufn9RImhNryuE5EPRU

@@ -50,12 +50,12 @@ import userRoutes from './routes/user.route';
 import authRoutes from './routes/auth.route';
 import doorRoutes from './routes/door.route';
 import personRoutes from './routes/person.route';
-import accessRoutes from './routes/access.route';
+// import accessRoutes from './routes/access.route';
 app.use('/', userRoutes);
 app.use('/', authRoutes);
 app.use('/', doorRoutes);
 app.use('/', personRoutes);
-app.use('/', accessRoutes);
+//app.use('/', accessRoutes);
 
 
 // SPA Template will be served at root path.
@@ -65,6 +65,15 @@ app.get('/', (req, res) => {
   res.status(200).send(Template());
 });
 
+// Catch unauthorised errors
+app.use((err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).json({"error" : err.name + ": " + err.message})
+  }else if (err) {
+    res.status(400).json({"error" : err.name + ": " + err.message})
+    console.log(err)
+  }
+})
 
 export default app;
 

@@ -35,25 +35,24 @@ const list = (req, res) => {
 }
 
 
-const personId = (req, res, next) => {
-  const {id} = req.body;
+const personByID = (req, res, next, id) => {
   Person.findById(id)
-    .then( person => {
-        if(!person)
-            return res.status(406).json({
-                'error': "Person not found"
-            });
-
-        person.populate('doors', '_id doorId');
-        req.person = person;
-        next();
-    })
-    .catch( err => res.status(400).json({
-        'error': "Person not able to be retrived"
-    }))
+      .then( person => {
+          if(!person)
+              return res.status(406).json({
+                  'error': "Person not found"
+              })
+          person.populate('doors', '_id');
+          req.person = person;
+          next();
+      })
+      .catch( err => res.status(400).json({
+          'error': "Person not able to be retrived"
+      }))
 }
 
 const read = (req, res) => {
+  let person = req.person;
   return res.status(200).json(req.person);
 }
 
@@ -70,26 +69,27 @@ const update = (req, res) => {
 }
 
 const assign = (req, res) => {
-  const { doorId } = req.body;
+  let door = req.door;
   let person = req.person;
-  Door.findOne({'doorId': doorId})
-    .then( door => {
-      if(!door)
-        return res.status(406).json({
-            'error': "Door not found"
-        });
-      person.doors.push(door);
-      person.save()
-        .then(() => res.status(200).json({
-          'message': 'Assignment succeed'
-        }) )
-        .catch( err => res.status(400).json({
-            'error': "Assignment failed"
-        }))
-    })
+
+  person.doors.push(door);
+  person.save()
+    .then( (person) => res.status(200).json(person))
     .catch( err => res.status(400).json({
-        'error': "Door not able to be retrived"
-    }))
+      'error': "Assignment failed"
+  }))
+}
+
+const revoke = (req, res) => {
+  let door = req.door;
+  let person = req.person;
+
+  person.doors.pull(door);
+  person.save()
+    .then( (person) => res.status(200).json(person))
+    .catch( err => res.status(400).json({
+      'error': "Assignment failed"
+  }))
 }
 
 const remove = (req, res) => {
@@ -109,20 +109,9 @@ const remove = (req, res) => {
       }));
 }
 
-const hasAuthorization = (req, res, next) => {
-  const authorized = req.profile.isMaster || (req.profile  && req.auth && (req.profile._id == req.auth._id));
-  console.log(authorized)
-  if(!authorized){
-      return res.status(403).json({
-          'error': "User is not authorized"
-      });
-  }
-
-  next();
-}
 
 export default {
-  create, list, personId, 
+  create, list, personByID, 
   read, update, remove, assign,
-  hasAuthorization
+  revoke
 };

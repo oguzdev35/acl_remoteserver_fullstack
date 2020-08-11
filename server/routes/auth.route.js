@@ -1,13 +1,14 @@
 import express from 'express';
+import authCtrl from '../controllers/auth.controller';
 import userCtrl from '../controllers/user.controller';
 
 const router = express.Router();
 
 router.route('/auth/signin')
-    .post(userCtrl.signin);
+    .post(authCtrl.signin);
 
 router.route('/auth/signout/:userId')
-    .get(userCtrl.requireSignin, userCtrl.hasAuthorization, userCtrl.signout);
+    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, authCtrl.signout);
 
 router.param('userId', userCtrl.userByID);
 
