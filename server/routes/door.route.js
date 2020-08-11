@@ -11,9 +11,9 @@ router.route('/api/doors/:userId')
 
 
 router.route('/api/doors/:doorId/:userId')
-    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, doorCtrl.read)
-    .put(authCtrl.requireSignin, authCtrl.hasAuthorization, doorCtrl.update)
-    .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, doorCtrl.remove);
+    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, doorCtrl.inUser, doorCtrl.read)
+    .put(authCtrl.requireSignin, authCtrl.hasAuthorization, doorCtrl.inUser, doorCtrl.update)
+    .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, doorCtrl.inUser, doorCtrl.remove);
 
 router.param('userId', userCtrl.userByID);
 router.param('doorId', doorCtrl.doorByID);

@@ -7,7 +7,7 @@ import doorCtrl from '../controllers/door.controller';
 const router = express.Router();
 
 router.route('/api/access/:doorId/:personId/:userId')
-    .post(accessCtrl.access);
+    .post(doorCtrl.inUser, personCtrl.inUser, accessCtrl.access);
 
 
 router.param('userId', userCtrl.userByID);

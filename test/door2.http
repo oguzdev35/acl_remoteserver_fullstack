@@ -1,0 +1,10 @@
+GET http://localhost:2000/api/doors/5f328624beeafc2448dd3705 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyODYyNGJlZWFmYzI0NDhkZDM3MDUiLCJpYXQiOjE1OTcxNDY3MzJ9.Tv1XoXRTwsPCwbSzWt71fygcGIOj0Wn1gJXxWNl_BvE
+
+###
+GET http://localhost:2000/api/doors/5f325d9c717ac519885e85da/5f328624beeafc2448dd3705 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyODYyNGJlZWFmYzI0NDhkZDM3MDUiLCJpYXQiOjE1OTcxNDY3MzJ9.Tv1XoXRTwsPCwbSzWt71fygcGIOj0Wn1gJXxWNl_BvE

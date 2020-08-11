@@ -12,13 +12,13 @@ router.route('/api/persons/:userId')
 
 
 router.route('/api/persons/:personId/:userId')
-    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.read)
-    .put(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.update)
-    .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.remove);
+    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.inUser, personCtrl.read)
+    .put(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.inUser, personCtrl.update)
+    .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.inUser, personCtrl.remove);
 
 router.route('/api/persons/:personId/:doorId/:userId')
-    .post(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.assign)
-    .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.revoke);
+    .post(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.inUser, doorCtrl.inUser, personCtrl.assign)
+    .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.inUser, doorCtrl.inUser, personCtrl.revoke);
 
 router.param('userId', userCtrl.userByID);
 router.param('personId', personCtrl.personByID);

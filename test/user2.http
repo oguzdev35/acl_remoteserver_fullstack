@@ -1,0 +1,23 @@
+###
+POST http://localhost:2000/api/users HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyNGVjMmMyYmFlMDFjNTAwZmU2ZmUiLCJpYXQiOjE1OTcxMzI1NjV9.b0XeYbzAnpjNeBMG7rn_U5K3m7icMjbjxsTC7_gKioA
+x-app-id: maksisoft2020
+
+{
+    "username": "kemal",
+    "password": "kemal123",
+    "email": "kemal@mail.com"
+}
+
+###
+
+POST http://localhost:2000/auth/signin HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+    "username": "kemal",
+    "password": "kemal123"
+}

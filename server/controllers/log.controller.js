@@ -42,6 +42,20 @@ const logByID = (req, res, next, id) => {
         }))
   }
 
+const inUser = (req, res, next) => {
+    const user = req.profile;
+    const log = req.log;
+
+    if(!user.logs.includes(log)){
+        return res.status(403).json({
+            'error': "User is not authorized"
+        });
+    }
+
+    next();
+}
+
 export default {
-    list, read, logByID, remove
+    list, read, logByID, remove,
+    inUser
 }

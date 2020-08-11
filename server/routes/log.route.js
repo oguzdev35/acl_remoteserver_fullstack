@@ -9,8 +9,8 @@ router.route('/api/log/:userId')
     .get(authController.requireSignin, logController.list);
 
 router.route('/api/log/:logId/:userId')
-    .get(authController.requireSignin, authController.hasAuthorization, logController.read)
-    .delete(authController.requireSignin, authController.hasAuthorization, logController.remove)
+    .get(authController.requireSignin, authController.hasAuthorization, logController.inUser, logController.read)
+    .delete(authController.requireSignin, authController.hasAuthorization, logController.inUser, logController.remove)
 
 router.param('logId', logController.logByID);
 router.param('userId', userController.userByID);
