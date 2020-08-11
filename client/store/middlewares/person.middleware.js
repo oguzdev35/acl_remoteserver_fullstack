@@ -16,11 +16,9 @@ let url = '';
 export default store => next => action => {
     const secretToken = store.getState().user.secretToken;
     const userId = store.getState().user._id;
-    console.log(action.payload)
     next(action);
     switch(action.type){
         case LIST_PERSON:
-            console.log(store.getState())
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',

@@ -1,8 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import {
+  AppBar, Tabs, Tab, Button, Toolbar
+} from '@material-ui/core';
+
+import MenuIcon from './MenuIcon';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,9 +27,12 @@ export default (props) => {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Tabs value={contentValue} onChange={handleChange} >
-          {contents.map( ({label}, index) => <Tab key={index} label={label} />)}
-        </Tabs>
+        <Toolbar>
+          <Tabs value={contentValue} onChange={handleChange} style={{flex: 1}}>
+            {contents.map( ({label}, index) => <Tab key={index} label={label} />)}
+          </Tabs>
+          <MenuIcon />
+        </Toolbar>
       </AppBar>
     </div>
   );
