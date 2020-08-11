@@ -1,0 +1,17 @@
+GET http://localhost:2000/api/log/5f3254dd517dd31a08e1bb45 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyNGVjMmMyYmFlMDFjNTAwZmU2ZmUiLCJpYXQiOjE1OTcxMzI1NjV9.b0XeYbzAnpjNeBMG7rn_U5K3m7icMjbjxsTC7_gKioA
+
+###
+GET http://localhost:2000/api/log/5f327d696793e8345c2e6411/5f3254dd517dd31a08e1bb45 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyNTRkZDUxN2RkMzFhMDhlMWJiNDUiLCJpYXQiOjE1OTcxMzQwNjR9.NYYrzmifhFz7-ZvmqDNE0bhj5ufn9RImhNryuE5EPRU
+
+
+###
+DELETE  http://localhost:2000/api/log/5f327df4f911be2be46a9dfd/5f3254dd517dd31a08e1bb45 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyNTRkZDUxN2RkMzFhMDhlMWJiNDUiLCJpYXQiOjE1OTcxMzQwNjR9.NYYrzmifhFz7-ZvmqDNE0bhj5ufn9RImhNryuE5EPRU

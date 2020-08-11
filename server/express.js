@@ -51,11 +51,13 @@ import authRoutes from './routes/auth.route';
 import doorRoutes from './routes/door.route';
 import personRoutes from './routes/person.route';
 import accessRoutes from './routes/access.route';
+import logRoutes from './routes/log.route';
 app.use('/', userRoutes);
 app.use('/', authRoutes);
 app.use('/', doorRoutes);
 app.use('/', personRoutes);
 app.use('/', accessRoutes);
+app.use('/', logRoutes);
 
 
 // SPA Template will be served at root path.

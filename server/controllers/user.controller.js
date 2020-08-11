@@ -13,7 +13,7 @@ const create = (req, res) => {
 }
 
 const list = (req, res) => {
-    User.find().select('username email updatedAt createdAt persons doors _id')
+    User.find().select('username email updatedAt createdAt persons doors logs _id')
         .then( users => res.status(200).json(users))
         .catch( err => res.status(400).json({
             'error': dbErrorHandler.getErrorMessage(err)

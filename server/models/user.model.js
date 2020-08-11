@@ -41,6 +41,12 @@ const UserSchema = new mongoose.Schema({
       ref: 'Door'
     }
   ],
+  logs: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Log'
+    }
+  ],
   salt: String,
   secretToken: String
 });

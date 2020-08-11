@@ -7,6 +7,7 @@ import dbErrorHandler from '../helpers/dbErrorHandler';
 const access = (req, res) => {
   let door = req.door;
   let person = req.person;
+  let user = req.profile;
 
   let newLOg = new Log({
     'personId': person.id,
@@ -26,10 +27,12 @@ const access = (req, res) => {
     .then( async newLog => {
       door.logs.push(newLog);
       person.logs.push(newLog);
+      user.logs.push(newLOg);
 
       try {
         await door.save();
         await person.save();
+        await user.save();
       } catch (err) {
         return res.status(400).json({
           'error': err.message
