@@ -46,6 +46,7 @@
     "path": "^0.12.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-draggable": "^4.4.3",
     "react-hot-loader": "^4.12.21",
     "react-redux": "^7.2.1",
     "react-router": "^5.2.0",
