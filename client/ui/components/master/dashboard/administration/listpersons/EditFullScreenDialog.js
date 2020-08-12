@@ -36,14 +36,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const formElements = [
-    {varName: 'personid', id: 0, type: 'text', label: 'Personel ID', required: true},
-    {varName: 'firstname', id: 1, type: 'text', label: 'İsim', required: true}, 
-    {varName: 'lastname', id: 2, type: 'text', label: 'Soyisim', required: true}, 
-    {varName: 'email', id: 3, type: 'text', label: 'Email Adresi'}, 
-    {varName: 'phone1', id: 4, type: 'text', label: 'Telefon numarası(1)', required: true}, 
-    {varName: 'phone2', id: 5, type: 'text', label: 'Telefon numarası(2)'}, 
-    {varName: 'address1', id: 6, type: 'text', label: 'Adres(1)', required: true}, 
-    {varName: 'address2', id: 7, type: 'text', label: 'Adres(2)'}, 
+    {varName: 'username', id: 0, type: 'text', label: 'Kullanıcı Adı'},
+    {varName: 'email', id: 1, type: 'text', label: 'Email Adresi'}, 
+    {varName: 'password', id: 2, type: 'text', label: 'Şifre'}, 
 ];
 
 const Transition = React.forwardRef( (props, ref) => (
@@ -53,33 +48,23 @@ const Transition = React.forwardRef( (props, ref) => (
 
 export default (props) => {
 
-    const { handleClose, open, handleUpdate, personId } = props;
+    const { handleClose, open, handleUpdate, userId } = props;
     const classes = useStyles();
-    const person = useSelector( state => state.persons.find( ({_id}) => _id == personId ));
+    const user = useSelector( state => state.users.find( ({_id}) => _id == userId ));
 
     const initialValues = {
-        personid: person.personId,
-        firstname: person.firstName,
-        lastname: person.lastName,
-        phone1: person.phone1,
-        phone2: person.phone2,
-        address1: person.address1,
-        address2: person.address2,
-        email: person.email
+        email: user.email,
+        username: user.username,
+        password: '',
     };
 
     const formik = useFormik({
         initialValues: initialValues,
         onSubmit: values => {
             handleUpdate({
-                personId: values.personid,
-                firstName: values.firstname,
-                lastName: values.lastname,
-                phone1: values.phone1,
-                phone2: values.phone2,
-                address1: values.address1,
-                address2: values.address2,
-                email: values.email
+                email: values.email,
+                username: values.username,
+                password: values.password,
             });
         }
     });

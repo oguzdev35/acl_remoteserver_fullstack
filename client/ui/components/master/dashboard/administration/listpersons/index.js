@@ -19,7 +19,7 @@ export default (props) => {
 
     return (
         <div className={classes.root}>
-            <Title text="Kayıtlı Personel Listesi" />
+            <Title text="Kayıtlı Kullanıcı Listesi" />
             <TablePerson />
         </div>
     )

@@ -102,11 +102,11 @@ const TablePaginationActions = (props) => {
 
 export default () => {
     const classes = useStyles();
-    const persons = useSelector( state => state.persons) || [];
+    const users = useSelector( state => state.users) || [];
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, persons.length - page * rowsPerPage);
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, users.length - page * rowsPerPage);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -123,7 +123,7 @@ export default () => {
             <Table className={classes.table}>
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell>Ad&nbsp;-&nbsp;Soyad</StyledTableCell>
+                        <StyledTableCell>Kullanıcı Adı</StyledTableCell>
                         <StyledTableCell>Kayıt&nbsp;Tarihi</StyledTableCell>
                         <StyledTableCell align="left">Düzenle</StyledTableCell>
                         <StyledTableCell align="left">Sil</StyledTableCell>
@@ -131,21 +131,21 @@ export default () => {
                 </TableHead>
                 <TableBody>
                     {(rowsPerPage > 0
-                        ? persons.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        : persons
-                    ).map((person) => (
-                        <TableRow key={person._id} hover={true}>
+                        ? users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        : users
+                    ).map((user) => (
+                        <TableRow key={user._id} hover={true}>
                             <TableCell align="left">
-                                {person.firstName} {person.lastName}
+                                {user.username}
                             </TableCell>
                             <TableCell align="left">
-                                {person.createdAt}
+                                {user.createdAt}
                             </TableCell>
                             <TableCell align="left">
-                                <EditButton personId={person._id} />
+                                <EditButton userId={user._id} />
                             </TableCell>
                             <TableCell align="left">
-                                <DeleteButton personId={person._id} />
+                                <DeleteButton userId={user._id} />
                             </TableCell>
                         </TableRow>
                     ))}
@@ -162,7 +162,7 @@ export default () => {
                             labelRowsPerPage="Sayfa Başına Kişi Sayısı"
                             rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                             colSpan={3}
-                            count={persons.length || 0}
+                            count={users.length || 0}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             SelectProps={{

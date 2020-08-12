@@ -8,13 +8,13 @@ import {
 import { useDispatch } from 'react-redux';
 
 
-import { updatePerson } from '../../../../../../store/actions/person.action';
+import { updateUser } from '../../../../../../store/actions/users.action';
 
 import EditFullScreenDialog from './EditFullScreenDialog';
 
 export default (props) => {
 
-    const { personId } = props;
+    const { userId } = props;
 
     const dispatch = useDispatch();
 
@@ -28,9 +28,9 @@ export default (props) => {
         setDialog(false);
     }
 
-    const handleUpdate =  (updatedPerson) => {
-        console.log(updatedPerson)
-        dispatch(updatePerson({personId: personId, updatedPerson: updatedPerson}));
+    const handleUpdate =  (updatedUser) => {
+        console.log(updatedUser)
+        dispatch(updateUser({userId: userId, updatedUser: updatedUser}));
         setDialog(false);
     }
 
@@ -45,7 +45,7 @@ export default (props) => {
                 handleClose={handleDialogClose} 
                 open={dialog} 
                 handleUpdate={handleUpdate}
-                personId={personId}
+                userId={userId}
             />
         </React.Fragment>
     )

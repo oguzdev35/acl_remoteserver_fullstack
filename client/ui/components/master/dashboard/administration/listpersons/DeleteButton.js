@@ -8,7 +8,7 @@ import {
 import { useDispatch } from 'react-redux';
 
 
-import { deletePerson } from '../../../../../../store/actions/person.action';
+import { deleteUser } from '../../../../../../store/actions/users.action';
 
 import DeleteDraggableDialog from './DeleteDraggableDialog';
 
@@ -27,7 +27,7 @@ export default (props) => {
     }
 
     const handleDeletion = (events) => {
-        dispatch(deletePerson({personId: props.personId}));
+        dispatch(deleteUser({userId: props.userId}));
         setDialog(false);
     }
 
