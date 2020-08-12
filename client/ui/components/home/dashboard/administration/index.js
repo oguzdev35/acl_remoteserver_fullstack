@@ -26,19 +26,20 @@ const contentInjection = (Component, props) => () => {
     <Component {...props} />
   </div>
 
-}
+};
 
-const ContentA = () => <>ContentA</>;
 
 import AddPerson from './addperson';
+import ListPerson from './listpersons';
+
 
 const contents = [
   {
-    idx: 0, label: 'Content A', 
-    Component: contentInjection(ContentA, {name: "Oguz"})
+    idx: 0, label: 'Personel Listesi', 
+    Component: contentInjection(ListPerson)
   },
   {
-    idx: 1, label: 'Üye Kaydı', 
+    idx: 1, label: 'Personel Kayıt', 
     Component: contentInjection(AddPerson)
   }
 ]
