@@ -28,8 +28,8 @@ export default (props) => {
         setDialog(false);
     }
 
-    const handleUpdate =  updatedPerson => (events) => {
-        console.log('handleUpdate')
+    const handleUpdate =  (updatedPerson) => {
+        console.log(updatedPerson)
         dispatch(updatePerson({personId: personId, updatedPerson: updatedPerson}));
         setDialog(false);
     }
