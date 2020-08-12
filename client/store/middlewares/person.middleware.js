@@ -24,7 +24,7 @@ export default store => next => action => {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${secretToken}` 
             };
-            url = `/api/persons/list/${userId}`;
+            url = `/api/persons/${userId}`;
             next(apiRequest({body: action.payload, method: 'GET', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
@@ -39,13 +39,12 @@ export default store => next => action => {
             next(setLoader({state: true, feature: PERSON}));
             break;
         case CREATE_PERSON:
-            console.log(store.getState())
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${secretToken}` 
             };
-            url = `/api/persons/create/${userId}`;
+            url = `/api/persons/${userId}`;
             next(apiRequest({body: action.payload, method: 'POST', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;

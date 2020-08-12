@@ -46,7 +46,7 @@ export default () => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    React.useEffect( () => {
+    const resetInitialValues = () => {
         let newInitialValues = {};
 
         formElements.forEach( elem => {
@@ -60,7 +60,10 @@ export default () => {
         });
 
         setInitialValues(newInitialValues);
+    }
 
+    React.useEffect( () => {
+        resetInitialValues();
     }, []);
 
 
@@ -77,8 +80,9 @@ export default () => {
                 address1: values.address1,
                 address2: values.address2,
                 email: values.email
-            }
-            dispatch(createPerson(newUser))
+            };
+            dispatch(createPerson(newUser));
+            formik.setValues(initialValues);
         }
     });
 
@@ -86,7 +90,7 @@ export default () => {
 
     return (
         <div className={classes.root}>
-            <Title text={"Üye Kayıt Formu"} />
+            <Title text="Personel Kayıt Formu" />
             <form 
                 onSubmit={formik.handleSubmit}
                 className={classes.forms}
@@ -113,8 +117,9 @@ export default () => {
                     type="submit"
                     variant="contained" color="primary"
                     className={classes.formElement}
+                    style={{float: "right"}}
                 >
-                    Giriş yapınız
+                    Kayıt Yapınız
                 </Button>
             </form>
         </div>

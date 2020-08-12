@@ -42,7 +42,8 @@ export default store => next => action => {
                 'Authorization': `Bearer ${secretToken}` 
             };
             url = `/auth/signout/${userId}`;
-            next(apiRequest({body: null, method: 'GET', headers: headers, url: url, feature: USER, docAction: action.docAction }))
+            next(apiRequest({body: null, method: 'GET', headers: headers, url: url, feature: USER, docAction: action.docAction }));
+            break;
         case `${USER} ${API_SUCCESS}`:
             switch(action.meta.docAction){
                 case SET_USER:

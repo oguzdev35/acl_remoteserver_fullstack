@@ -17,7 +17,7 @@ import notificationReducer from './reducers/notification.reducer';
 // shape the state structure
 const rootReducer = combineReducers({
     user: userReducer,
-    person: personReducer,
+    persons: personReducer,
     ui: uiReducer,
     notification: notificationReducer
 });
