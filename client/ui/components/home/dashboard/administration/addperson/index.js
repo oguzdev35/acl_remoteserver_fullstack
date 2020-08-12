@@ -71,7 +71,7 @@ export default () => {
     const formik = useFormik({
         initialValues: initialValues,
         onSubmit: values => {
-            const newUser = {
+            const newPerson = {
                 personId: values.personid,
                 firstName: values.firstname,
                 lastName: values.lastname,
@@ -81,7 +81,7 @@ export default () => {
                 address2: values.address2,
                 email: values.email
             };
-            dispatch(createPerson(newUser));
+            dispatch(createPerson(newPerson));
             formik.setValues(initialValues);
         }
     });

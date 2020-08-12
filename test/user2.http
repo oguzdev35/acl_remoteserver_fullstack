@@ -2,7 +2,7 @@
 POST http://localhost:2000/api/users HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMyNGVjMmMyYmFlMDFjNTAwZmU2ZmUiLCJpYXQiOjE1OTcxMzI1NjV9.b0XeYbzAnpjNeBMG7rn_U5K3m7icMjbjxsTC7_gKioA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjMxYzQyNWM2ZGQyYjA4ZDg1YWJkZTEiLCJpYXQiOjE1OTcyNjY0NTR9.ZpX8DLSn_sGjRri32-OtOjhOGyWPi-1OJ_0-JA0dF98
 x-app-id: maksisoft2020
 
 {

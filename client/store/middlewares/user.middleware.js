@@ -43,6 +43,7 @@ export default store => next => action => {
             };
             url = `/auth/signout/${userId}`;
             next(apiRequest({body: null, method: 'GET', headers: headers, url: url, feature: USER, docAction: action.docAction }));
+            next(setLoader({state: true, feature: USER}));
             break;
         case `${USER} ${API_SUCCESS}`:
             switch(action.meta.docAction){

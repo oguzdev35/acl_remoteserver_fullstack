@@ -5,10 +5,16 @@ import {
 } from '@material-ui/core/styles';
 import {
     Table, TableBody, TableContainer,
-    Paper, TableRow
+    Paper, TableRow, Button
 } from '@material-ui/core';
+import {
+    useDispatch
+} from 'react-redux';
 
+import Title from './Title';
 import TextForm from './TextForm';
+
+import { createUser } from '../../../../../../store/actions/users.action';
 
 const useStyles = makeStyles( (theme) => ({
     root: {
@@ -24,56 +30,56 @@ const useStyles = makeStyles( (theme) => ({
 }));
 
 const formElements = [
-    {varName: 'personid', id: 0, type: 'text', label: 'Personel ID', required: true},
-    {varName: 'firstname', id: 1, type: 'text', label: 'İsim', required: true}, 
-    {varName: 'lastname', id: 2, type: 'text', label: 'Soyisim', required: true}, 
-    {varName: 'email', id: 3, type: 'text', label: 'Email Adresi'}, 
-    {varName: 'phone1', id: 4, type: 'text', label: 'Telefon numarası(1)', required: true}, 
-    {varName: 'phone2', id: 5, type: 'text', label: 'Telefon numarası(2)'}, 
-    {varName: 'address1', id: 6, type: 'text', label: 'Adres(1)', required: true}, 
-    {varName: 'address2', id: 7, type: 'text', label: 'Adres(2)'}, 
+    {varName: 'username', id: 0, type: 'text', label: 'Kullanıcı Adı', required: true},
+    {varName: 'password', id: 1, type: 'text', label: 'Şifre', required: true}, 
+    {varName: 'email', id: 3, type: 'text', label: 'Email Adresi', required: true}, 
 ];
 
-export default (props) => {
+export default () => {
 
-    const { person, setUpdatedUser } = props; 
-
-    const [initialValues, setInitialValues] = React.useState({
-        personid: person.personId,
-        firstname: person.firstName,
-        lastname: person.lastName,
-        phone1: person.phone1,
-        phone2: person.phone2,
-        address1: person.address1,
-        address2: person.address2,
-        email: person.email
-    });
+    const [initialValues, setInitialValues] = React.useState({});
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    const resetInitialValues = () => {
+        let newInitialValues = {};
+
+        formElements.forEach( elem => {
+            switch(elem.type){
+                case 'text':
+                    newInitialValues[`${elem.varName}`] = '';
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        setInitialValues(newInitialValues);
+    }
+
+    React.useEffect( () => {
+        resetInitialValues();
+    }, []);
+
+
 
     const formik = useFormik({
         initialValues: initialValues,
         onSubmit: values => {
-            const updatedUser = {
-                personId: values.personid,
-                firstName: values.firstname,
-                lastName: values.lastname,
-                phone1: values.phone1,
-                phone2: values.phone2,
-                address1: values.address1,
-                address2: values.address2,
+            const newUser = {
+                username: values.username,
+                password: values.password,
                 email: values.email
             };
+            dispatch(createUser(newUser));
+            formik.setValues(initialValues);
         }
     });
-
-    React.useEffect( () => {
-        setUpdatedUser(formik.values);
-    }, [formik.values]);
-
 
 
     return (
         <div className={classes.root}>
+            <Title text="Kullanıcı Kayıt Formu" />
             <form 
                 onSubmit={formik.handleSubmit}
                 className={classes.forms}
@@ -96,6 +102,14 @@ export default (props) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
+                <Button 
+                    type="submit"
+                    variant="contained" color="primary"
+                    className={classes.formElement}
+                    style={{float: "right"}}
+                >
+                    Kayıt Yapınız
+                </Button>
             </form>
         </div>
     )

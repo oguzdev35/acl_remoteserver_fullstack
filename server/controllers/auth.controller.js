@@ -76,11 +76,11 @@ const requireMaster = (req, res, next) => {
                 return res.status(406).json({
                     'error': "User not found"
                 });
-
             if(appID == config.appID && user.isMaster){
                 req.isMaster = true;
                 next();
             } else {
+                console.log(appID == config.appID)
                 next();
             }
             

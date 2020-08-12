@@ -63,7 +63,7 @@ app.use('/', logRoutes);
 // SPA Template will be served at root path.
 // We use especially HTTP status code 200, because status code 200 
 // with GET method is cacheable for browsers by default.
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.status(200).send(Template());
 });
 

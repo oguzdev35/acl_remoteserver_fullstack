@@ -68,7 +68,6 @@ export default store => next => action => {
                 'Authorization': `Bearer ${secretToken}` 
             };
             url = `/api/persons/${personId}/${userId}`;
-            console.log(action.payload.updatedPerson)
             next(apiRequest({body: action.payload.updatedPerson, method: 'PUT', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
@@ -88,7 +87,6 @@ export default store => next => action => {
         case `${PERSON} ${API_SUCCESS}`:
             switch(action.meta.docAction){
                 case SET_PERSON:
-                    console.log(action.payload)
                     next(setPerson({person: action.payload, normalizeKey: null}));
                     break;
                 case LOAD_PERSON:

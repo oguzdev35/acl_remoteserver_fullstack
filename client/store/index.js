@@ -16,12 +16,15 @@ import loggerMiddleware from './middlewares/logger.middleware';
 import actionSplitterMiddleware from './middlewares/actionSplitter.middleware';
 import uiReducer from './reducers/ui.reducer';
 import notificationReducer from './reducers/notification.reducer';
+import appIdReducer from './reducers/appId.reducer';
+import usersReducer from './reducers/users.reducer';
+import usersMiddleware from './middlewares/users.middleware';
 
 // state persistance configuration
 const rootPersistConfig = {
     key: 'root',
     storage: localstorage,
-    whitelist: ['user'],
+    whitelist: ['user', 'appId'],
     stateReconciler: autoMergeLevel1
 };
 
@@ -29,6 +32,8 @@ const rootPersistConfig = {
 // shape the state structure
 const rootReducer = combineReducers({
     user: userReducer,
+    users: usersReducer,
+    appId: appIdReducer,
     persons: personReducer,
     ui: uiReducer,
     notification: notificationReducer
@@ -39,7 +44,8 @@ const persistedRootReducer = persistReducer(rootPersistConfig, rootReducer);
 // the feature middlewares
 const featureMiddleware = [
     userMiddleware,
-    personMiddleware
+    personMiddleware,
+    usersMiddleware
 ];
 
 //core middlewares for development

@@ -7,9 +7,12 @@ export default ({dispatch}) => next => action => {
 
     if(action.type.includes(API_REQUEST)){
         const { url, method, headers, feature, docAction } = action.meta;
+        console.log(action)
         Axios({url, method, headers, data: action.payload})
             .then( ({data}) => data)
             .then( response => dispatch(apiSuccess({response, feature, docAction})))
-            .catch( error => dispatch(apiError({error, feature})))
+            .catch( error => {
+                dispatch(apiError({error, feature}))
+            })
     }
 };

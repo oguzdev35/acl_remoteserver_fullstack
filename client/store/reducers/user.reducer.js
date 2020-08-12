@@ -1,4 +1,6 @@
-import { SET_USER, UNSET_USER } from '../actions/user.action';
+import { 
+    SET_USER, UNSET_USER,
+} from '../actions/user.action';
 
 const initialState = {};
 
