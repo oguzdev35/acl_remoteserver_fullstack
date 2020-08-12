@@ -46,7 +46,7 @@ const inUser = (req, res, next) => {
     const user = req.profile;
     const log = req.log;
 
-    if(!user.logs.includes(log)){
+    if(!user.logs.includes(log.id)){
         return res.status(403).json({
             'error': "User is not authorized"
         });

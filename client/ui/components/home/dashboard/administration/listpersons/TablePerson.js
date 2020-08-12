@@ -1,20 +1,27 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
 import {
     Table, TableBody, TableCell,
     TableContainer, TableFooter,
     TablePagination, TableRow,
-    Paper, IconButton
+    Paper, IconButton, TableHead,
 } from '@material-ui/core';
 import {
     FirstPage as FirstPageIcon, 
     KeyboardArrowLeft,
     KeyboardArrowRight,
-    LastPage as LastPageIcon
+    LastPage as LastPageIcon,
+    Delete as DeleteIcon,
+    Settings as SettingsIcon
 } from '@material-ui/icons';
 import { useSelector } from 'react-redux';
 
+import DeleteButton from './DeleteButton';
+
 const useStyles = makeStyles((theme) => ({
+    root: {
+        marginTop: theme.spacing(2)
+    },
     pagination: {
         flexShrink: 0,
         marginLeft: theme.spacing(2.5),
@@ -23,6 +30,24 @@ const useStyles = makeStyles((theme) => ({
         minWidth: 500,
     },
 }));
+
+const StyledTableCell = withStyles((theme) => ({
+    head: {
+      backgroundColor: theme.palette.primary.light,
+      color: theme.palette.common.white,
+    },
+    body: {
+      fontSize: 14,
+    },
+  }))(TableCell);
+  
+  const StyledTableRow = withStyles((theme) => ({
+    root: {
+      '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+      },
+    },
+  }))(TableRow);
 
 const TablePaginationActions = (props) => {
     const classes = useStyles();
@@ -93,22 +118,39 @@ export default () => {
         setPage(0);
     };
 
-    console.log(persons)
 
     return (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} className={classes.root}>
             <Table className={classes.table}>
+                <TableHead>
+                    <TableRow>
+                        <StyledTableCell>Ad&nbsp;-&nbsp;Soyad</StyledTableCell>
+                        <StyledTableCell>Kayıt&nbsp;Tarihi</StyledTableCell>
+                        <StyledTableCell align="left">Düzenle</StyledTableCell>
+                        <StyledTableCell align="left">Sil</StyledTableCell>
+                    </TableRow>
+                </TableHead>
                 <TableBody>
                     {(rowsPerPage > 0
                         ? persons.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : persons
                     ).map((person) => (
-                        <TableRow key={person._id}>
-                            <TableCell component="th" scope="row" style={{ width: '5vw'}} align="left">
+                        <TableRow key={person._id} hover={true}>
+                            <TableCell align="left">
                                 {person.firstName} {person.lastName}
                             </TableCell>
-                            <TableCell style={{ width: '1vw' }} align="left">
-                                {person.fat}
+                            <TableCell align="left">
+                                {person.createdAt}
+                            </TableCell>
+                            <TableCell align="left">
+                                <IconButton 
+                                    onClick={() => console.log('Düzenle')}
+                                >
+                                    <SettingsIcon />
+                                </IconButton>
+                            </TableCell>
+                            <TableCell align="left">
+                                <DeleteButton personId={person._id} />
                             </TableCell>
                         </TableRow>
                     ))}

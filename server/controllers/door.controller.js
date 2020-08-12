@@ -51,7 +51,7 @@ const inUser = (req, res, next) => {
   const user = req.profile;
   const door = req.door;
 
-  if(!user.doors.includes(door)){
+  if(!user.doors.includes(door.id)){
     return res.status(403).json({
       'error': "User is not authorized"
     });

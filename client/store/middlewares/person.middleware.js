@@ -12,6 +12,7 @@ import { setNotification } from '../actions/notification.action';
 
 let headers = {};
 let url = '';
+let personId = '';
 
 export default store => next => action => {
     const secretToken = store.getState().user.secretToken;
@@ -71,13 +72,14 @@ export default store => next => action => {
             break;
 
         case DELETE_PERSON:
+            personId = action.payload.personId;
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${secretToken}` 
             };
-            url = `/api/persons/${userId}`;
-            next(apiRequest({body: action.payload, method: 'DELETE', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
+            url = `/api/persons/${personId}/${userId}`;
+            next(apiRequest({body: null, method: 'DELETE', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
 

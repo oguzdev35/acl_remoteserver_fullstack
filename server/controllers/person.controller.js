@@ -54,8 +54,8 @@ const personByID = (req, res, next, id) => {
 const inUser = (req, res, next) => {
   const user = req.profile;
   const person = req.person;
-
-  if(!user.persons.includes(person)){
+  
+  if(!user.persons.includes(person.id)){
       return res.status(403).json({
           'error': "User is not authorized"
       });
@@ -66,7 +66,7 @@ const inUser = (req, res, next) => {
 
 const read = (req, res) => {
   let person = req.person;
-  return res.status(200).json(req.person);
+  return res.status(200).json(person);
 }
 
 const update = (req, res) => {
