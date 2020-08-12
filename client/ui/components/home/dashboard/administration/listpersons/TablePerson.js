@@ -11,12 +11,11 @@ import {
     KeyboardArrowLeft,
     KeyboardArrowRight,
     LastPage as LastPageIcon,
-    Delete as DeleteIcon,
-    Settings as SettingsIcon
 } from '@material-ui/icons';
 import { useSelector } from 'react-redux';
 
 import DeleteButton from './DeleteButton';
+import EditButton from './EditButton';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -143,11 +142,7 @@ export default () => {
                                 {person.createdAt}
                             </TableCell>
                             <TableCell align="left">
-                                <IconButton 
-                                    onClick={() => console.log('Düzenle')}
-                                >
-                                    <SettingsIcon />
-                                </IconButton>
+                                <EditButton personId={person._id} />
                             </TableCell>
                             <TableCell align="left">
                                 <DeleteButton personId={person._id} />

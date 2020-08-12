@@ -1,5 +1,10 @@
 import { createStore, compose, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { persistReducer, persistStore } from 'redux-persist';
+// we use browser's session storage for redux persisitence - rehydration action
+import localstorage from 'redux-persist/lib/storage';    
+import autoMergeLevel1  from 'redux-persist/lib/stateReconciler/autoMergeLevel1'
+
 import userReducer from './reducers/user.reducer';
 import personReducer from './reducers/person.reducer';
 import userMiddleware from './middlewares/user.middleware';
@@ -12,6 +17,13 @@ import actionSplitterMiddleware from './middlewares/actionSplitter.middleware';
 import uiReducer from './reducers/ui.reducer';
 import notificationReducer from './reducers/notification.reducer';
 
+// state persistance configuration
+const rootPersistConfig = {
+    key: 'root',
+    storage: localstorage,
+    whitelist: ['user'],
+    stateReconciler: autoMergeLevel1
+};
 
 
 // shape the state structure
@@ -21,6 +33,8 @@ const rootReducer = combineReducers({
     ui: uiReducer,
     notification: notificationReducer
 });
+
+const persistedRootReducer = persistReducer(rootPersistConfig, rootReducer);
 
 // the feature middlewares
 const featureMiddleware = [
@@ -50,14 +64,19 @@ let store = undefined;
 
 if(process.env.NODE_ENV === 'development'){
     store = createStore(
-        rootReducer, 
+        persistedRootReducer, 
         composeWithDevTools(applyMiddleware(...featureMiddleware, ...coreMiddleware_dev))
-    )
+    );
 } else {
     store = createStore(
-        rootReducer,
+        persistedRootReducer,
         compose(applyMiddleware(...featureMiddleware, ...coreMiddleware_prod))
     );
+
 }
 
-export default store;
+const persistor = persistStore(store);
+
+export default {
+    store, persistor
+};

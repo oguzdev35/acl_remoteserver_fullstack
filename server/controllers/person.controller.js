@@ -25,9 +25,9 @@ const create = (req, res) => {
 const list = (req, res) => {
   const user = req.profile;
   Person.find()
-    .select('firstName lastName phone1 phone2 address1 address2 email createdAt updatedAt doors logs')
+    .select('personId firstName lastName phone1 phone2 address1 address2 email createdAt updatedAt doors logs')
     .then( persons => res.status(200).json(
-      persons.filter( person => user.persons.includes(person.id))
+        persons.filter( person => user.persons.includes(person.id))
     ))
     .catch( err => res.status(400).json({
         'error': dbErrorHandler.getErrorMessage(err)
