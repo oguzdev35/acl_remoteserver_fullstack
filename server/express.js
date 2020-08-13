@@ -52,13 +52,16 @@ import doorRoutes from './routes/door.route';
 import personRoutes from './routes/person.route';
 import accessRoutes from './routes/access.route';
 import logRoutes from './routes/log.route';
+import blockRoutes from './routes/block.route';
+import placeRoutes from './routes/place.route';
 app.use('/', userRoutes);
 app.use('/', authRoutes);
 app.use('/', doorRoutes);
 app.use('/', personRoutes);
 app.use('/', accessRoutes);
 app.use('/', logRoutes);
-
+app.use('/', blockRoutes);
+app.use('/', placeRoutes);
 
 // SPA Template will be served at root path.
 // We use especially HTTP status code 200, because status code 200 

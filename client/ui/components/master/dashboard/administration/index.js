@@ -30,7 +30,7 @@ const contentInjection = (Component, props) => () => {
 
 
 import AddUser from './adduser';
-import ListUser from './listpersons';
+import ListUser from './listuser';
 
 
 const contents = [

@@ -29,16 +29,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: 'Password is required'
   },
-  persons: [
+  places: [
     {
       type: mongoose.Schema.ObjectId,
-      ref: 'Person'
-    }
-  ],
-  doors: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Door'
+      ref: 'Place'
     }
   ],
   logs: [

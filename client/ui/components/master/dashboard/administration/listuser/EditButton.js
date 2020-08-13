@@ -29,7 +29,6 @@ export default (props) => {
     }
 
     const handleUpdate =  (updatedUser) => {
-        console.log(updatedUser)
         dispatch(updateUser({userId: userId, updatedUser: updatedUser}));
         setDialog(false);
     }

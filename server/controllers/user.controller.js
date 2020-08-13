@@ -13,7 +13,7 @@ const create = (req, res) => {
 }
 
 const list = (req, res) => {
-    User.find().select('username email updatedAt createdAt persons doors logs _id')
+    User.find().select('username email updatedAt createdAt places logs _id')
         .then( users => res.status(200).json(users))
         .catch( err => res.status(400).json({
             'error': dbErrorHandler.getErrorMessage(err)
@@ -54,7 +54,6 @@ const update = (req, res) => {
             user.hashed_password = undefined;
             user.salt = undefined;
             user.secretToken = undefined;
-            user.isMaster = undefined;
             return res.status(200).json(user);
         })                
         .catch( err => res.status(400).json({
@@ -71,7 +70,7 @@ const remove = (req, res) => {
             deletedUser.hashed_password = undefined;
             deletedUser.salt = undefined;
             deletedUser.secretToken = undefined;
-            res.status(406).json(deletedUser);
+            res.status(200).json(deletedUser);
         })
         .catch( err => res.status(400).json({
             'error': dbErrorHandler.getErrorMessage(err)

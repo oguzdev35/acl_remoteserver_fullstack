@@ -1,5 +1,4 @@
 import Person from '../models/person.model';
-import Door from '../models/door.model';
 import extend from 'lodash/extend';
 import dbErrorHandler from '../helpers/dbErrorHandler';
 
@@ -51,11 +50,11 @@ const personByID = (req, res, next, id) => {
       }))
 }
 
-const inUser = (req, res, next) => {
-  const user = req.profile;
+const inPlace = (req, res, next) => {
+  const place = req.place;
   const person = req.person;
   
-  if(!user.persons.includes(person.id)){
+  if(!place.persons.includes(person.id)){
       return res.status(403).json({
           'error': "User is not authorized"
       });
@@ -126,5 +125,5 @@ const remove = (req, res) => {
 export default {
   create, list, personByID, 
   read, update, remove, assign,
-  revoke, inUser
+  revoke, inPlace
 };

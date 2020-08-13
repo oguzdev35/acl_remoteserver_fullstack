@@ -2,26 +2,28 @@ import express from 'express';
 import personCtrl from '../controllers/person.controller';
 import userCtrl from '../controllers/user.controller';
 import authCtrl from '../controllers/auth.controller';
+import placeCtrl from '../controllers/place.controller';
 import doorCtrl from '../controllers/door.controller';
 
 const router = express.Router();
 
-router.route('/api/persons/:userId')
-    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.list)
+router.route('/api/persons/:placeId/:userId')
+    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.inPlace, personCtrl.list)
     .post(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.create);
 
 
-router.route('/api/persons/:personId/:userId')
-    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.inUser, personCtrl.read)
-    .put(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.inUser, personCtrl.update)
-    .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.inUser, personCtrl.remove);
+router.route('/api/persons/:blockId/:personId/:userId')
+    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.inPlace, personCtrl.read)
+    .put(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.inPlace, personCtrl.update)
+    .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.inPlace, personCtrl.remove);
 
-router.route('/api/persons/:personId/:doorId/:userId')
-    .post(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.inUser, doorCtrl.inUser, personCtrl.assign)
-    .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.inUser, doorCtrl.inUser, personCtrl.revoke);
+// router.route('/api/persons/:personId/:doorId/:blockId/:userId')
+//     .post(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.inPlace, doorCtrl.inUser, personCtrl.assign)
+//     .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.inPlace, doorCtrl.inUser, personCtrl.revoke);
 
 router.param('userId', userCtrl.userByID);
 router.param('personId', personCtrl.personByID);
+router.param('placeId', placeCtrl.placeByID);
 router.param('doorId', doorCtrl.doorByID);
 
 export default router;

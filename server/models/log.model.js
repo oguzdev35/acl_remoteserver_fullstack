@@ -1,25 +1,25 @@
 import mongoose from 'mongoose';
 
 const LogSchema = new mongoose.Schema({
-  doorId: {
-    type: String,
-    trim: true,
-    required: 'Door ID is required',
+  door: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Door'
   },
-  doorName: {
-    type: String,
-    trim: true,
-    required: 'Door name is required'
+  person: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Person'
   },
-  personId: {
-    type: String,
-    trim: true,
-    required: 'Door name is required'
+  block: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Block'
   },
-  personFullName: {
-    type: String,
-    trim: true,
-    required: 'Person fullname is required'
+  place: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Place'
+  },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User'
   },
   accessTime: {
     type: Date,

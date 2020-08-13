@@ -15,8 +15,8 @@ let url = '';
 
 export default store => next => action => {
     const secretToken = store.getState().user.secretToken;
-    const userId = store.getState().user._id;
     const appId = store.getState().appId;
+    let userId = store.getState().user._id;
     next(action);
     switch(action.type){
         case LIST_USER:
@@ -72,8 +72,8 @@ export default store => next => action => {
                 'Authorization': `Bearer ${secretToken}`,
                 'x-app-id': `${appId}`
             };
-            url = `/api/users/${userId}`;
-            next(apiRequest({body: action.payload.updatedPerson, method: 'PUT', url: url, headers: headers, feature: USERS, docAction: action.docAction}));
+            url = `/api/users/${action.payload.userId}`;
+            next(apiRequest({body: action.payload.updatedUser, method: 'PUT', url: url, headers: headers, feature: USERS, docAction: action.docAction}));
             next(setLoader({state: true, feature: USERS}));
             break;
 
@@ -84,13 +84,12 @@ export default store => next => action => {
                 'Authorization': `Bearer ${secretToken}`,
                 'x-app-id': `${appId}`
             };
-            url = `/api/users/${userId}`;
+            url = `/api/users/${action.payload.userId}`;
             next(apiRequest({body: null, method: 'DELETE', url: url, headers: headers, feature: USERS, docAction: action.docAction}));
             next(setLoader({state: true, feature: USERS}));
             break;
 
         case `${USERS} ${API_SUCCESS}`:
-            console.log(action)
             switch(action.meta.docAction){
                 case SET_USER:
                     next(setUser({user: action.payload, normalizeKey: null}));

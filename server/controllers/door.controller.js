@@ -47,11 +47,11 @@ const doorByID = (req, res, next, id) => {
       }))
 }
 
-const inUser = (req, res, next) => {
-  const user = req.profile;
+const inBlock = (req, res, next) => {
+  const block = req.block;
   const door = req.door;
 
-  if(!user.doors.includes(door.id)){
+  if(!block.doors.includes(door.id)){
     return res.status(403).json({
       'error': "User is not authorized"
     });
@@ -95,5 +95,5 @@ const remove = (req, res) => {
 
 export default {
   create, list, doorByID, read, 
-  update, remove, inUser
+  update, remove, inBlock
 };

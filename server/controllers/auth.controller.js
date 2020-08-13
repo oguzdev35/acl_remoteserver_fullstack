@@ -88,7 +88,6 @@ const requireMaster = (req, res, next) => {
         .catch( err => res.status(400).json({
             'error': dbErrorHandler.getErrorMessage(err)
         }));
-
 };
 
 const hasAuthorization = (req, res, next) => {

@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 const formElements = [
     {varName: 'username', id: 0, type: 'text', label: 'Kullanıcı Adı'},
     {varName: 'email', id: 1, type: 'text', label: 'Email Adresi'}, 
-    {varName: 'password', id: 2, type: 'text', label: 'Şifre'}, 
 ];
 
 const Transition = React.forwardRef( (props, ref) => (
@@ -55,7 +54,6 @@ export default (props) => {
     const initialValues = {
         email: user.email,
         username: user.username,
-        password: '',
     };
 
     const formik = useFormik({
@@ -64,7 +62,6 @@ export default (props) => {
             handleUpdate({
                 email: values.email,
                 username: values.username,
-                password: values.password,
             });
         }
     });
