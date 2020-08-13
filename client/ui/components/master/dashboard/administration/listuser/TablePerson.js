@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 
 import DeleteButton from './DeleteButton';
 import EditButton from './EditButton';
+import ShowUser from './ShowUser';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -136,7 +137,7 @@ export default () => {
                     ).map((user) => (
                         <TableRow key={user._id} hover={true}>
                             <TableCell align="left">
-                                {user.username}
+                                <ShowUser username={user.username} userId={user._id} />
                             </TableCell>
                             <TableCell align="left">
                                 {user.createdAt}

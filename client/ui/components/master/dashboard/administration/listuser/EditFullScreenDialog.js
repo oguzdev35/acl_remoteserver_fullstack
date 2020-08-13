@@ -79,7 +79,7 @@ export default (props) => {
                                     <CloseIcon />
                                 </IconButton>
                                 <Typography variant="h6" className={classes.title}>
-                                    Personel Kayıt Düzenleme
+                                    Kullanıcı Kayıt Düzenleme
                                 </Typography>
                                 <Button autoFocus color="inherit" type="submit">
                                     Kaydet
