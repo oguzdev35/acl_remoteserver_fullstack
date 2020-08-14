@@ -34,7 +34,8 @@ import AddUser from './adduser';
 import ListUser from './listuser';
 import AddPlace from './addplace';
 import ListPlace from './listplace';
-
+import AddBlock from './addblock';
+import ListBlock from './listblock';
 
 
 const contents = [
@@ -53,6 +54,14 @@ const contents = [
   {
     idx: 3, label: 'Yer Listesi',
     Component: contentInjection(ListPlace)
+  },
+  {
+    idx: 4, label: 'Blok Kayıt',
+    Component: contentInjection(AddBlock)
+  },
+  {
+    idx: 5, label: 'Blok Listesi',
+    Component: contentInjection(ListBlock)
   }
 ];
 
