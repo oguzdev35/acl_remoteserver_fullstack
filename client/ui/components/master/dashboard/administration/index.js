@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import VerticalTab from './VerticalTab';
 import Content from './Content';
@@ -70,10 +70,11 @@ export default () => {
   const classes = useStyles();
   const [contentValue, setContentValue] = React.useState(0);
   const dispatch = useDispatch();
+  const user = useSelector( state => state.user);
 
   React.useEffect( () => {
     dispatch(listUser());
-    dispatch(listPlace());
+    dispatch(listPlace({userId: user._id}))
   }, [])
 
   return (

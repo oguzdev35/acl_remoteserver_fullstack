@@ -22,9 +22,9 @@ export const getPlace = (payload) => ({
 });
 
 
-export const listPlace = () => ({
+export const listPlace = (payload) => ({
     type: LIST_PLACE,
-    payload: undefined,
+    payload: payload,
     docAction: LOAD_PLACE
 });
 
