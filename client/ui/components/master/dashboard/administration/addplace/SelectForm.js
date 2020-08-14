@@ -113,7 +113,7 @@ export default (props) => {
                     fullWidth
                     className={classes.form}
                     onChange={handleChangeText}
-                    value={selectedUser.username}
+                    value={selectedUser.username || ""}
                     type={varName}
                 />  
             </TableCell>

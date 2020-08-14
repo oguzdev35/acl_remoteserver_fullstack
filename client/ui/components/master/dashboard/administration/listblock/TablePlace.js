@@ -133,7 +133,7 @@ export default () => {
                 <TableBody>
                     {(rowsPerPage > 0
                         ? places.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        : places
+                        : places 
                     ).map((place) => (
                         <TableRow key={place._id} hover={true}>
                             <TableCell align="left">

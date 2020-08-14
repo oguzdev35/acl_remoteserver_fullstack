@@ -2,7 +2,6 @@ import {
     SET_PLACE, REMOVE_PLACE,
     LOAD_PLACE
 } from '../actions/place.action';
-import { SET_PERSON } from '../actions/person.action';
 
 const initialState = [];
 

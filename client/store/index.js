@@ -5,8 +5,17 @@ import { persistReducer, persistStore } from 'redux-persist';
 import localstorage from 'redux-persist/lib/storage';    
 import autoMergeLevel1  from 'redux-persist/lib/stateReconciler/autoMergeLevel1'
 
+// import reducers
 import userReducer from './reducers/user.reducer';
 import personReducer from './reducers/person.reducer';
+import uiReducer from './reducers/ui.reducer';
+import appIdReducer from './reducers/appId.reducer';
+import usersReducer from './reducers/users.reducer';
+import placeReducer from './reducers/place.reducer';
+import blockReducer from './reducers/block.reducer';
+import notificationReducer from './reducers/notification.reducer';
+
+// import middlewares
 import userMiddleware from './middlewares/user.middleware';
 import personMiddleware from './middlewares/person.middleware';
 import apiMiddleware from './middlewares/api.middleware';
@@ -14,13 +23,9 @@ import normalizeMiddleware from './middlewares/normalize.middleware';
 import notificationMiddleware from './middlewares/notification.middleware';
 import loggerMiddleware from './middlewares/logger.middleware';
 import actionSplitterMiddleware from './middlewares/actionSplitter.middleware';
-import uiReducer from './reducers/ui.reducer';
-import notificationReducer from './reducers/notification.reducer';
-import appIdReducer from './reducers/appId.reducer';
-import usersReducer from './reducers/users.reducer';
 import usersMiddleware from './middlewares/users.middleware';
-import placeReducer from './reducers/place.reducer';
 import placeMiddleware from './middlewares/place.middleware';
+import blockMiddleware from './middlewares/block.middleware';
 
 // state persistance configuration
 const rootPersistConfig = {
@@ -37,6 +42,7 @@ const rootReducer = combineReducers({
     users: usersReducer,
     appId: appIdReducer,
     places: placeReducer,
+    blocks: blockReducer,
     persons: personReducer,
     ui: uiReducer,
     notification: notificationReducer
@@ -48,6 +54,7 @@ const persistedRootReducer = persistReducer(rootPersistConfig, rootReducer);
 const featureMiddleware = [
     userMiddleware,
     placeMiddleware,
+    blockMiddleware,
     personMiddleware,
     usersMiddleware
 ];
@@ -85,6 +92,7 @@ if(process.env.NODE_ENV === 'development'){
 
 }
 
+// persisting the store object to storage
 const persistor = persistStore(store);
 
 export default {

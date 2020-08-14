@@ -22,10 +22,17 @@ const create = (req, res) => {
 
 const list = (req, res) => {
     const user = req.profile;
+    const isMaster = req.isMaster;
+    const auth = req.auth;
     Place.find().select('name address logs createdAt updatedAt blocks persons')
-        .then( places => res.status(200).json(
-            places.filter( place => user.places.includes(place.id))
-        ))
+        .then( places => {
+            if(isMaster && auth._id == user._id){
+                return res.status(200).json(places)
+            }
+            return res.status(200).json(
+                places.filter( place => user.places.includes(place.id))
+            )
+        })
         .catch( err => res.status(400).json({
             'error': dbErrorHandler.getErrorMessage(err)
         }));

@@ -7,7 +7,9 @@ import {
     Select
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { listPlace } from '../../../../../../store/actions/place.action';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,7 +43,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default (props) => {
 
-    const users = useSelector(state => state.users);
+    const userId = useSelector(state => state.user._id);
+    const places = useSelector(state => state.places);
+    const dispatch = useDispatch();
 
     const {
         label, required, varName, formik, buttonText
@@ -51,37 +55,37 @@ export default (props) => {
 
     const [dialog, setDialog] = React.useState(false);
     const [items, setItems] = React.useState([]);
-    const [selectedUser, setSelectedUser] = React.useState('');
+    const [selectedPlace, setSelectedPlace] = React.useState('');
 
 
     React.useEffect( () => {
+        dispatch(listPlace({userId: userId}));
         switch(varName){
-            case 'users':
+            case 'places':
 
-                setItems(users.map(({_id, username}) => {
+                setItems(places.map(({_id, name}) => {
                     return {
-                        _id, username
+                        _id, name
                     }
                 }));
         }
     }, [])
 
     React.useEffect( () => {
-        if(selectedUser._id){
-            formik.setFieldValue('userId', selectedUser._id)
+        if(selectedPlace._id){
+            formik.setFieldValue('placeId', selectedPlace._id)
         }
-    }, [selectedUser])
+    }, [selectedPlace])
 
-    console.log(selectedUser);
 
     const handleChangeText = event => {
-        setSelectedUser(
-            items.find(({username}) => username == event.target.value) || {username: event.target.value, _id: ''}
+        setSelectedPlace(
+            items.find(({name}) => name == event.target.value) || {name: event.target.value, _id: ''}
         )
     };
 
     const handleChangeSelect = event => {
-        setSelectedUser(event.target.value || {username: '', _id: ''});
+        setSelectedPlace(event.target.value || {name: '', _id: ''});
     }
 
     const handleClickOpen = () => {
@@ -92,79 +96,79 @@ export default (props) => {
         setDialog(false);
     };
 
-    return <React.Fragment>
-        <React.Fragment>
-            <TableCell 
-                style={{width: '16vw'}}
-                align="right"
+    return (
+    <React.Fragment>
+        <TableCell 
+            style={{width: '16vw'}}
+            align="right"
+        >
+            <Typography className={classes.label}>
+                {label} : 
+            </Typography>
+        </TableCell>
+        <TableCell 
+            colSpan={2}
+            style={{width: '40w'}}
+        >
+            <TextField 
+                id={varName}
+                variant="standard"
+                margin="dense"
+                fullWidth
+                className={classes.form}
+                onChange={handleChangeText}
+                value={selectedPlace.name || ""}
+                type={varName}
+            />  
+        </TableCell>
+        <TableCell colSpan={3}>
+            <Button onClick={handleClickOpen}>{buttonText}</Button>
+            <Dialog 
+                disableBackdropClick 
+                disableEscapeKeyDown 
+                open={dialog}
+                onClose={handleClose}
+                className={classes.dialog}
             >
-                <Typography className={classes.label}>
-                    {label} : 
-                </Typography>
-            </TableCell>
-            <TableCell 
-                colSpan={2}
-                style={{width: '40w'}}
-            >
-                <TextField 
-                    id={varName}
-                    variant="standard"
-                    margin="dense"
-                    fullWidth
-                    className={classes.form}
-                    onChange={handleChangeText}
-                    value={selectedUser.username}
-                    type={varName}
-                />  
-            </TableCell>
-            <TableCell colSpan={3}>
-                <Button onClick={handleClickOpen}>{buttonText}</Button>
-                <Dialog 
-                    disableBackdropClick 
-                    disableEscapeKeyDown 
-                    open={dialog}
-                    onClose={handleClose}
-                    className={classes.dialog}
-                >
-                    <DialogTitle>Kullanıcı Seçiniz</DialogTitle>
-                    <DialogContent className={classes.dialog}>
-                        <form className={classes.container}>
-                            <FormControl className={classes.formControl} fullWidth>
-                                <InputLabel htmlFor="user-dialog-non-native-label">Kullanıcı</InputLabel>
-                                <Select
-                                    labelId="user-dialog-non-native-label"
-                                    id="user-dialog-non-native"
-                                    value={selectedUser}
-                                    onChange={handleChangeSelect}
-                                    input={<Input />}
-                                >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    {items.map((item) => {
-                                            return (
-                                                <MenuItem 
-                                                    key={item._id}
-                                                    value={item}
-                                                >{item.username}</MenuItem>
-                                            )
-                                        })
-                                    }
-                                </Select>
-                            </FormControl>
-                        </form>
-                    </DialogContent>
-                    <Button onClick={handleClose} color="primary" >
-                        Vazgeç
-                    </Button>
-                    <Button onClick={handleClose} color="primary"  >
-                        Seç
-                    </Button>
-                </Dialog>
-                { required && <Typography className={classes.help}>
-                    * gerekli
-                </Typography>}
-            </TableCell>
-        </React.Fragment>
+                <DialogTitle>Yer Seçiniz</DialogTitle>
+                <DialogContent className={classes.dialog}>
+                    <form className={classes.container}>
+                        <FormControl className={classes.formControl} fullWidth>
+                            <InputLabel htmlFor="place-dialog-non-native-label">Yer</InputLabel>
+                            <Select
+                                labelId="place-dialog-non-native-label"
+                                id="place-dialog-non-native"
+                                value={selectedPlace}
+                                onChange={handleChangeSelect}
+                                input={<Input />}
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                {items.map((item) => {
+                                        return (
+                                            <MenuItem 
+                                                key={item._id}
+                                                value={item}
+                                            >{item.name}</MenuItem>
+                                        )
+                                    })
+                                }
+                            </Select>
+                        </FormControl>
+                    </form>
+                </DialogContent>
+                <Button onClick={handleClose} color="primary" >
+                    Vazgeç
+                </Button>
+                <Button onClick={handleClose} color="primary"  >
+                    Seç
+                </Button>
+            </Dialog>
+            { required && <Typography className={classes.help}>
+                * gerekli
+            </Typography>}
+        </TableCell>
     </React.Fragment>
+    )
 }

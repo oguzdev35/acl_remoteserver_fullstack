@@ -15,7 +15,7 @@ import Title from './Title';
 import TextForm from './TextForm';
 import SelectForm from './SelectForm';
 
-import { createPlace } from '../../../../../../store/actions/place.action';
+import { createBlock } from '../../../../../../store/actions/block.action';
 
 const useStyles = makeStyles( (theme) => ({
     root: {
@@ -31,9 +31,8 @@ const useStyles = makeStyles( (theme) => ({
 }));
 
 const formElements = [
-    {varName: 'name', id: 0, type: 'text', label: 'Yer Adı', required: true},
-    {varName: 'address', id: 1, type: 'text', label: 'Adres', required: true},
-    {varName: 'users', id: 2, type: 'select', label: 'Bağlı Olduğu Kullanıcı', required: true, buttonText: 'Kullanıcı Seçiniz'}
+    {varName: 'name', id: 0, type: 'text', label: 'Blok Adı', required: true},
+    {varName: 'places', id: 1, type: 'select', label: 'Bağlı Olduğu Yer', required: true, buttonText: 'Yer Seçiniz'}
 ];
 
 export default () => {
@@ -67,12 +66,13 @@ export default () => {
     const formik = useFormik({
         initialValues: initialValues,
         onSubmit: values => {
-            const newPlace = {
-                name: values.name,
-                address: values.address
+            const newBlock = {
+                name: values.name
             };
-            const userId = values.userId;
-            dispatch(createPlace({newPlace: newPlace, userId: userId}));
+            const userId = values.placeId;
+            console.log(`newBlock : ${newBlock.name}`);
+            console.log(`userId: ${userId}`);
+            //dispatch(createBlock({newBlock: newBlock, userId: userId}));
             formik.setValues(initialValues);
 
         }
@@ -81,7 +81,7 @@ export default () => {
 
     return (
         <div className={classes.root}>
-            <Title text="Yer Kayıt Formu" />
+            <Title text="Blok Kayıt Formu" />
             <form 
                 onSubmit={formik.handleSubmit}
                 className={classes.forms}
