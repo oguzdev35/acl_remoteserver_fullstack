@@ -80,7 +80,6 @@ const requireMaster = (req, res, next) => {
                 req.isMaster = true;
                 next();
             } else {
-                console.log(appID == config.appID)
                 next();
             }
             

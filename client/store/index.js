@@ -19,6 +19,8 @@ import notificationReducer from './reducers/notification.reducer';
 import appIdReducer from './reducers/appId.reducer';
 import usersReducer from './reducers/users.reducer';
 import usersMiddleware from './middlewares/users.middleware';
+import placeReducer from './reducers/place.reducer';
+import placeMiddleware from './middlewares/place.middleware';
 
 // state persistance configuration
 const rootPersistConfig = {
@@ -34,6 +36,7 @@ const rootReducer = combineReducers({
     user: userReducer,
     users: usersReducer,
     appId: appIdReducer,
+    places: placeReducer,
     persons: personReducer,
     ui: uiReducer,
     notification: notificationReducer
@@ -44,6 +47,7 @@ const persistedRootReducer = persistReducer(rootPersistConfig, rootReducer);
 // the feature middlewares
 const featureMiddleware = [
     userMiddleware,
+    placeMiddleware,
     personMiddleware,
     usersMiddleware
 ];

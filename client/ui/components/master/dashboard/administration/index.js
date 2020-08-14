@@ -6,6 +6,7 @@ import VerticalTab from './VerticalTab';
 import Content from './Content';
 
 import { listUser } from '../../../../../store/actions/users.action';
+import { listPlace } from '../../../../../store/actions/place.action';
 
 const useStyles = makeStyles( theme => ({
   root: {
@@ -31,6 +32,9 @@ const contentInjection = (Component, props) => () => {
 
 import AddUser from './adduser';
 import ListUser from './listuser';
+import AddPlace from './addplace';
+import ListPlace from './listplace';
+
 
 
 const contents = [
@@ -41,8 +45,16 @@ const contents = [
   {
     idx: 1, label: 'Kullanıcı Listesi', 
     Component: contentInjection(ListUser)
+  },
+  {
+    idx: 2, label: 'Yer Kayıt',
+    Component: contentInjection(AddPlace)
+  },
+  {
+    idx: 3, label: 'Yer Listesi',
+    Component: contentInjection(ListPlace)
   }
-]
+];
 
 export default () => {
 
@@ -52,6 +64,7 @@ export default () => {
 
   React.useEffect( () => {
     dispatch(listUser());
+    dispatch(listPlace());
   }, [])
 
   return (

@@ -2,7 +2,6 @@ import Log from '../models/log.model';
 
 const list = (req, res) => {
     const user = req.profile;
-    console.log(user.logs)
     return res.status(200).json({logs: user.logs})
 };
 
