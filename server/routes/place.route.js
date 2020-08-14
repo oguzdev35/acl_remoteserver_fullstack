@@ -11,9 +11,9 @@ router.route('/api/places/:userId')
 
 
 router.route('/api/places/:placeId/:userId')
-    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, authCtrl.requireMaster, placeCtrl.inUser, placeCtrl.read)
-    .put(authCtrl.requireSignin, authCtrl.hasAuthorization, authCtrl.requireMaster, placeCtrl.inUser, placeCtrl.update)
-    .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, authCtrl.requireMaster, placeCtrl.inUser, placeCtrl.remove);
+    .get(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, placeCtrl.read)
+    .put(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, placeCtrl.update)
+    .delete(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, placeCtrl.remove);
 
 router.param('userId', userCtrl.userByID);
 router.param('placeId', placeCtrl.placeByID);
