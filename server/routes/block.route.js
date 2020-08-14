@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.route('/api/blocks/:placeId/:userId')
     .get(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, blockCtrl.inPlace, blockCtrl.list)
-    .post(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.create);
+    .post(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, blockCtrl.create);
 
 
 router.route('/api/blocks/:blockId/:placeId/:userId')

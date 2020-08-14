@@ -9,7 +9,7 @@ import Title from './Title';
 import TablePlace from './TablePlace';
 import SelectUser from './SelectUser';
 
-import { listPlace } from '../../../../../../store/actions/place.action';
+import { listBlock } from '../../../../../../store/actions/block.action';
 
 
 const useStyles = makeStyles( (theme) => ({
@@ -24,10 +24,10 @@ export default (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const [selectedUser, setSelectedUser] = React.useState(useSelector(state => state.user._id));
+    const [selectedPlace, setSelectedPlace] = React.useState(useSelector(state => state.places[0]._id));
 
     React.useEffect( () => {
-        dispatch(listPlace({userId: selectedUser}));
+        dispatch(listBlock({placeId: selectedPlace}));
     }, [selectedUser])
 
     const handleChange = event => {

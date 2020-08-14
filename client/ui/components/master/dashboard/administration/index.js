@@ -7,6 +7,7 @@ import Content from './Content';
 
 import { listUser } from '../../../../../store/actions/users.action';
 import { listPlace } from '../../../../../store/actions/place.action';
+import { listBlock } from '../../../../../store/actions/block.action';
 
 const useStyles = makeStyles( theme => ({
   root: {
@@ -35,7 +36,13 @@ import ListUser from './listuser';
 import AddPlace from './addplace';
 import ListPlace from './listplace';
 import AddBlock from './addblock';
-import ListBlock from './listblock';
+// import ListBlock from './listblock';
+
+const ListBlock = () => {
+  return (
+    <> Hello </>
+  )
+}
 
 
 const contents = [
@@ -73,8 +80,23 @@ export default () => {
   const user = useSelector( state => state.user);
 
   React.useEffect( () => {
-    dispatch(listUser());
-    dispatch(listPlace({userId: user._id}))
+    Promise.resolve(dispatch(listUser()))
+      .then( user => console.log(user))
+      .catch( err => console.error(err.message))
+
+
+    //     dispatch(listPlace({userId: user._id}))
+    //   ]
+    // ).then( (result) => {
+    //   console.log(result)
+    //   const placeid = result[1];
+    //   if(placeid){
+    //     console.log(placeid)
+    //     dispatch(listBlock({userId: user._id, placeId: place._id}))
+    //   }
+    // })
+    // .catch( err => console.error(err.message))
+
   }, [])
 
   return (

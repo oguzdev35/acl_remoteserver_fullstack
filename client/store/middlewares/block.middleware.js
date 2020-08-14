@@ -27,7 +27,8 @@ export default store => next => action => {
                 'Authorization': `Bearer ${secretToken}`,
                 'x-app-id': `${appId}`
             };
-            url = `/api/blocks/${userId}`;
+            console.log(action.payload)
+            url = `/api/blocks/${action.payload.placeId}/${action.payload.userId}`;
             next(apiRequest({body: action.payload, method: 'GET', url: url, headers: headers, feature: BLOCK, docAction: action.docAction}));
             next(setLoader({state: true, feature: BLOCK}));
             break;
@@ -49,7 +50,7 @@ export default store => next => action => {
                 'Authorization': `Bearer ${secretToken}`,
                 'x-app-id': `${appId}`
             };
-            url = `/api/blocks/${action.payload.userId}`;
+            url = `/api/blocks/${action.payload.placeId}/${action.payload.userId}`;
             next(apiRequest({body: action.payload.newBlock, method: 'POST', url: url, headers: headers, feature: BLOCK, docAction: action.docAction}));
             next(setLoader({state: true, feature: BLOCK}));
             break;

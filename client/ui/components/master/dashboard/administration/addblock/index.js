@@ -32,7 +32,8 @@ const useStyles = makeStyles( (theme) => ({
 
 const formElements = [
     {varName: 'name', id: 0, type: 'text', label: 'Blok Adı', required: true},
-    {varName: 'places', id: 1, type: 'select', label: 'Bağlı Olduğu Yer', required: true, buttonText: 'Yer Seçiniz'}
+    {varName: 'places', id: 1, type: 'select', label: 'Bağlı Olduğu Yer', required: true, buttonText: 'Yer Seçiniz'},
+    {varName: 'users', type: 'disabled', required: false}
 ];
 
 export default () => {
@@ -47,13 +48,13 @@ export default () => {
         formElements.forEach( elem => {
             switch(elem.type){
                 case 'text':
+                case 'disabled':
                     newInitialValues[`${elem.varName}`] = '';
                     break;
                 default:
                     break;
             }
         });
-
         setInitialValues(newInitialValues);
     }
 
@@ -69,12 +70,10 @@ export default () => {
             const newBlock = {
                 name: values.name
             };
-            const userId = values.placeId;
-            console.log(`newBlock : ${newBlock.name}`);
-            console.log(`userId: ${userId}`);
-            //dispatch(createBlock({newBlock: newBlock, userId: userId}));
+            const placeId = values.placeId;
+            const userId = values.userId;
+            dispatch(createBlock({newBlock: newBlock, placeId: placeId, userId: userId}));
             formik.setValues(initialValues);
-
         }
     });
 

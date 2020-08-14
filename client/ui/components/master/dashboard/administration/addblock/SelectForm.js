@@ -45,6 +45,7 @@ export default (props) => {
 
     const userId = useSelector(state => state.user._id);
     const places = useSelector(state => state.places);
+    const users = useSelector(state => state.users);
     const dispatch = useDispatch();
 
     const {
@@ -74,6 +75,7 @@ export default (props) => {
     React.useEffect( () => {
         if(selectedPlace._id){
             formik.setFieldValue('placeId', selectedPlace._id)
+            formik.setFieldValue('userId', users.find(({places}) => places.includes(selectedPlace._id))._id);
         }
     }, [selectedPlace])
 
