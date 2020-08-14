@@ -6,14 +6,14 @@ import authCtrl from '../controllers/auth.controller';
 const router = express.Router();
 
 router.route('/api/places/:userId')
-    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.list)
-    .post(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.create);
+    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, authCtrl.requireMaster, placeCtrl.list)
+    .post(authCtrl.requireSignin, authCtrl.hasAuthorization, authCtrl.requireMaster, placeCtrl.create);
 
 
 router.route('/api/places/:placeId/:userId')
-    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.inUser, placeCtrl.read)
-    .put(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.inUser, placeCtrl.update)
-    .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.inUser, placeCtrl.remove);
+    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, authCtrl.requireMaster, placeCtrl.inUser, placeCtrl.read)
+    .put(authCtrl.requireSignin, authCtrl.hasAuthorization, authCtrl.requireMaster, placeCtrl.inUser, placeCtrl.update)
+    .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, authCtrl.requireMaster, placeCtrl.inUser, placeCtrl.remove);
 
 router.param('userId', userCtrl.userByID);
 router.param('placeId', placeCtrl.placeByID);
