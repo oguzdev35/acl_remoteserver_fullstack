@@ -13,6 +13,7 @@ import {
 
 import Title from './Title';
 import TextForm from './TextForm';
+import SelectForm from './SelectForm';
 
 import { createPlace } from '../../../../../../store/actions/place.action';
 
@@ -31,7 +32,8 @@ const useStyles = makeStyles( (theme) => ({
 
 const formElements = [
     {varName: 'name', id: 0, type: 'text', label: 'Yer Adı', required: true},
-    {varName: 'address', id: 1, type: 'text', label: 'Adres', required: true}
+    {varName: 'address', id: 1, type: 'text', label: 'Adres', required: true},
+    {varName: 'users', id: 2, type: 'select', label: 'Bağlı Olduğu Kullanıcı', required: true, buttonText: 'Kullanıcı Seçiniz'}
 ];
 
 export default () => {
@@ -67,10 +69,12 @@ export default () => {
         onSubmit: values => {
             const newPlace = {
                 name: values.name,
-                address: values.address,
+                address: values.address
             };
-            dispatch(createPlace(newPlace));
+            const userId = values.userId;
+            dispatch(createPlace({newPlace: newPlace, userId: userId}));
             formik.setValues(initialValues);
+
         }
     });
 
@@ -85,7 +89,7 @@ export default () => {
                 <TableContainer component={Paper}>
                     <Table>
                         <TableBody>
-                            {formElements.map(({id, varName, type, label, required}) => {
+                            {formElements.map(({id, varName, type, label, required, buttonText}) => {
                                 return (
                                     <TableRow key={id}>
                                         { type === 'text' && <TextForm 
@@ -94,6 +98,15 @@ export default () => {
                                             varName={varName} 
                                             formik={formik}
                                             />}
+                                        {
+                                            type === 'select' && <SelectForm 
+                                                label={label}
+                                                required={required}
+                                                varName={varName}
+                                                formik={formik}
+                                                buttonText={buttonText}
+                                            />
+                                        }
                                     </TableRow>
                                 )
                             })}

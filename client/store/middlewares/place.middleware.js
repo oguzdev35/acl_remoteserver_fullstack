@@ -49,8 +49,8 @@ export default store => next => action => {
                 'Authorization': `Bearer ${secretToken}`,
                 'x-app-id': `${appId}`
             };
-            url = `/api/places/${userId}`;
-            next(apiRequest({body: action.payload, method: 'POST', url: url, headers: headers, feature: PLACE, docAction: action.docAction}));
+            url = `/api/places/${action.payload.userId}`;
+            next(apiRequest({body: action.payload.newPlace, method: 'POST', url: url, headers: headers, feature: PLACE, docAction: action.docAction}));
             next(setLoader({state: true, feature: PLACE}));
             break;
         case ASSIGN_PLACE:

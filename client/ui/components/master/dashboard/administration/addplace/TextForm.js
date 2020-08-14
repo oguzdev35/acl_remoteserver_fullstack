@@ -27,7 +27,7 @@ export default (props) => {
     const {label, required, varName, formik} = props;
     const classes = useStyles();
     return (
-        <>
+        <React.Fragment>
             <TableCell 
                 style={{width: '16vw'}}
                 align="right"
@@ -56,6 +56,6 @@ export default (props) => {
                     * gerekli
                 </Typography>}
             </TableCell>
-        </>
+        </React.Fragment>
     )
 }
