@@ -21,17 +21,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default props => {
     const users = useSelector( state => state.users);
-    const [items, setItems] = React.useState([{}]);
     const { handleChange, selectedUser } = props;
     const classes = useStyles();
 
-    React.useEffect( () => {
-        setItems(users.map(({_id, username}) => {
-            return {
-                _id, username
-            }
-        }))
-    }, [users]);
 
     return (
         <React.Fragment>
@@ -49,9 +41,9 @@ export default props => {
                         <em>Seçiniz</em>
                     </MenuItem>
                     {
-                        items.map( item => (
-                            <MenuItem key={item._id} value={item}>
-                                {item.username}
+                        users.map( user => (
+                            <MenuItem key={user._id} value={user._id}>
+                                {user.username}
                             </MenuItem>
                         ))
                     }

@@ -51,8 +51,6 @@ export default (props) => {
     const classes = useStyles();
     const place = useSelector( state => state.places.find( ({_id}) => _id == placeId ));
 
-    console.log(place);
-
     const initialValues = {
         name: place.name,
         address: place.address,

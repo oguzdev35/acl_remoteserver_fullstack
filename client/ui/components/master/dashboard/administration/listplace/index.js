@@ -2,7 +2,7 @@ import React from 'react';
 import {
     makeStyles
 } from '@material-ui/core/styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 import Title from './Title';
@@ -24,18 +24,14 @@ export default (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const [selectedUser, setSelectedUser] = React.useState({
-        userId: '', username: ''
-    });
+    const [selectedUser, setSelectedUser] = React.useState(useSelector(state => state.user._id));
+
+    React.useEffect( () => {
+        dispatch(listPlace({userId: selectedUser}));
+    }, [selectedUser])
 
     const handleChange = event => {
-        const newUser = event.target.value;
-        setSelectedUser({
-            userId: newUser.userId,
-            username: newUser.username
-        });
-
-        dispatch(listPlace({userId: newUser._id}));
+        setSelectedUser(event.target.value);
     }
 
     return (

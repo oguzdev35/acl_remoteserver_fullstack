@@ -27,7 +27,6 @@ export default store => next => action => {
                 'Authorization': `Bearer ${secretToken}`,
                 'x-app-id': `${appId}`
             };
-            console.log(action.payload)
             url = `/api/places/${action.payload.userId}`;
             next(apiRequest({body: null, method: 'GET', url: url, headers: headers, feature: PLACE, docAction: action.docAction}));
             next(setLoader({state: true, feature: PLACE}));
