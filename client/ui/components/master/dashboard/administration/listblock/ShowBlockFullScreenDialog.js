@@ -45,9 +45,9 @@ const Transition = React.forwardRef( (props, ref) => (
 
 export default (props) => {
 
-    const { handleClose, open, placeId } = props;
+    const { handleClose, open, blockId } = props;
     const classes = useStyles();
-    const place = useSelector( state => state.places.find( ({_id}) => _id == placeId ));
+    const block = useSelector( state => state.blocks.find( ({_id}) => _id == blockId ));
 
     return (
         <React.Fragment>
@@ -71,7 +71,7 @@ export default (props) => {
                                             { type === 'text' && 
 
                                                 <>
-                                                    <Typography>{label} : {place[`${varName}`]}</Typography>
+                                                    <Typography>{label} : {block[`${varName}`]}</Typography>
                                                 </>
 
                                             }

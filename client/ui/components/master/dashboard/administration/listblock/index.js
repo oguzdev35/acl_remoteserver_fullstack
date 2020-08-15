@@ -2,12 +2,12 @@ import React from 'react';
 import {
     makeStyles
 } from '@material-ui/core/styles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 
 
 import Title from './Title';
-import TablePlace from './TablePlace';
-import SelectUser from './SelectUser';
+import TableBlock from './TableBlock';
+import SelectPlace from './SelectPlace';
 
 import { listBlock } from '../../../../../../store/actions/block.action';
 
@@ -23,22 +23,33 @@ export default (props) => {
 
     const classes = useStyles();
     const dispatch = useDispatch();
+    const globalState = useStore().getState();
 
-    const [selectedPlace, setSelectedPlace] = React.useState(useSelector(state => state.places[0]._id));
+    const [selectedPlace, setSelectedPlace] = React.useState("");
 
     React.useEffect( () => {
-        dispatch(listBlock({placeId: selectedPlace}));
-    }, [selectedUser])
+        if(selectedPlace != "" && selectedPlace != undefined){
+            dispatch(listBlock({
+                placeId: selectedPlace, 
+                userId: globalState.users.find(({places}) => places.includes(selectedPlace))._id
+            }));
+        }
+
+    }, [selectedPlace])
 
     const handleChange = event => {
-        setSelectedUser(event.target.value);
+        setSelectedPlace(event.target.value);
     }
+
+    // React.useEffect( () => {
+    //     setSelectedPlace(globalState.places[0]._id);
+    // }, [])
 
     return (
         <div className={classes.root}>
             <Title text="Kayıtlı Yer Listesi" />
-            <SelectUser selectedUser={selectedUser} handleChange={handleChange} />
-            <TablePlace />
+            <SelectPlace selectedPlace={selectedPlace} handleChange={handleChange} />
+            <TableBlock />
         </div>
     )
 }

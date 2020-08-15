@@ -36,8 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const formElements = [
-    {varName: 'name', id: 0, type: 'text', label: 'Yer Adı'},
-    {varName: 'address', id: 1, type: 'text', label: 'Adres'}, 
+    {varName: 'name', id: 0, type: 'text', label: 'Blok Adı'},
 ];
 
 const Transition = React.forwardRef( (props, ref) => (
@@ -47,21 +46,19 @@ const Transition = React.forwardRef( (props, ref) => (
 
 export default (props) => {
 
-    const { handleClose, open, handleUpdate, placeId } = props;
+    const { handleClose, open, handleUpdate, blockId } = props;
     const classes = useStyles();
-    const place = useSelector( state => state.places.find( ({_id}) => _id == placeId ));
+    const block = useSelector( state => state.blocks.find( ({_id}) => _id == blockId ));
 
     const initialValues = {
-        name: place.name,
-        address: place.address,
+        name: block.name,
     };
 
     const formik = useFormik({
         initialValues: initialValues,
         onSubmit: values => {
             handleUpdate({
-                name: values.name,
-                address: values.address,
+                name: values.name
             });
         }
     });
@@ -79,7 +76,7 @@ export default (props) => {
                                     <CloseIcon />
                                 </IconButton>
                                 <Typography variant="h6" className={classes.title}>
-                                    Yer Kayıt Düzenleme
+                                    Blok Kayıt Düzenleme
                                 </Typography>
                                 <Button autoFocus color="inherit" type="submit">
                                     Kaydet

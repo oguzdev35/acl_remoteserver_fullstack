@@ -59,13 +59,7 @@ import ListUser from './listuser';
 import AddPlace from './addplace';
 import ListPlace from './listplace';
 import AddBlock from './addblock';
-// import ListBlock from './listblock';
-
-const ListBlock = () => {
-  return (
-    <> Hello </>
-  )
-}
+import ListBlock from './listblock';
 
 
 const contents = [
@@ -91,7 +85,7 @@ const contents = [
   },
   {
     idx: 5, label: 'Blok Listesi',
-    Component: contentInjection(ListBlock)
+    Component: contentInjection(ListBlock, ['places'])
   }
 ];
 

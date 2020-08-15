@@ -5,18 +5,19 @@ import {
 import {
     Settings as EditIcon
 } from '@material-ui/icons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 
 
-import { updatePlace } from '../../../../../../store/actions/place.action';
+import { updateBlock } from '../../../../../../store/actions/block.action';
 
 import EditFullScreenDialog from './EditFullScreenDialog';
 
 export default (props) => {
 
-    const { placeId } = props;
+    const { blockId } = props;
 
     const dispatch = useDispatch();
+    const globalState = useStore().getState();
 
     const [dialog, setDialog] = React.useState(false);
 
@@ -28,8 +29,15 @@ export default (props) => {
         setDialog(false);
     }
 
-    const handleUpdate =  (updatedPlace) => {
-        dispatch(updatePlace({placeId: placeId, updatedPlace: updatedPlace}));
+    const handleUpdate =  (updatedBlock) => {
+        const placeId = globalState.places.find(({blocks}) => blocks.includes(blockId))._id;
+        const userId = globalState.users.find(({places}) => places.includes(placeId))._id;
+        dispatch(updateBlock({
+            blockId: blockId, 
+            placeId: placeId,
+            userId: userId,
+            updatedBlock: updatedBlock
+        }));
         setDialog(false);
     }
 
@@ -44,7 +52,7 @@ export default (props) => {
                 handleClose={handleDialogClose} 
                 open={dialog} 
                 handleUpdate={handleUpdate}
-                placeId={placeId}
+                blockId={blockId}
             />
         </React.Fragment>
     )

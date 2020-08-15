@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import ShowPlaceFullScreenDialog from './ShowPlaceFullScreenDialog';
+import ShowBlockFullScreenDialog from './ShowBlockFullScreenDialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +24,7 @@ export default props => {
 
   const [dialog, setDialog] = React.useState(false);
 
-  const { placename, placeId } = props;
+  const { blockname, blockId } = props;
 
   const handleClickOpen = (ev) => {
     ev.preventDefault();
@@ -39,13 +39,13 @@ export default props => {
     <React.Fragment>
       <Typography className={classes.root}>
         <Link  className={classes.link} onClick={handleClickOpen}>
-          {placename}
+          {blockname}
         </Link>
       </Typography>
-      <ShowPlaceFullScreenDialog 
+      <ShowBlockFullScreenDialog 
         handleClose={handleClose}
         open={dialog}
-        placeId={placeId}
+        blockId={blockId}
       />
 
     </React.Fragment>

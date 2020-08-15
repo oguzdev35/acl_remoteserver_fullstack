@@ -7,7 +7,7 @@ import authCtrl from '../controllers/auth.controller';
 const router = express.Router();
 
 router.route('/api/blocks/:placeId/:userId')
-    .get(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, blockCtrl.inPlace, blockCtrl.list)
+    .get(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, blockCtrl.list)
     .post(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, blockCtrl.create);
 
 

@@ -28,7 +28,6 @@ export default store => next => action => {
                 'x-app-id': `${appId}`
             };
             url = `/api/blocks/${action.payload.placeId}/${action.payload.userId}`;
-            console.log(action.payload)
             next(apiRequest({body: action.payload, method: 'GET', url: url, headers: headers, feature: BLOCK, docAction: action.docAction}));
             next(setLoader({state: true, feature: BLOCK}));
             break;
@@ -75,7 +74,7 @@ export default store => next => action => {
                 'Authorization': `Bearer ${secretToken}`,
                 'x-app-id': `${appId}`
             };
-            url = `/api/blocks/${blockId}/${userId}`;
+            url = `/api/blocks/${action.payload.blockId}/${action.payload.placeId}/${action.payload.userId}`;
             next(apiRequest({body: action.payload.updatedBlock, method: 'PUT', url: url, headers: headers, feature: BLOCK, docAction: action.docAction}));
             next(setLoader({state: true, feature: BLOCK}));
             break;
@@ -88,7 +87,7 @@ export default store => next => action => {
                 'Authorization': `Bearer ${secretToken}`,
                 'x-app-id': `${appId}`
             };
-            url = `/api/blocks/${blockId}/${userId}`;
+            url = `/api/blocks/${action.payload.blockId}/${action.payload.placeId}/${action.payload.userId}`;
             next(apiRequest({body: null, method: 'DELETE', url: url, headers: headers, feature: BLOCK, docAction: action.docAction}));
             next(setLoader({state: true, feature: BLOCK}));
             break;

@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux';
 
 import DeleteButton from './DeleteButton';
 import EditButton from './EditButton';
-import ShowPlace from './ShowPlace';
+import ShowBlock from './ShowBlock';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -103,11 +103,11 @@ const TablePaginationActions = (props) => {
 
 export default () => {
     const classes = useStyles();
-    const places = useSelector( state => state.places) || [];
+    const blocks = useSelector( state => state.blocks) || [];
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, places.length - page * rowsPerPage);
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, blocks.length - page * rowsPerPage);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -124,7 +124,7 @@ export default () => {
             <Table className={classes.table}>
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell>Yer Adı</StyledTableCell>
+                        <StyledTableCell>Blok Adı</StyledTableCell>
                         <StyledTableCell>Kayıt&nbsp;Tarihi</StyledTableCell>
                         <StyledTableCell align="left">Düzenle</StyledTableCell>
                         <StyledTableCell align="left">Sil</StyledTableCell>
@@ -132,21 +132,21 @@ export default () => {
                 </TableHead>
                 <TableBody>
                     {(rowsPerPage > 0
-                        ? places.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        : places 
-                    ).map((place) => (
-                        <TableRow key={place._id} hover={true}>
+                        ? blocks.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        : blocks 
+                    ).map((block) => (
+                        <TableRow key={block._id} hover={true}>
                             <TableCell align="left">
-                                <ShowPlace placename={place.name} placeId={place._id} />
+                                <ShowBlock blockname={block.name} blockId={block._id} />
                             </TableCell>
                             <TableCell align="left">
-                                {place.createdAt}
+                                {block.createdAt}
                             </TableCell>
                             <TableCell align="left">
-                                <EditButton placeId={place._id} />
+                                <EditButton blockId={block._id} />
                             </TableCell>
                             <TableCell align="left">
-                                <DeleteButton placeId={place._id} />
+                                <DeleteButton blockId={block._id} />
                             </TableCell>
                         </TableRow>
                     ))}
@@ -160,10 +160,10 @@ export default () => {
                 <TableFooter>
                     <TableRow>
                         <TablePagination
-                            labelRowsPerPage="Sayfa Başına Yer Sayısı"
+                            labelRowsPerPage="Sayfa Başına Blok Sayısı"
                             rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                             colSpan={3}
-                            count={places.length || 0}
+                            count={blocks.length || 0}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             SelectProps={{

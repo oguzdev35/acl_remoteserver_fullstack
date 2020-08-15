@@ -20,35 +20,35 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 export default props => {
-    const users = useSelector( state => state.users);
-    const { handleChange, selectedUser } = props;
+    const places = useSelector( state => state.places);
+    const { handleChange, selectedPlace } = props;
     const classes = useStyles();
 
 
     return (
         <React.Fragment>
             <FormControl className={classes.formControl} fullWidth>
-                <InputLabel id="username-place-select-helper-label">
-                    Kullanıcı adı
+                <InputLabel id="place-block-select-helper-label">
+                    Yer adı
                 </InputLabel>
                 <Select
-                    labelId="username-place-select-helper-label"
-                    id="username-place-select-helper"
-                    value={selectedUser}
+                    labelId="place-block-select-helper-label"
+                    id="place-block-select-helper"
+                    value={selectedPlace}
                     onChange={handleChange}
                 >
                     <MenuItem value="">
                         <em>Seçiniz</em>
                     </MenuItem>
                     {
-                        users.map( user => (
-                            <MenuItem key={user._id} value={user._id}>
-                                {user.username}
+                        places.map( place => (
+                            <MenuItem key={place._id} value={place._id}>
+                                {place.name}
                             </MenuItem>
                         ))
                     }
                 </Select>
-                <FormHelperText>Kullanıcı adı seçiniz</FormHelperText>
+                <FormHelperText>Yer adı seçiniz</FormHelperText>
             </FormControl>
         </React.Fragment>
     )

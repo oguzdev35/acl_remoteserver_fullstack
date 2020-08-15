@@ -25,14 +25,13 @@ export default (props) => {
                 open={open}
                 onClose={handleClose}
                 PaperComponent={PaperComponent}
-                
             >
-                <DialogTitle style={{ cursor: 'move' }} id="delete-place-dialog">
-                    Yer Sil
+                <DialogTitle style={{ cursor: 'move' }} id="delete-block-dialog">
+                    Blok Sil
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Yer bilgileri kalıcı olarak silinecektir. İşleme devam etmek istiyor musunuz?
+                        Blok bilgileri kalıcı olarak silinecektir. İşleme devam etmek istiyor musunuz?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

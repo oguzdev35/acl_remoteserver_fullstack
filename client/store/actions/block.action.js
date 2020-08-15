@@ -22,9 +22,9 @@ export const getBlock = (payload) => ({
 });
 
 
-export const listBlock = () => ({
+export const listBlock = (payload) => ({
     type: LIST_BLOCK,
-    payload: undefined,
+    payload: payload,
     docAction: LOAD_BLOCK
 });
 

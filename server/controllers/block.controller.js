@@ -31,7 +31,7 @@ const list = (req, res) => {
                 return res.status(200).json(blocks)
             }
             return res.status(200).json(
-                blocks.filter( block => place.blocks.includes(block.id))
+                blocks.filter( block => place.blocks.includes(block._id))
             )
         })
         .catch( err => res.status(400).json({
@@ -59,7 +59,7 @@ const inPlace = (req, res, next) => {
     const place = req.place;
     const block = req.block;
 
-    if(!place.blocks.includes(block.id)){
+    if(!place.blocks.includes(block._id)){
         return res.status(403).json({
             'error': "User is not authorized"
         });
@@ -74,7 +74,7 @@ const read = (req, res) => {
 
 const update = (req, res) => {
     let block = req.block;
-    block = extend(door, req.body);
+    block = extend(block, req.body);
     block.updated = Date.now();
 
     block.save()
