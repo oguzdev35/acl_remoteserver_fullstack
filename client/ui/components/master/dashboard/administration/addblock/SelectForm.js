@@ -46,7 +46,6 @@ export default (props) => {
     const userId = useSelector(state => state.user._id);
     const places = useSelector(state => state.places);
     const users = useSelector(state => state.users);
-    const dispatch = useDispatch();
 
     const {
         label, required, varName, formik, buttonText
@@ -56,27 +55,27 @@ export default (props) => {
 
     const [dialog, setDialog] = React.useState(false);
     const [items, setItems] = React.useState([]);
-    const [selectedPlace, setSelectedPlace] = React.useState('');
-
+    const [selectedPlace, setSelectedPlace] = React.useState({
+        _id: '', name: ''
+    });
 
     React.useEffect( () => {
-        dispatch(listPlace({userId: userId}));
         switch(varName){
             case 'places':
-
                 setItems(places.map(({_id, name}) => {
                     return {
                         _id, name
                     }
                 }));
         }
-    }, [])
+    }, [places])
 
     React.useEffect( () => {
         if(selectedPlace._id){
             formik.setFieldValue('placeId', selectedPlace._id)
             formik.setFieldValue('userId', users.find(({places}) => places.includes(selectedPlace._id))._id);
         }
+        console.log(selectedPlace)
     }, [selectedPlace])
 
 
@@ -147,7 +146,7 @@ export default (props) => {
                                 <MenuItem value="">
                                     <em>None</em>
                                 </MenuItem>
-                                {items.map((item) => {
+                                {items.length != 0 && items.map((item) => {
                                         return (
                                             <MenuItem 
                                                 key={item._id}

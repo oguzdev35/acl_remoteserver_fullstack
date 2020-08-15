@@ -21,7 +21,8 @@ const create = (req, res) => {
 }
 
 const list = (req, res) => {
-    const place = req.profile;
+    const user = req.profile;
+    const place = req.place;
     const isMaster = req.isMaster;
     const auth = req.auth;
     Block.find().select('name logs doors createdAt updatedAt')

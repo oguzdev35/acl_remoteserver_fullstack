@@ -33,7 +33,7 @@ const useStyles = makeStyles( (theme) => ({
 const formElements = [
     {varName: 'name', id: 0, type: 'text', label: 'Blok Adı', required: true},
     {varName: 'places', id: 1, type: 'select', label: 'Bağlı Olduğu Yer', required: true, buttonText: 'Yer Seçiniz'},
-    {varName: 'users', type: 'disabled', required: false}
+    {varName: 'users', id: 2, type: 'disabled', required: false}
 ];
 
 export default () => {
@@ -49,6 +49,7 @@ export default () => {
             switch(elem.type){
                 case 'text':
                 case 'disabled':
+                case 'select':
                     newInitialValues[`${elem.varName}`] = '';
                     break;
                 default:
@@ -70,8 +71,10 @@ export default () => {
             const newBlock = {
                 name: values.name
             };
+            console.log(initialValues)
             const placeId = values.placeId;
             const userId = values.userId;
+            console.log(placeId)
             dispatch(createBlock({newBlock: newBlock, placeId: placeId, userId: userId}));
             formik.setValues(initialValues);
         }

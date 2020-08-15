@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 
 import VerticalTab from './VerticalTab';
 import Content from './Content';
@@ -20,9 +20,32 @@ const useStyles = makeStyles( theme => ({
   }
 }));
 
-const contentInjection = (Component, props) => () => {
+const contentInjection = (Component, stateDependencies = [], props) => () => {
 
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+
+  switch(true){
+    case stateDependencies.includes('users'):
+      dispatch(listUser());
+      break;
+    case stateDependencies.includes('places'):
+      dispatch(listPlace({userId: useStore().getState().user._id}));
+      break;
+    case stateDependencies.includes('blocks'):
+      Promise.resolve(dispatch(listPlace({userId: useStore().getState().user._id})))
+        .then( () => {
+            dispatch(listBlock({
+              placeId: useStore().getState().places[0]._id,
+              userId: useStore().getState().user._id
+            }));
+          })
+        .catch( err => console.log(err.message));
+      break;
+    default:
+      break;
+  }
 
   return <div className={classes.content}>
     <Component {...props} />
@@ -64,7 +87,7 @@ const contents = [
   },
   {
     idx: 4, label: 'Blok Kayıt',
-    Component: contentInjection(AddBlock)
+    Component: contentInjection(AddBlock, ['places'])
   },
   {
     idx: 5, label: 'Blok Listesi',
@@ -77,27 +100,15 @@ export default () => {
   const classes = useStyles();
   const [contentValue, setContentValue] = React.useState(0);
   const dispatch = useDispatch();
-  const user = useSelector( state => state.user);
+  const [page, setPage] = React.useState(false);
 
   React.useEffect( () => {
     Promise.resolve(dispatch(listUser()))
-      .then( user => console.log(user))
+      .then( () => setPage(true))
       .catch( err => console.error(err.message))
-
-
-    //     dispatch(listPlace({userId: user._id}))
-    //   ]
-    // ).then( (result) => {
-    //   console.log(result)
-    //   const placeid = result[1];
-    //   if(placeid){
-    //     console.log(placeid)
-    //     dispatch(listBlock({userId: user._id, placeId: place._id}))
-    //   }
-    // })
-    // .catch( err => console.error(err.message))
-
   }, [])
+
+  if(!page) return <> Loading </>
 
   return (
     <div className={classes.root}>
