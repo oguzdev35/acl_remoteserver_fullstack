@@ -60,6 +60,7 @@ import AddPlace from './addplace';
 import ListPlace from './listplace';
 import AddBlock from './addblock';
 import ListBlock from './listblock';
+import AddPerson from './addperson';
 
 
 const contents = [
@@ -86,6 +87,10 @@ const contents = [
   {
     idx: 5, label: 'Blok Listesi',
     Component: contentInjection(ListBlock, ['places'])
+  },
+  {
+    idx: 6, label: 'Personel Kayıt',
+    Component: contentInjection(AddPerson, ['places'])
   }
 ];
 

@@ -17,6 +17,7 @@ let personId = '';
 export default store => next => action => {
     const secretToken = store.getState().user.secretToken;
     const userId = store.getState().user._id;
+    const appId = store.getState().appId;
     next(action);
     switch(action.type){
         case LIST_PERSON:
@@ -43,10 +44,11 @@ export default store => next => action => {
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${secretToken}` 
+                'Authorization': `Bearer ${secretToken}`,
+                'x-app-id': `${appId}`
             };
-            url = `/api/persons/${userId}`;
-            next(apiRequest({body: action.payload, method: 'POST', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
+            url = `/api/persons/${action.payload.placeId}/${action.payload.userId}`;
+            next(apiRequest({body: action.payload.newPerson, method: 'POST', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
         case ASSIGN_PERSON:

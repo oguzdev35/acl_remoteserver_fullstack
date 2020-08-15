@@ -8,14 +8,14 @@ import doorCtrl from '../controllers/door.controller';
 const router = express.Router();
 
 router.route('/api/persons/:placeId/:userId')
-    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.inPlace, personCtrl.list)
-    .post(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.create);
+    .get(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.list)
+    .post(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.create);
 
 
 router.route('/api/persons/:blockId/:personId/:userId')
-    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.inPlace, personCtrl.read)
-    .put(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.inPlace, personCtrl.update)
-    .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.inPlace, personCtrl.remove);
+    .get(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.inPlace, personCtrl.read)
+    .put(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.inPlace, personCtrl.update)
+    .delete(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.inPlace, personCtrl.remove);
 
 // router.route('/api/persons/:personId/:doorId/:blockId/:userId')
 //     .post(authCtrl.requireSignin, authCtrl.hasAuthorization, personCtrl.inPlace, doorCtrl.inUser, personCtrl.assign)
@@ -24,6 +24,5 @@ router.route('/api/persons/:blockId/:personId/:userId')
 router.param('userId', userCtrl.userByID);
 router.param('personId', personCtrl.personByID);
 router.param('placeId', placeCtrl.placeByID);
-router.param('doorId', doorCtrl.doorByID);
 
 export default router;
