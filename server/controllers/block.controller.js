@@ -60,6 +60,7 @@ const inPlace = (req, res, next) => {
     const block = req.block;
 
     if(!place.blocks.includes(block._id)){
+        console.log('blockcontroller - inplace')
         return res.status(403).json({
             'error': "User is not authorized"
         });

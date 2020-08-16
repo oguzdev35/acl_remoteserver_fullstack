@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const DoorSchema = new mongoose.Schema({
-  doorId: {
+  doorTagId: {
     type: String,
     trim: true,
     required: 'Door ID is required',

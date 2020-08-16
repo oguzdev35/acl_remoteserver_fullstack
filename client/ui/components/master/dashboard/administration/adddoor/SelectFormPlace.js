@@ -7,8 +7,9 @@ import {
     Select
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch, useStore } from 'react-redux';
 
+import { listBlock } from '../../../../../../store/actions/block.action';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -49,7 +50,7 @@ export default (props) => {
         label, required, varName, formik, buttonText
     } = props;
     const classes = useStyles();
-
+    const dispatch = useDispatch();
 
     const [dialog, setDialog] = React.useState(false);
     const [items, setItems] = React.useState([]);
@@ -90,6 +91,8 @@ export default (props) => {
 
     const handleClose = () => {
         setDialog(false);
+        dispatch(listBlock({placeId: selectedPlace._id, userId: formik.getFieldProps('userId').value}))
+
     };
 
     return (

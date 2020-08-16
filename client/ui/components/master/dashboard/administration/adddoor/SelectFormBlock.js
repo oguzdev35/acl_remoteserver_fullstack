@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
 export default (props) => {
 
     const places = useSelector(state => state.places);
+    const blocks = useSelector(state => state.blocks);
     const users = useSelector(state => state.users);
 
     const {
@@ -53,35 +54,40 @@ export default (props) => {
 
     const [dialog, setDialog] = React.useState(false);
     const [items, setItems] = React.useState([]);
-    const [selectedPlace, setSelectedPlace] = React.useState('');
+    const [selectedBlock, setSelectedBlock] = React.useState('');
 
     React.useEffect( () => {
         switch(varName){
-            case 'places':
-                setItems(places.map(({_id, name}) => {
-                    return {
-                        _id, name
-                    }
-                }));
+            case 'blocks':
+                const blockIdList = places.find(({_id}) => _id == formik.getFieldProps('placeId').value).blocks
+                console.log(blockIdList);
+                setItems(
+                    blocks
+                        .filter(({_id}) => blockIdList.includes(_id))
+                        .map(({_id, name}) => {
+                            return {
+                                _id, name
+                            }
+                        })
+                );
         }
-    }, [places])
+    }, [places, blocks])
 
     React.useEffect( () => {
-        if(selectedPlace._id){
-            formik.setFieldValue('placeId', selectedPlace._id)
-            formik.setFieldValue('userId', users.find(({places}) => places.includes(selectedPlace._id))._id);
+        if(selectedBlock._id){
+            formik.setFieldValue('blockId', selectedBlock._id)
         }
-    }, [selectedPlace])
+    }, [selectedBlock])
 
 
     const handleChangeText = event => {
-        setSelectedPlace(
+        setSelectedBlock(
             items.find(({name}) => name == event.target.value) || {name: event.target.value, _id: ''}
         )
     };
 
     const handleChangeSelect = event => {
-        setSelectedPlace(event.target.value || {name: '', _id: ''});
+        setSelectedBlock(event.target.value || {name: '', _id: ''});
     }
 
     const handleClickOpen = () => {
@@ -113,7 +119,7 @@ export default (props) => {
                 fullWidth
                 className={classes.form}
                 onChange={handleChangeText}
-                value={selectedPlace.name || ""}
+                value={selectedBlock.name || ""}
                 type={varName}
             />  
         </TableCell>
@@ -130,11 +136,11 @@ export default (props) => {
                 <DialogContent className={classes.dialog}>
                     <form className={classes.container}>
                         <FormControl className={classes.formControl} fullWidth>
-                            <InputLabel htmlFor="place-dialog-non-native-label">Yer</InputLabel>
+                            <InputLabel htmlFor="block-dialog-non-native-label">Yer</InputLabel>
                             <Select
-                                labelId="place-dialog-non-native-label"
-                                id="place-dialog-non-native"
-                                value={selectedPlace}
+                                labelId="block-dialog-non-native-label"
+                                id="block-dialog-non-native"
+                                value={selectedBlock}
                                 onChange={handleChangeSelect}
                                 input={<Input />}
                             >

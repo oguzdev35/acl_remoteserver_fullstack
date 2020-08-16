@@ -55,8 +55,6 @@ export default () => {
         formElements.forEach( elem => {
             switch(elem.type){
                 case 'text':
-                case 'disabled':
-                case 'select':
                     newInitialValues[`${elem.varName}`] = '';
                     break;
                 default:

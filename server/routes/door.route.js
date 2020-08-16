@@ -8,18 +8,18 @@ import authCtrl from '../controllers/auth.controller';
 const router = express.Router();
 
 router.route('/api/doors/:blockId/:placeId/:userId')
-    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.inUser, blockCtrl.inPlace, doorCtrl.inBlock, doorCtrl.list)
-    .post(authCtrl.requireSignin, authCtrl.hasAuthorization, doorCtrl.create);
+    .get(authCtrl.requireSignin,authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, blockCtrl.inPlace, doorCtrl.list)
+    .post(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, doorCtrl.create);
 
 
 router.route('/api/doors/:doorId/:blockId/:placeId/:userId')
-    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.inUser, blockCtrl.inPlace, doorCtrl.inBlock, doorCtrl.read)
-    .put(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.inUser, blockCtrl.inPlace, doorCtrl.inBlock, doorCtrl.update)
-    .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.inUser, blockCtrl.inPlace, doorCtrl.inBlock, doorCtrl.remove);
+    .get(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, blockCtrl.inPlace, doorCtrl.inBlock, doorCtrl.read)
+    .put(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, blockCtrl.inPlace, doorCtrl.inBlock, doorCtrl.update)
+    .delete(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, blockCtrl.inPlace, doorCtrl.inBlock, doorCtrl.remove);
 
 router.param('userId', userCtrl.userByID);
-router.param('doorId', blockCtrl.blockByID);
-router.param('doorId', placeCtrl.placeByID);
+router.param('blockId', blockCtrl.blockByID);
+router.param('placeId', placeCtrl.placeByID);
 router.param('doorId', doorCtrl.doorByID);
 
 export default router;

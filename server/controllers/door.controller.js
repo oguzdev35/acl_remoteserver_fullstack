@@ -5,26 +5,39 @@ import dbErrorHandler from '../helpers/dbErrorHandler';
 
 const create = (req, res) => {
   const door = new Door(req.body);
-  const user = req.profile;
+  const block = req.block;
   door.save()
     .then( () => {
-      user.doors.push(door);
-      user.save()
+      block.doors.push(door);
+      block.save()
         .then( () => res.status(200).json(door))
         .catch( err => res.status(400).json({
             'error': dbErrorHandler.getErrorMessage(err)
         }))
     })
-    .catch( err => res.status(400).json({
+    .catch( err => {
+      res.status(400).json({
         'error': dbErrorHandler.getErrorMessage(err)
-    }));
+      })
+    });
 }
 
 const list = (req, res) => {
   const user = req.profile;
-  Door.find().select('name logs createdAt updatedAt')
+  const auth = req.auth;
+  const block = req.block;
+  const isMaster = req.isMaster;
+  Door.find().select('doorTagId name logs createdAt updatedAt')
+    .then( doors => {
+        if(isMaster && auth._id == user._id){
+            return res.status(200).json(doors)
+        }
+        return res.status(200).json(
+            doors.filter( door => block.doors.includes(door._id))
+        )
+    })
     .then( doors => res.status(200).json(
-        doors.filter( door => user.doors.includes(door.id))
+        doors.filter( door => block.doors.includes(door.id))
     ))
     .catch( err => res.status(400).json({
         'error': dbErrorHandler.getErrorMessage(err)

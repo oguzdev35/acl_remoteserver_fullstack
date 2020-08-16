@@ -9,8 +9,6 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { listPlace } from '../../../../../../store/actions/place.action';
-
 const useStyles = makeStyles((theme) => ({
     root: {
         marginTop: theme.spacing(2),
@@ -43,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default (props) => {
 
-    const userId = useSelector(state => state.user._id);
     const places = useSelector(state => state.places);
     const users = useSelector(state => state.users);
 
@@ -55,9 +52,7 @@ export default (props) => {
 
     const [dialog, setDialog] = React.useState(false);
     const [items, setItems] = React.useState([]);
-    const [selectedPlace, setSelectedPlace] = React.useState({
-        _id: '', name: ''
-    });
+    const [selectedPlace, setSelectedPlace] = React.useState('');
 
     React.useEffect( () => {
         switch(varName){
@@ -73,9 +68,8 @@ export default (props) => {
     React.useEffect( () => {
         if(selectedPlace._id){
             formik.setFieldValue('placeId', selectedPlace._id)
-            formik.setFieldValue('userId', users.find(({places}) => places.includes(selectedPlace._id))._id);
+            formik.setFieldValue('userId', users.find(({places}) => places.includes(selectedPlace._id))._id || '');
         }
-        console.log(selectedPlace)
     }, [selectedPlace])
 
 

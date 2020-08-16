@@ -13,9 +13,10 @@ import {
 
 import Title from './Title';
 import TextForm from './TextForm';
-import SelectForm from './SelectForm';
+import SelectFormPlace from './SelectFormPlace';
+import SelectFormBlock  from './SelectFormBlock';
 
-import { createBlock } from '../../../../../../store/actions/block.action';
+import { createDoor } from '../../../../../../store/actions/door.action';
 
 const useStyles = makeStyles( (theme) => ({
     root: {
@@ -31,9 +32,11 @@ const useStyles = makeStyles( (theme) => ({
 }));
 
 const formElements = [
-    {varName: 'name', id: 0, type: 'text', label: 'Blok Adı', required: true},
-    {varName: 'places', id: 1, type: 'select', label: 'Bağlı Olduğu Yer', required: true, buttonText: 'Yer Seçiniz'},
-    {varName: 'users', id: 2, type: 'disabled', required: false}
+    {varName: 'doorTagId', id: 0, type: 'text', label: 'Kapı Tag ID', required: true},
+    {varName: 'name', id: 1, type: 'text', label: 'İsim', required: true},
+    {varName: 'places', id: 2, type: 'selectplace', label: 'Bağlı Olduğu Yer', required: true, buttonText: 'Yer Seçiniz'},
+    {varName: 'blocks', id: 3, type: 'selectblock', label: 'Bağlı Olduğu Blok', required: true, buttonText: 'Blok Seçiniz'},
+    {varName: 'users', id: 4, type: 'disabled', required: false}
 ];
 
 export default () => {
@@ -66,20 +69,27 @@ export default () => {
     const formik = useFormik({
         initialValues: initialValues,
         onSubmit: values => {
-            const newBlock = {
-                name: values.name
+            const newDoor = {
+                doorTagId: values.doorTagId,
+                name: values.name,
             };
             const placeId = values.placeId;
             const userId = values.userId;
-            dispatch(createBlock({newBlock: newBlock, placeId: placeId, userId: userId}));
+            const blockId = values.blockId;
+
+            console.table(
+                placeId, userId, blockId
+            )
+            dispatch(createDoor({newDoor: newDoor, blockId: blockId, placeId: placeId, userId: userId}));
             formik.setValues(initialValues);
         }
     });
+    
 
 
     return (
         <div className={classes.root}>
-            <Title text="Blok Kayıt Formu" />
+            <Title text="Kapı Kayıt Formu" />
             <form 
                 onSubmit={formik.handleSubmit}
                 className={classes.forms}
@@ -97,7 +107,17 @@ export default () => {
                                             formik={formik}
                                             />}
                                         {
-                                            type === 'select' && <SelectForm 
+                                            type === 'selectplace' && <SelectFormPlace 
+                                                label={label}
+                                                required={required}
+                                                varName={varName}
+                                                formik={formik}
+                                                buttonText={buttonText}
+                                            />
+                                        }
+                                        {
+                                            type === 'selectblock' && 
+                                                formik.values.placeId && <SelectFormBlock 
                                                 label={label}
                                                 required={required}
                                                 varName={varName}

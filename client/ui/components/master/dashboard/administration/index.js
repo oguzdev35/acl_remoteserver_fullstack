@@ -24,6 +24,7 @@ const contentInjection = (Component, stateDependencies = [], props) => () => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
+  const globalState = useStore().getState();
 
 
   switch(true){
@@ -32,16 +33,6 @@ const contentInjection = (Component, stateDependencies = [], props) => () => {
       break;
     case stateDependencies.includes('places'):
       dispatch(listPlace({userId: useStore().getState().user._id}));
-      break;
-    case stateDependencies.includes('blocks'):
-      Promise.resolve(dispatch(listPlace({userId: useStore().getState().user._id})))
-        .then( () => {
-            dispatch(listBlock({
-              placeId: useStore().getState().places[0]._id,
-              userId: useStore().getState().user._id
-            }));
-          })
-        .catch( err => console.log(err.message));
       break;
     default:
       break;
@@ -62,6 +53,7 @@ import AddBlock from './addblock';
 import ListBlock from './listblock';
 import AddPerson from './addperson';
 import ListPerson from './listperson';
+import AddDoor from './adddoor';
 
 const contents = [
   {
@@ -95,6 +87,10 @@ const contents = [
   {
     idx: 7, label: 'Personel Listesi',
     Component: contentInjection(ListPerson, ['places'])
+  },
+  {
+    idx: 8, label: 'Kapı Kayıt',
+    Component: contentInjection(AddDoor, ['places'])
   }
 ];
 
