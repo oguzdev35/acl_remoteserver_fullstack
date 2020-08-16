@@ -27,7 +27,7 @@ export default store => next => action => {
               'Authorization': `Bearer ${secretToken}`,
               'x-app-id': `${appId}`
           };
-          url = `/api/doors/${action.payload.placeId}/${action.payload.userId}`;
+          url = `/api/doors/${action.payload.blockId}/${action.payload.placeId}/${action.payload.userId}`;
           next(apiRequest({body: action.payload, method: 'GET', url: url, headers: headers, feature: DOOR, docAction: action.docAction}));
           next(setLoader({state: true, feature: DOOR}));
           break;

@@ -54,6 +54,7 @@ import ListBlock from './listblock';
 import AddPerson from './addperson';
 import ListPerson from './listperson';
 import AddDoor from './adddoor';
+import ListDoor from './listdoor';
 
 const contents = [
   {
@@ -91,6 +92,10 @@ const contents = [
   {
     idx: 8, label: 'Kapı Kayıt',
     Component: contentInjection(AddDoor, ['places'])
+  },
+  {
+    idx: 9, label: 'Kapı Listesi',
+    Component: contentInjection(ListDoor, ['places'])
   }
 ];
 
