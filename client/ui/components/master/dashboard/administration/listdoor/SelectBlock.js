@@ -8,7 +8,8 @@ import {
 } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { listBlock } from '../../../../../../store/actions/block.action';
+import { listBlock,  } from '../../../../../../store/actions/block.action';
+import { listPlace } from '../../../../../../store/actions/place.action';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -22,22 +23,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default props => {
 
-    const { handleChange, selectedBlock, placeId } = props;
-    const dispatch = useDispatch();
+    const { handleChange, selectedBlock } = props;
 
-    const blockIdList = (useSelector( state => state.places) || []).find(({_id}) => _id == placeId).blocks;
-    const blocks = (useSelector( state => state.blocks) || []).filter(({_id}) => blockIdList.includes(_id));
-    const userId = (useSelector( state => state.users) || []).find(({places}) => places.includes(placeId))._id;
-
-    console.log(blockIdList)
-    console.log(blocks)
+    const blocks = useSelector( state => state.blocks);
 
     const classes = useStyles();
-
-    React.useState( () => {
-        if(userId)
-            dispatch(listBlock({placeId: placeId, userId: userId}));
-    }, [userId])
 
 
     return (

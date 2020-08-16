@@ -24,7 +24,6 @@ export default props => {
     const { handleChange, selectedPlace } = props;
     const classes = useStyles();
 
-
     return (
         <React.Fragment>
             <FormControl className={classes.formControl} fullWidth>

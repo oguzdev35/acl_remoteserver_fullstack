@@ -66,27 +66,25 @@ export default store => next => action => {
             break;
 
         case UPDATE_PLACE:
-            placeId = action.payload.placeId;
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${secretToken}`,
                 'x-app-id': `${appId}`
             };
-            url = `/api/places/${placeId}/${userId}`;
+            url = `/api/places/${action.payload.placeId}/${action.payload.userId}`;
             next(apiRequest({body: action.payload.updatedPlace, method: 'PUT', url: url, headers: headers, feature: PLACE, docAction: action.docAction}));
             next(setLoader({state: true, feature: PLACE}));
             break;
 
         case DELETE_PLACE:
-            placeId = action.payload.placeId;
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${secretToken}`,
                 'x-app-id': `${appId}`
             };
-            url = `/api/places/${placeId}/${userId}`;
+            url = `/api/places/${action.payload.placeId}/${action.payload.userId}`;
             next(apiRequest({body: null, method: 'DELETE', url: url, headers: headers, feature: PLACE, docAction: action.docAction}));
             next(setLoader({state: true, feature: PLACE}));
             break;

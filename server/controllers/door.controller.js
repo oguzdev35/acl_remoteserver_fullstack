@@ -36,9 +36,6 @@ const list = (req, res) => {
             doors.filter( door => block.doors.includes(door._id))
         )
     })
-    .then( doors => res.status(200).json(
-        doors.filter( door => block.doors.includes(door.id))
-    ))
     .catch( err => res.status(400).json({
         'error': dbErrorHandler.getErrorMessage(err)
     }));

@@ -25,20 +25,27 @@ export default (props) => {
     const dispatch = useDispatch();
 
     const [selectedUser, setSelectedUser] = React.useState(useSelector(state => state.user._id));
+    const [loading, setLoading] = React.useState(true);
 
     React.useEffect( () => {
-        dispatch(listPlace({userId: selectedUser}));
+        Promise.resolve(dispatch(listPlace({userId: selectedUser})))
+            .then( () => setLoading(false))
+            .catch( err => console.log(err.message) );
     }, [selectedUser])
 
     const handleChange = event => {
         setSelectedUser(event.target.value);
     }
 
+    if(loading){
+        return <>Loading</>
+    }
+
     return (
         <div className={classes.root}>
             <Title text="Kayıtlı Yer Listesi" />
             <SelectUser selectedUser={selectedUser} handleChange={handleChange} />
-            <TablePlace />
+            <TablePlace selectedUser={selectedUser} />
         </div>
     )
 }

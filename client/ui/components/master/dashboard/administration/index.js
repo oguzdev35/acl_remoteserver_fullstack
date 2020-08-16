@@ -75,7 +75,7 @@ const contents = [
   },
   {
     idx: 4, label: 'Blok Kayıt',
-    Component: contentInjection(AddBlock, ['places'])
+    Component: contentInjection(AddBlock, ['places', 'users'])
   },
   {
     idx: 5, label: 'Blok Listesi',

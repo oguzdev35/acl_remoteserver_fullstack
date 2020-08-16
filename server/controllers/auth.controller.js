@@ -72,10 +72,11 @@ const requireMaster = (req, res, next) => {
 
     User.findById(authId)
         .then( user => {
-            if(!user)
+            if(!user) {
                 return res.status(406).json({
                     'error': "User not found"
                 });
+            }
             if(appID == config.appID && user.isMaster){
                 req.isMaster = true;
                 next();
@@ -84,9 +85,11 @@ const requireMaster = (req, res, next) => {
             }
             
         })
-        .catch( err => res.status(400).json({
-            'error': dbErrorHandler.getErrorMessage(err)
-        }));
+        .catch( err => {
+            res.status(400).json({
+                'error': dbErrorHandler.getErrorMessage(err)
+            })
+        });
 };
 
 const hasAuthorization = (req, res, next) => {

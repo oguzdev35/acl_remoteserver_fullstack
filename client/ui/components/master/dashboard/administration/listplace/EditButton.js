@@ -5,7 +5,7 @@ import {
 import {
     Settings as EditIcon
 } from '@material-ui/icons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 
 
 import { updatePlace } from '../../../../../../store/actions/place.action';
@@ -14,10 +14,10 @@ import EditFullScreenDialog from './EditFullScreenDialog';
 
 export default (props) => {
 
-    const { placeId } = props;
+    const { placeId, userId } = props;
 
     const dispatch = useDispatch();
-
+    
     const [dialog, setDialog] = React.useState(false);
 
     const handleDialogClickOpen = () => {
@@ -29,7 +29,7 @@ export default (props) => {
     }
 
     const handleUpdate =  (updatedPlace) => {
-        dispatch(updatePlace({placeId: placeId, updatedPlace: updatedPlace}));
+        dispatch(updatePlace({placeId: placeId, userId: userId, updatedPlace: updatedPlace}));
         setDialog(false);
     }
 

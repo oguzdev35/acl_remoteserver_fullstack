@@ -2,7 +2,7 @@ import React from 'react';
 import {
     makeStyles
 } from '@material-ui/core/styles';
-import { useDispatch, useStore } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 import Title from './Title';
@@ -11,6 +11,8 @@ import SelectPlace from './SelectPlace';
 import SelectBlock from './SelectBlock';
 
 import { listDoor } from '../../../../../../store/actions/door.action';
+import { listPlace } from '../../../../../../store/actions/place.action';
+import { listBlock } from '../../../../../../store/actions/block.action';
 
 
 const useStyles = makeStyles( (theme) => ({
@@ -24,27 +26,32 @@ export default (props) => {
 
     const classes = useStyles();
     const dispatch = useDispatch();
-    const globalState = useStore().getState();
+    const users = useSelector( state => state.users )
 
     const [selectedPlace, setSelectedPlace] = React.useState("");
     const [selectedBlock, setSelectedBlock] = React.useState("");
 
-    React.useEffect( () => {
-        if((selectedPlace != "" && selectedPlace != undefined) && (selectedBlock != "" && selectedBlock != undefined)){
-            dispatch(listDoor({
-                blockId: selectedBlock,
-                placeId: selectedPlace, 
-                userId: globalState.users.find(({places}) => places.includes(selectedPlace))._id
-            }));
-        }
-    }, [selectedPlace, selectedBlock])
-
     const handleChangePlace = event => {
-        setSelectedPlace(event.target.value);
+        if(selectedPlace){
+            setSelectedBlock("");
+        }
+        const newPlaceId = event.target.value;
+        setSelectedPlace(newPlaceId);
+        dispatch(listBlock({
+            placeId: newPlaceId,
+            userId: users.find(({places}) => places.includes(newPlaceId))._id
+        }))
     }
 
     const handleChangeBlock = event => {
-        setSelectedBlock(event.target.value);
+        const newBlockId = event.target.value;
+        setSelectedBlock(newBlockId);
+        dispatch(listDoor({
+            blockId: newBlockId,
+            placeId: selectedPlace,
+            userId: users.find(({places}) => places.includes(selectedPlace))._id
+        }))
+
     }
 
     return (

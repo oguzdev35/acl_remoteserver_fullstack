@@ -5,7 +5,7 @@ import {
 import {
     Delete as DeleteIcon
 } from '@material-ui/icons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 
 
 import { deletePlace } from '../../../../../../store/actions/place.action';
@@ -18,6 +18,8 @@ export default (props) => {
 
     const [dialog, setDialog] = React.useState(false);
 
+    const { placeId, userId } = props
+
     const handleDialogClickOpen = () => {
         setDialog(true);
     }
@@ -27,7 +29,7 @@ export default (props) => {
     }
 
     const handleDeletion = (events) => {
-        dispatch(deletePlace({placeId: props.placeId}));
+        dispatch(deletePlace({placeId: placeId, userId: userId}));
         setDialog(false);
     }
 

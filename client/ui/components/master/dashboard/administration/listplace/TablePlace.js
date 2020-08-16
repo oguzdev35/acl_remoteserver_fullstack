@@ -50,6 +50,9 @@ const StyledTableCell = withStyles((theme) => ({
   }))(TableRow);
 
 const TablePaginationActions = (props) => {
+
+    const { selectedUser } = props;
+
     const classes = useStyles();
     const theme = useTheme();
     const { count, page, rowsPerPage, onChangePage } = props;
@@ -101,11 +104,13 @@ const TablePaginationActions = (props) => {
 }
 
 
-export default () => {
+export default (props) => {
     const classes = useStyles();
     const places = useSelector( state => state.places) || [];
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+    const { selectedUser } = props
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, places.length - page * rowsPerPage);
 
@@ -143,10 +148,10 @@ export default () => {
                                 {place.createdAt}
                             </TableCell>
                             <TableCell align="left">
-                                <EditButton placeId={place._id} />
+                                <EditButton placeId={place._id} userId={selectedUser}/>
                             </TableCell>
                             <TableCell align="left">
-                                <DeleteButton placeId={place._id} />
+                                <DeleteButton placeId={place._id} userId={selectedUser} />
                             </TableCell>
                         </TableRow>
                     ))}
