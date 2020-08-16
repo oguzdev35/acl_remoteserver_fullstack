@@ -69,7 +69,8 @@ const inPlace = (req, res, next) => {
 }
 
 const read = (req, res) => {
-    return res.status(200).json(req.block);
+    let block = req.block;
+    return res.status(200).json(block);
 }
 
 const update = (req, res) => {

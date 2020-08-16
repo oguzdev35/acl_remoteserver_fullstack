@@ -29,14 +29,15 @@ export default (props) => {
         setDialog(false);
     }
 
-    const handleUpdate =  (updatedBlock) => {
+    const handleUpdate =  (updatedPerson) => {
         const placeId = globalState.places.find(({persons}) => persons.includes(personId))._id;
         const userId = globalState.users.find(({places}) => places.includes(placeId))._id;
-        dispatch(updateBlock({
+        console.log(updatedPerson)
+        dispatch(updatePerson({
             personId: personId, 
             placeId: placeId,
             userId: userId,
-            updatedBlock: updatedBlock
+            updatedPerson: updatedPerson
         }));
         setDialog(false);
     }

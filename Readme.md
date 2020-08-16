@@ -5,3 +5,4 @@ ISSUES
 4- DRY prensibini uygula
 5- Seçeneklere All sekmesi ekle
 6-Load EKranlarını ayarlar
+7-Get_Block ve Get_person action'larını kontrol et

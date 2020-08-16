@@ -27,7 +27,7 @@ const list = (req, res) => {
     const isMaster = req.isMaster;
     const auth = req.auth;
     Person.find()
-        .select('personId firstName lastName phone1 phone2 address1 address2 email createdAt updatedAt doors logs')
+        .select('personTagId firstName lastName phone1 phone2 address1 address2 email createdAt updatedAt doors logs')
         .then( persons => {
             if(isMaster && auth._id == user._id){
                 return res.status(200).json(persons)
@@ -114,11 +114,11 @@ const revoke = (req, res) => {
 
 const remove = (req, res) => {
     let person = req.person;
-    const user = req.profile;
+    const place = req.place;
     person.remove()
         .then( deletedPerson => {
-          user.doors.pull(deletedPerson);
-          user.save()
+          place.doors.pull(deletedPerson);
+          place.save()
             .then( () => res.status(200).json(deletedPerson))
             .catch( err => res.status(400).json({
                 'error': dbErrorHandler.getErrorMessage(err)

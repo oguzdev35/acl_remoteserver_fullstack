@@ -13,6 +13,7 @@ import {
 import { useSelector } from 'react-redux';
 
 import TextForm from './TextForm';
+import { updatePerson } from '../../../../../../store/actions/person.action';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -54,30 +55,19 @@ const Transition = React.forwardRef( (props, ref) => (
 export default (props) => {
 
     const { handleClose, open, handleUpdate, personId } = props;
-    const [initialValues, setInitialValues] = React.useState({});
     const classes = useStyles();
-    const person = useSelector( state => state.blocks.find( ({_id}) => _id == personId ));
+    const person = useSelector( state => state.persons.find( ({_id}) => _id == personId ));
 
-    const resetInitialValues = () => {
-        let newInitialValues = {};
-
-        formElements.forEach( elem => {
-            switch(elem.type){
-                case 'text':
-                case 'disabled':
-                case 'select':
-                    newInitialValues[`${elem.varName}`] = '';
-                    break;
-                default:
-                    break;
-            }
-        });
-        setInitialValues(newInitialValues);
-    }
-
-    React.useEffect( () => {
-        resetInitialValues();
-    }, []);
+    const initialValues = {
+        personTagId: person.personTagId,
+        firstName: person.firstName,
+        lastName: person.lastName,
+        phone1: person.phone1,
+        phone2: person.phone2,
+        address1: person.address1,
+        address2: person.address2,
+        email: person.email,
+    };
 
     const formik = useFormik({
         initialValues: initialValues,

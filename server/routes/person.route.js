@@ -12,7 +12,7 @@ router.route('/api/persons/:placeId/:userId')
     .post(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.create);
 
 
-router.route('/api/persons/:blockId/:personId/:userId')
+router.route('/api/persons/:personId/:placeId/:userId')
     .get(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.inPlace, personCtrl.read)
     .put(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.inPlace, personCtrl.update)
     .delete(authCtrl.requireSignin, authCtrl.requireMaster, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.inPlace, personCtrl.remove);
