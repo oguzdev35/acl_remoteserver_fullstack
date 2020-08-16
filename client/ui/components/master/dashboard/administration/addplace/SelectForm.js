@@ -72,8 +72,6 @@ export default (props) => {
         }
     }, [selectedUser])
 
-    console.log(selectedUser);
-
     const handleChangeText = event => {
         setSelectedUser(
             items.find(({username}) => username == event.target.value) || {username: event.target.value, _id: ''}

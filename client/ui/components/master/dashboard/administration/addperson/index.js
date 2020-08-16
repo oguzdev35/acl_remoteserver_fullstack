@@ -76,7 +76,7 @@ export default () => {
         initialValues: initialValues,
         onSubmit: values => {
             const newPerson = {
-                personId: values.personTagId,
+                personTagId: values.personTagId,
                 firstName: values.firstName,
                 lastName: values.lastName,
                 phone1: values.phone1,

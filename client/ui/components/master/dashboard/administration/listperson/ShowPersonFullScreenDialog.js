@@ -34,8 +34,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const formElements = [
-    {varName: 'name', id: 0, type: 'text', label: 'Yer Adı'},
-    {varName: 'address', id: 1, type: 'text', label: 'Adres'}, 
+    {varName: 'personTagId', id: 0, type: 'text', label: 'PersonId'},
+    {varName: 'firstName', id: 1, type: 'text', label: 'İsim'},
+    {varName: 'lastName', id: 2, type: 'text', label: 'Soyisim'},
+    {varName: 'phone1', id: 3, type: 'text', label: 'Telefon-1'},
+    {varName: 'phone2', id: 4, type: 'text', label: 'Telefon-2'},
+    {varName: 'address1', id: 5, type: 'text', label: 'Adres-1'},
+    {varName: 'address2', id: 6, type: 'text', label: 'Adres-2'},
+    {varName: 'email', id: 7, type: 'text', label: 'Email'}
 ];
 
 const Transition = React.forwardRef( (props, ref) => (
@@ -45,9 +51,9 @@ const Transition = React.forwardRef( (props, ref) => (
 
 export default (props) => {
 
-    const { handleClose, open, blockId } = props;
+    const { handleClose, open, personId } = props;
     const classes = useStyles();
-    const block = useSelector( state => state.blocks.find( ({_id}) => _id == blockId ));
+    const person = useSelector( state => state.persons.find( ({_id}) => _id == personId ));
 
     return (
         <React.Fragment>
@@ -71,7 +77,7 @@ export default (props) => {
                                             { type === 'text' && 
 
                                                 <>
-                                                    <Typography>{label} : {block[`${varName}`]}</Typography>
+                                                    <Typography>{label} : {person[`${varName}`]}</Typography>
                                                 </>
 
                                             }

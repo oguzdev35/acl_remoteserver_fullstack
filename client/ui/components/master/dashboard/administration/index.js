@@ -61,7 +61,7 @@ import ListPlace from './listplace';
 import AddBlock from './addblock';
 import ListBlock from './listblock';
 import AddPerson from './addperson';
-
+import ListPerson from './listperson';
 
 const contents = [
   {
@@ -91,6 +91,10 @@ const contents = [
   {
     idx: 6, label: 'Personel Kayıt',
     Component: contentInjection(AddPerson, ['places'])
+  },
+  {
+    idx: 7, label: 'Personel Listesi',
+    Component: contentInjection(ListPerson, ['places'])
   }
 ];
 

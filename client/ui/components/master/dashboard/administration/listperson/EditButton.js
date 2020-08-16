@@ -8,13 +8,13 @@ import {
 import { useDispatch, useStore } from 'react-redux';
 
 
-import { updateBlock } from '../../../../../../store/actions/block.action';
+import { updatePerson } from '../../../../../../store/actions/person.action';
 
 import EditFullScreenDialog from './EditFullScreenDialog';
 
 export default (props) => {
 
-    const { blockId } = props;
+    const { personId } = props;
 
     const dispatch = useDispatch();
     const globalState = useStore().getState();
@@ -30,10 +30,10 @@ export default (props) => {
     }
 
     const handleUpdate =  (updatedBlock) => {
-        const placeId = globalState.places.find(({blocks}) => blocks.includes(blockId))._id;
+        const placeId = globalState.places.find(({persons}) => persons.includes(personId))._id;
         const userId = globalState.users.find(({places}) => places.includes(placeId))._id;
         dispatch(updateBlock({
-            blockId: blockId, 
+            personId: personId, 
             placeId: placeId,
             userId: userId,
             updatedBlock: updatedBlock
@@ -52,7 +52,7 @@ export default (props) => {
                 handleClose={handleDialogClose} 
                 open={dialog} 
                 handleUpdate={handleUpdate}
-                blockId={blockId}
+                personId={personId}
             />
         </React.Fragment>
     )

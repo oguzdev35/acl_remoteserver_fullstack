@@ -20,9 +20,9 @@ export const getPerson = (payload) => ({
     docAction: SET_PERSON
 });
 
-export const listPerson = () => ({
+export const listPerson = (payload) => ({
     type: LIST_PERSON,
-    payload: undefined,
+    payload: payload,
     docAction: LOAD_PERSON
 });
 

@@ -6,10 +6,10 @@ import { useDispatch, useStore } from 'react-redux';
 
 
 import Title from './Title';
-import TableBlock from './TableBlock';
+import TablePerson from './TablePerson';
 import SelectPlace from './SelectPlace';
 
-import { listBlock } from '../../../../../../store/actions/block.action';
+import { listPerson } from '../../../../../../store/actions/person.action';
 
 
 const useStyles = makeStyles( (theme) => ({
@@ -29,7 +29,7 @@ export default (props) => {
 
     React.useEffect( () => {
         if(selectedPlace != "" && selectedPlace != undefined){
-            dispatch(listBlock({
+            dispatch(listPerson({
                 placeId: selectedPlace, 
                 userId: globalState.users.find(({places}) => places.includes(selectedPlace))._id
             }));
@@ -41,15 +41,11 @@ export default (props) => {
         setSelectedPlace(event.target.value);
     }
 
-    // React.useEffect( () => {
-    //     setSelectedPlace(globalState.places[0]._id);
-    // }, [])
-
     return (
         <div className={classes.root}>
             <Title text="Kayıtlı Yer Listesi" />
             <SelectPlace selectedPlace={selectedPlace} handleChange={handleChange} />
-            <TableBlock />
+            <TablePerson />
         </div>
     )
 }

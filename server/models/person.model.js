@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const PersonSchema = new mongoose.Schema({
-  personId: {
+  personTagId: {
     type: String,
     trim: true,
     required: 'Person ID is required',

@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux';
 
 import DeleteButton from './DeleteButton';
 import EditButton from './EditButton';
-import ShowBlock from './ShowBlock';
+import ShowPerson from './ShowPerson';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -103,11 +103,11 @@ const TablePaginationActions = (props) => {
 
 export default () => {
     const classes = useStyles();
-    const blocks = useSelector( state => state.blocks) || [];
+    const persons = useSelector( state => state.persons) || [];
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, blocks.length - page * rowsPerPage);
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, persons.length - page * rowsPerPage);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -124,7 +124,7 @@ export default () => {
             <Table className={classes.table}>
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell>Blok Adı</StyledTableCell>
+                        <StyledTableCell>Personel Adı-Soyadı</StyledTableCell>
                         <StyledTableCell>Kayıt&nbsp;Tarihi</StyledTableCell>
                         <StyledTableCell align="left">Düzenle</StyledTableCell>
                         <StyledTableCell align="left">Sil</StyledTableCell>
@@ -132,21 +132,25 @@ export default () => {
                 </TableHead>
                 <TableBody>
                     {(rowsPerPage > 0
-                        ? blocks.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        : blocks 
-                    ).map((block) => (
-                        <TableRow key={block._id} hover={true}>
+                        ? persons.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        : persons 
+                    ).map((person) => (
+                        <TableRow key={person._id} hover={true}>
                             <TableCell align="left">
-                                <ShowBlock blockname={block.name} blockId={block._id} />
+                                <ShowPerson 
+                                    firstName={person.firstName} 
+                                    lastName={person.lastName}
+                                    personId={person._id} 
+                                />
                             </TableCell>
                             <TableCell align="left">
-                                {block.createdAt}
+                                {person.createdAt}
                             </TableCell>
                             <TableCell align="left">
-                                <EditButton blockId={block._id} />
+                                <EditButton personId={person._id} />
                             </TableCell>
                             <TableCell align="left">
-                                <DeleteButton blockId={block._id} />
+                                <DeleteButton personId={person._id} />
                             </TableCell>
                         </TableRow>
                     ))}
@@ -160,10 +164,10 @@ export default () => {
                 <TableFooter>
                     <TableRow>
                         <TablePagination
-                            labelRowsPerPage="Sayfa Başına Blok Sayısı"
+                            labelRowsPerPage="Sayfa Başına Personel Sayısı"
                             rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                             colSpan={3}
-                            count={blocks.length || 0}
+                            count={persons.length || 0}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             SelectProps={{

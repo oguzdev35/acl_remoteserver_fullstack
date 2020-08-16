@@ -28,12 +28,12 @@ export default props => {
     return (
         <React.Fragment>
             <FormControl className={classes.formControl} fullWidth>
-                <InputLabel id="place-block-select-helper-label">
+                <InputLabel id="place-person-select-helper-label">
                     Yer adı
                 </InputLabel>
                 <Select
-                    labelId="place-block-select-helper-label"
-                    id="place-block-select-helper"
+                    labelId="place-person-select-helper-label"
+                    id="place-person-select-helper"
                     value={selectedPlace}
                     onChange={handleChange}
                 >

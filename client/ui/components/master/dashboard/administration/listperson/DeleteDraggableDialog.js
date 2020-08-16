@@ -26,12 +26,12 @@ export default (props) => {
                 onClose={handleClose}
                 PaperComponent={PaperComponent}
             >
-                <DialogTitle style={{ cursor: 'move' }} id="delete-block-dialog">
+                <DialogTitle style={{ cursor: 'move' }} id="delete-person-dialog">
                     Blok Sil
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Blok bilgileri kalıcı olarak silinecektir. İşleme devam etmek istiyor musunuz?
+                        Personel bilgileri kalıcı olarak silinecektir. İşleme devam etmek istiyor musunuz?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

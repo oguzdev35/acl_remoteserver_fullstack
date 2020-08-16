@@ -8,7 +8,7 @@ import {
 import { useDispatch, useStore } from 'react-redux';
 
 
-import { deleteBlock } from '../../../../../../store/actions/block.action';
+import { deletePerson } from '../../../../../../store/actions/person.action';
 
 import DeleteDraggableDialog from './DeleteDraggableDialog';
 
@@ -16,7 +16,7 @@ export default (props) => {
 
     const dispatch = useDispatch();
     const globalState = useStore().getState();
-    const { blockId } = props;
+    const { personId } = props;
 
     const [dialog, setDialog] = React.useState(false);
 
@@ -29,10 +29,10 @@ export default (props) => {
     }
 
     const handleDeletion = (events) => {
-        const placeId = globalState.places.find(({blocks}) => blocks.includes(blockId))._id;
+        const placeId = globalState.places.find(({persons}) => persons.includes(personId))._id;
         const userId = globalState.users.find(({places}) => places.includes(placeId))._id;
         dispatch(deleteBlock({
-            blockId: blockId,
+            personId: personId,
             placeId: placeId,
             userId: userId
         }));

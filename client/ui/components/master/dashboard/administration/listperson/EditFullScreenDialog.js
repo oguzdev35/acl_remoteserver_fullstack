@@ -36,7 +36,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const formElements = [
-    {varName: 'name', id: 0, type: 'text', label: 'Blok Adı'},
+    {varName: 'personTagId', id: 0, type: 'text', label: 'PersonId'},
+    {varName: 'firstName', id: 1, type: 'text', label: 'İsim'},
+    {varName: 'lastName', id: 2, type: 'text', label: 'Soyisim'},
+    {varName: 'phone1', id: 3, type: 'text', label: 'Telefon-1'},
+    {varName: 'phone2', id: 4, type: 'text', label: 'Telefon-2'},
+    {varName: 'address1', id: 5, type: 'text', label: 'Adres-1'},
+    {varName: 'address2', id: 6, type: 'text', label: 'Adres-2'},
+    {varName: 'email', id: 7, type: 'text', label: 'Email'}
 ];
 
 const Transition = React.forwardRef( (props, ref) => (
@@ -46,20 +53,46 @@ const Transition = React.forwardRef( (props, ref) => (
 
 export default (props) => {
 
-    const { handleClose, open, handleUpdate, blockId } = props;
+    const { handleClose, open, handleUpdate, personId } = props;
+    const [initialValues, setInitialValues] = React.useState({});
     const classes = useStyles();
-    const block = useSelector( state => state.blocks.find( ({_id}) => _id == blockId ));
+    const person = useSelector( state => state.blocks.find( ({_id}) => _id == personId ));
 
-    const initialValues = {
-        name: block.name,
-    };
+    const resetInitialValues = () => {
+        let newInitialValues = {};
+
+        formElements.forEach( elem => {
+            switch(elem.type){
+                case 'text':
+                case 'disabled':
+                case 'select':
+                    newInitialValues[`${elem.varName}`] = '';
+                    break;
+                default:
+                    break;
+            }
+        });
+        setInitialValues(newInitialValues);
+    }
+
+    React.useEffect( () => {
+        resetInitialValues();
+    }, []);
 
     const formik = useFormik({
         initialValues: initialValues,
         onSubmit: values => {
-            handleUpdate({
-                name: values.name
-            });
+            const updatedPerson = {
+                personTagId: values.personTagId,
+                firstName: values.firstName,
+                lastName: values.lastName,
+                phone1: values.phone1,
+                phone2: values.phone2,
+                address1: values.address1,
+                address2: values.address2,
+                email: values.email
+            };
+            handleUpdate(updatedPerson);
         }
     });
 
@@ -76,7 +109,7 @@ export default (props) => {
                                     <CloseIcon />
                                 </IconButton>
                                 <Typography variant="h6" className={classes.title}>
-                                    Blok Kayıt Düzenleme
+                                    Personel Kayıt Düzenleme
                                 </Typography>
                                 <Button autoFocus color="inherit" type="submit">
                                     Kaydet

@@ -24,9 +24,10 @@ export default store => next => action => {
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${secretToken}` 
+                'Authorization': `Bearer ${secretToken}`,
+                'x-app-id': `${appId}`
             };
-            url = `/api/persons/${userId}`;
+            url = `/api/persons/${action.payload.placeId}/${action.payload.userId}`;
             next(apiRequest({body: action.payload, method: 'GET', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
