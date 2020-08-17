@@ -43,7 +43,7 @@ export default (props) => {
 
     return (
         <div className={classes.root}>
-            <Title text="Kayıtlı Yer Listesi" />
+            <Title text="Kayıtlı Blok Listesi" />
             <SelectPlace selectedPlace={selectedPlace} handleChange={handleChange} />
             <TableBlock />
         </div>
