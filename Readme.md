@@ -9,3 +9,4 @@ ISSUES
 8-localstorage - redux-persistence ayarla - sessionstorage'a geç
 9-Blok eklemede sıkıntı var. listeleme - state management kontrol et
 10- Tüm listelemeleri kontrol et - veri akışını düzenle
+11- show* 'ları düzenle listelerdeki

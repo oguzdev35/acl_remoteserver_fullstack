@@ -2,7 +2,7 @@ import React from 'react';
 import {
     makeStyles
 } from '@material-ui/core/styles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 
 
 import Title from './Title';
@@ -11,7 +11,6 @@ import SelectPlace from './SelectPlace';
 import SelectBlock from './SelectBlock';
 
 import { listDoor } from '../../../../../../store/actions/door.action';
-import { listPlace } from '../../../../../../store/actions/place.action';
 import { listBlock } from '../../../../../../store/actions/block.action';
 
 
@@ -26,7 +25,7 @@ export default (props) => {
 
     const classes = useStyles();
     const dispatch = useDispatch();
-    const users = useSelector( state => state.users )
+    const globalState = useStore().getState();
 
     const [selectedPlace, setSelectedPlace] = React.useState("");
     const [selectedBlock, setSelectedBlock] = React.useState("");
@@ -39,7 +38,7 @@ export default (props) => {
         setSelectedPlace(newPlaceId);
         dispatch(listBlock({
             placeId: newPlaceId,
-            userId: users.find(({places}) => places.includes(newPlaceId))._id
+            userId: globalState.user._id
         }))
     }
 
@@ -49,14 +48,14 @@ export default (props) => {
         dispatch(listDoor({
             blockId: newBlockId,
             placeId: selectedPlace,
-            userId: users.find(({places}) => places.includes(selectedPlace))._id
+            userId: globalState.user._id
         }))
 
     }
 
     return (
         <div className={classes.root}>
-            <Title text="Kayıtlı Yer Listesi" />
+            <Title text="Kayıtlı Kapı Listesi" />
             <SelectPlace selectedPlace={selectedPlace} handleChange={handleChangePlace} />
             {selectedPlace && <SelectBlock selectedBlock={selectedBlock} handleChange={handleChangeBlock} placeId={selectedPlace}/>}
             <TableDoor />

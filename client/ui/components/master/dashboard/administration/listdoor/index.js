@@ -56,7 +56,7 @@ export default (props) => {
 
     return (
         <div className={classes.root}>
-            <Title text="Kayıtlı Yer Listesi" />
+            <Title text="Kayıtlı Kapı Listesi" />
             <SelectPlace selectedPlace={selectedPlace} handleChange={handleChangePlace} />
             {selectedPlace && <SelectBlock selectedBlock={selectedBlock} handleChange={handleChangeBlock} placeId={selectedPlace}/>}
             <TableDoor />

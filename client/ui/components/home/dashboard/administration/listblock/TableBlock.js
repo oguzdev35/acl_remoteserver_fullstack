@@ -14,8 +14,7 @@ import {
 } from '@material-ui/icons';
 import { useSelector } from 'react-redux';
 
-import DeleteButton from './DeleteButton';
-import EditButton from './EditButton';
+
 import ShowBlock from './ShowBlock';
 
 const useStyles = makeStyles((theme) => ({
@@ -126,8 +125,6 @@ export default () => {
                     <TableRow>
                         <StyledTableCell>Blok Adı</StyledTableCell>
                         <StyledTableCell>Kayıt&nbsp;Tarihi</StyledTableCell>
-                        <StyledTableCell align="left">Düzenle</StyledTableCell>
-                        <StyledTableCell align="left">Sil</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -141,12 +138,6 @@ export default () => {
                             </TableCell>
                             <TableCell align="left">
                                 {block.createdAt}
-                            </TableCell>
-                            <TableCell align="left">
-                                <EditButton blockId={block._id} />
-                            </TableCell>
-                            <TableCell align="left">
-                                <DeleteButton blockId={block._id} />
                             </TableCell>
                         </TableRow>
                     ))}

@@ -58,7 +58,7 @@ const inUser = (req, res, next) => {
     const user = req.profile;
     const place = req.place;
 
-    if(!user.places.includes(place._id) || !req.isMaster){
+    if(!user.places.includes(place._id) && !req.isMaster){
         console.log('I am here')
         return res.status(403).json({
             'error': "User is not authorized"

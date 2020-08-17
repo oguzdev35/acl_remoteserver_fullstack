@@ -55,17 +55,17 @@ const contents = [
     Component: contentInjection(ListBlock, ['places'])
   },
   {
-    idx: 2, label: 'Personel Kayıt',
+    idx: 2, label: 'Kapı Listesi',
+    Component: contentInjection(ListDoor, ['places'])
+  },
+  {
+    idx: 3, label: 'Personel Kayıt',
     Component: contentInjection(AddPerson, ['places'])
   },
   {
-    idx: 3, label: 'Personel Listesi',
+    idx: 4, label: 'Personel Listesi',
     Component: contentInjection(ListPerson, ['places'])
   },
-  {
-    idx: 4, label: 'Kapı Listesi',
-    Component: contentInjection(ListDoor, ['places'])
-  }
 ];
 
 export default () => {
