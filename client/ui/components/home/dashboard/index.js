@@ -22,6 +22,7 @@ const useStyles = makeStyles( theme => ({
   }
 }));
 
+
 const contentInjection = (Component, props) => () => {
 
   const classes = useStyles();

@@ -13,6 +13,7 @@ import {
 import { useSelector } from 'react-redux';
 
 import TextForm from './TextForm';
+import { updatePerson } from '../../../../../../store/actions/person.action';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,14 +37,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const formElements = [
-    {varName: 'personid', id: 0, type: 'text', label: 'Personel ID', required: true},
-    {varName: 'firstname', id: 1, type: 'text', label: 'İsim', required: true}, 
-    {varName: 'lastname', id: 2, type: 'text', label: 'Soyisim', required: true}, 
-    {varName: 'email', id: 3, type: 'text', label: 'Email Adresi'}, 
-    {varName: 'phone1', id: 4, type: 'text', label: 'Telefon numarası(1)', required: true}, 
-    {varName: 'phone2', id: 5, type: 'text', label: 'Telefon numarası(2)'}, 
-    {varName: 'address1', id: 6, type: 'text', label: 'Adres(1)', required: true}, 
-    {varName: 'address2', id: 7, type: 'text', label: 'Adres(2)'}, 
+    {varName: 'personTagId', id: 0, type: 'text', label: 'PersonId'},
+    {varName: 'firstName', id: 1, type: 'text', label: 'İsim'},
+    {varName: 'lastName', id: 2, type: 'text', label: 'Soyisim'},
+    {varName: 'phone1', id: 3, type: 'text', label: 'Telefon-1'},
+    {varName: 'phone2', id: 4, type: 'text', label: 'Telefon-2'},
+    {varName: 'address1', id: 5, type: 'text', label: 'Adres-1'},
+    {varName: 'address2', id: 6, type: 'text', label: 'Adres-2'},
+    {varName: 'email', id: 7, type: 'text', label: 'Email'}
 ];
 
 const Transition = React.forwardRef( (props, ref) => (
@@ -58,29 +59,30 @@ export default (props) => {
     const person = useSelector( state => state.persons.find( ({_id}) => _id == personId ));
 
     const initialValues = {
-        personid: person.personId,
-        firstname: person.firstName,
-        lastname: person.lastName,
+        personTagId: person.personTagId,
+        firstName: person.firstName,
+        lastName: person.lastName,
         phone1: person.phone1,
         phone2: person.phone2,
         address1: person.address1,
         address2: person.address2,
-        email: person.email
+        email: person.email,
     };
 
     const formik = useFormik({
         initialValues: initialValues,
         onSubmit: values => {
-            handleUpdate({
-                personId: values.personid,
-                firstName: values.firstname,
-                lastName: values.lastname,
+            const updatedPerson = {
+                personTagId: values.personTagId,
+                firstName: values.firstName,
+                lastName: values.lastName,
                 phone1: values.phone1,
                 phone2: values.phone2,
                 address1: values.address1,
                 address2: values.address2,
                 email: values.email
-            });
+            };
+            handleUpdate(updatedPerson);
         }
     });
 

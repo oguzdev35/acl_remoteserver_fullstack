@@ -8,7 +8,7 @@ import Draggable from 'react-draggable';
 
 const PaperComponent = props => (
     <Draggable
-        handle="#delete-person-dialog"
+        handle="#delete-place-dialog"
     >
         <Paper {...props} />
     </Draggable>
@@ -25,10 +25,9 @@ export default (props) => {
                 open={open}
                 onClose={handleClose}
                 PaperComponent={PaperComponent}
-                
             >
                 <DialogTitle style={{ cursor: 'move' }} id="delete-person-dialog">
-                    Personel Sil
+                    Blok Sil
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>

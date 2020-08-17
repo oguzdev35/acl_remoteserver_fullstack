@@ -5,7 +5,7 @@ import {
 import {
     Delete as DeleteIcon
 } from '@material-ui/icons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 
 
 import { deletePerson } from '../../../../../../store/actions/person.action';
@@ -15,6 +15,8 @@ import DeleteDraggableDialog from './DeleteDraggableDialog';
 export default (props) => {
 
     const dispatch = useDispatch();
+    const globalState = useStore().getState();
+    const { personId } = props;
 
     const [dialog, setDialog] = React.useState(false);
 
@@ -27,7 +29,13 @@ export default (props) => {
     }
 
     const handleDeletion = (events) => {
-        dispatch(deletePerson({personId: props.personId}));
+        const placeId = globalState.places.find(({persons}) => persons.includes(personId))._id;
+        const userId = globalState.users.find(({places}) => places.includes(placeId))._id;
+        dispatch(deleteBlock({
+            personId: personId,
+            placeId: placeId,
+            userId: userId
+        }));
         setDialog(false);
     }
 

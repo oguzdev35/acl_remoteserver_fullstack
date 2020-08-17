@@ -1,11 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 
 import VerticalTab from './VerticalTab';
 import Content from './Content';
 
-import { listPerson } from '../../../../../store/actions/person.action';
+import { listPlace } from '../../../../../store/actions/place.action';
 
 const useStyles = makeStyles( theme => ({
   root: {
@@ -18,9 +18,19 @@ const useStyles = makeStyles( theme => ({
   }
 }));
 
-const contentInjection = (Component, props) => () => {
+const contentInjection = (Component, stateDependencies = [], props) => () => {
 
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+
+  switch(true){
+    case stateDependencies.includes('places'):
+      dispatch(listPlace({userId: useStore().getState().user._id}));
+      break;
+    default:
+      break;
+  }
 
   return <div className={classes.content}>
     <Component {...props} />
@@ -29,30 +39,39 @@ const contentInjection = (Component, props) => () => {
 };
 
 
+import ListPlace from './listplace';
+import ListBlock from './listblock';
 import AddPerson from './addperson';
-import ListPerson from './listpersons';
-
+import ListPerson from './listperson';
+import ListDoor from './listdoor';
 
 const contents = [
   {
-    idx: 0, label: 'Personel Listesi', 
-    Component: contentInjection(ListPerson)
+    idx: 0, label: 'Yer Listesi',
+    Component: contentInjection(ListPlace)
   },
   {
-    idx: 1, label: 'Personel Kayıt', 
-    Component: contentInjection(AddPerson)
+    idx: 1, label: 'Blok Listesi',
+    Component: contentInjection(ListBlock, ['places'])
+  },
+  {
+    idx: 2, label: 'Personel Kayıt',
+    Component: contentInjection(AddPerson, ['places'])
+  },
+  {
+    idx: 3, label: 'Personel Listesi',
+    Component: contentInjection(ListPerson, ['places'])
+  },
+  {
+    idx: 4, label: 'Kapı Listesi',
+    Component: contentInjection(ListDoor, ['places'])
   }
-]
+];
 
 export default () => {
 
   const classes = useStyles();
   const [contentValue, setContentValue] = React.useState(0);
-  const dispatch = useDispatch();
-
-  React.useEffect( () => {
-    dispatch(listPerson());
-  }, [])
 
   return (
     <div className={classes.root}>

@@ -14,8 +14,7 @@ import {
 } from '@material-ui/icons';
 import { useSelector } from 'react-redux';
 
-import DeleteButton from './DeleteButton';
-import EditButton from './EditButton';
+import ShowPlace from './ShowPlace';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -49,6 +48,9 @@ const StyledTableCell = withStyles((theme) => ({
   }))(TableRow);
 
 const TablePaginationActions = (props) => {
+
+    const { selectedUser } = props;
+
     const classes = useStyles();
     const theme = useTheme();
     const { count, page, rowsPerPage, onChangePage } = props;
@@ -100,13 +102,15 @@ const TablePaginationActions = (props) => {
 }
 
 
-export default () => {
+export default (props) => {
     const classes = useStyles();
-    const persons = useSelector( state => state.persons) || [];
+    const places = useSelector( state => state.places) || [];
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, persons.length - page * rowsPerPage);
+    const { selectedUser } = props
+
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, places.length - page * rowsPerPage);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -123,29 +127,21 @@ export default () => {
             <Table className={classes.table}>
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell>Ad&nbsp;-&nbsp;Soyad</StyledTableCell>
+                        <StyledTableCell>Yer Adı</StyledTableCell>
                         <StyledTableCell>Kayıt&nbsp;Tarihi</StyledTableCell>
-                        <StyledTableCell align="left">Düzenle</StyledTableCell>
-                        <StyledTableCell align="left">Sil</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {(rowsPerPage > 0
-                        ? persons.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        : persons
-                    ).map((person) => (
-                        <TableRow key={person._id} hover={true}>
+                        ? places.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        : places 
+                    ).map((place) => (
+                        <TableRow key={place._id} hover={true}>
                             <TableCell align="left">
-                                {person.firstName} {person.lastName}
+                                <ShowPlace placename={place.name} placeId={place._id} />
                             </TableCell>
                             <TableCell align="left">
-                                {person.createdAt}
-                            </TableCell>
-                            <TableCell align="left">
-                                <EditButton personId={person._id} />
-                            </TableCell>
-                            <TableCell align="left">
-                                <DeleteButton personId={person._id} />
+                                {place.createdAt}
                             </TableCell>
                         </TableRow>
                     ))}
@@ -159,10 +155,10 @@ export default () => {
                 <TableFooter>
                     <TableRow>
                         <TablePagination
-                            labelRowsPerPage="Sayfa Başına Kişi Sayısı"
+                            labelRowsPerPage="Sayfa Başına Yer Sayısı"
                             rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                             colSpan={3}
-                            count={persons.length || 0}
+                            count={places.length || 0}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             SelectProps={{

@@ -13,6 +13,7 @@ import {
 
 import Title from './Title';
 import TextForm from './TextForm';
+import SelectForm from './SelectForm';
 
 import { createPerson } from '../../../../../../store/actions/person.action';
 
@@ -30,14 +31,16 @@ const useStyles = makeStyles( (theme) => ({
 }));
 
 const formElements = [
-    {varName: 'personid', id: 0, type: 'text', label: 'Personel ID', required: true},
-    {varName: 'firstname', id: 1, type: 'text', label: 'İsim', required: true}, 
-    {varName: 'lastname', id: 2, type: 'text', label: 'Soyisim', required: true}, 
-    {varName: 'email', id: 3, type: 'text', label: 'Email Adresi'}, 
-    {varName: 'phone1', id: 4, type: 'text', label: 'Telefon numarası(1)', required: true}, 
-    {varName: 'phone2', id: 5, type: 'text', label: 'Telefon numarası(2)'}, 
-    {varName: 'address1', id: 6, type: 'text', label: 'Adres(1)', required: true}, 
-    {varName: 'address2', id: 7, type: 'text', label: 'Adres(2)'}, 
+    {varName: 'personTagId', id: 0, type: 'text', label: 'PersonId', required: true},
+    {varName: 'firstName', id: 1, type: 'text', label: 'İsim', required: true},
+    {varName: 'lastName', id: 2, type: 'text', label: 'Soyisim', required: true},
+    {varName: 'phone1', id: 3, type: 'text', label: 'Telefon-1', required: true},
+    {varName: 'phone2', id: 4, type: 'text', label: 'Telefon-2', required: true},
+    {varName: 'address1', id: 5, type: 'text', label: 'Adres-1', required: true},
+    {varName: 'address2', id: 6, type: 'text', label: 'Adres-2', required: true},
+    {varName: 'email', id: 7, type: 'text', label: 'Email', required: true},
+    {varName: 'places', id: 8, type: 'select', label: 'Bağlı Olduğu Yer', required: true, buttonText: 'Yer Seçiniz'},
+    {varName: 'users', id: 9, type: 'disabled', required: false}
 ];
 
 export default () => {
@@ -58,7 +61,6 @@ export default () => {
                     break;
             }
         });
-
         setInitialValues(newInitialValues);
     }
 
@@ -72,20 +74,23 @@ export default () => {
         initialValues: initialValues,
         onSubmit: values => {
             const newPerson = {
-                personId: values.personid,
-                firstName: values.firstname,
-                lastName: values.lastname,
+                personTagId: values.personTagId,
+                firstName: values.firstName,
+                lastName: values.lastName,
                 phone1: values.phone1,
                 phone2: values.phone2,
                 address1: values.address1,
                 address2: values.address2,
                 email: values.email
             };
-            dispatch(createPerson(newPerson));
+            console.log(initialValues)
+            const placeId = values.placeId;
+            const userId = values.userId;
+            console.log(values)
+            dispatch(createPerson({newPerson: newPerson, placeId: placeId, userId: userId}));
             formik.setValues(initialValues);
         }
     });
-
 
 
     return (
@@ -98,7 +103,7 @@ export default () => {
                 <TableContainer component={Paper}>
                     <Table>
                         <TableBody>
-                            {formElements.map(({id, varName, type, label, required}) => {
+                            {formElements.map(({id, varName, type, label, required, buttonText}) => {
                                 return (
                                     <TableRow key={id}>
                                         { type === 'text' && <TextForm 
@@ -107,6 +112,15 @@ export default () => {
                                             varName={varName} 
                                             formik={formik}
                                             />}
+                                        {
+                                            type === 'select' && <SelectForm 
+                                                label={label}
+                                                required={required}
+                                                varName={varName}
+                                                formik={formik}
+                                                buttonText={buttonText}
+                                            />
+                                        }
                                     </TableRow>
                                 )
                             })}
