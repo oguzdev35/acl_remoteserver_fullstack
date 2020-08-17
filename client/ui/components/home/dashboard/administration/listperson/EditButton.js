@@ -31,7 +31,7 @@ export default (props) => {
 
     const handleUpdate =  (updatedPerson) => {
         const placeId = globalState.places.find(({persons}) => persons.includes(personId))._id;
-        const userId = globalState.users.find(({places}) => places.includes(placeId))._id;
+        const userId = globalState.user._id;
         console.log(updatedPerson)
         dispatch(updatePerson({
             personId: personId, 

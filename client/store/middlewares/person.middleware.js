@@ -78,7 +78,6 @@ export default store => next => action => {
             break;
 
         case DELETE_PERSON:
-            personId = action.payload.personId;
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',

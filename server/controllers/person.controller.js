@@ -117,7 +117,7 @@ const remove = (req, res) => {
     const place = req.place;
     person.remove()
         .then( deletedPerson => {
-          place.doors.pull(deletedPerson);
+          place.persons.pull(deletedPerson);
           place.save()
             .then( () => res.status(200).json(deletedPerson))
             .catch( err => res.status(400).json({

@@ -31,7 +31,7 @@ export default (props) => {
     const handleDeletion = (events) => {
         const placeId = globalState.places.find(({persons}) => persons.includes(personId))._id;
         const userId = globalState.users.find(({places}) => places.includes(placeId))._id;
-        dispatch(deleteBlock({
+        dispatch(deletePerson({
             personId: personId,
             placeId: placeId,
             userId: userId

@@ -43,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
 export default (props) => {
 
     const places = useSelector(state => state.places);
-    const users = useSelector(state => state.users);
 
     const {
         label, required, varName, formik, buttonText
@@ -69,7 +68,6 @@ export default (props) => {
     React.useEffect( () => {
         if(selectedPlace._id){
             formik.setFieldValue('placeId', selectedPlace._id)
-            formik.setFieldValue('userId', users.find(({places}) => places.includes(selectedPlace._id))._id);
         }
     }, [selectedPlace])
 

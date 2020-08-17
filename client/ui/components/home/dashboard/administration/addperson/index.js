@@ -8,7 +8,7 @@ import {
     Paper, TableRow, Button
 } from '@material-ui/core';
 import {
-    useDispatch
+    useDispatch, useStore
 } from 'react-redux';
 
 import Title from './Title';
@@ -47,6 +47,7 @@ export default () => {
 
     const [initialValues, setInitialValues] = React.useState({});
     const classes = useStyles();
+    const globalState = useStore().getState();
     const dispatch = useDispatch();
 
     const resetInitialValues = () => {
@@ -83,10 +84,8 @@ export default () => {
                 address2: values.address2,
                 email: values.email
             };
-            console.log(initialValues)
             const placeId = values.placeId;
-            const userId = values.userId;
-            console.log(values)
+            const userId = globalState.user._id;
             dispatch(createPerson({newPerson: newPerson, placeId: placeId, userId: userId}));
             formik.setValues(initialValues);
         }

@@ -31,7 +31,7 @@ export default (props) => {
         if(selectedPlace != "" && selectedPlace != undefined){
             dispatch(listPerson({
                 placeId: selectedPlace, 
-                userId: globalState.users.find(({places}) => places.includes(selectedPlace))._id
+                userId: globalState.user._id
             }));
         }
     }, [selectedPlace])
@@ -42,7 +42,7 @@ export default (props) => {
 
     return (
         <div className={classes.root}>
-            <Title text="Kayıtlı Yer Listesi" />
+            <Title text="Kayıtlı Personel Listesi" />
             <SelectPlace selectedPlace={selectedPlace} handleChange={handleChange} />
             <TablePerson />
         </div>

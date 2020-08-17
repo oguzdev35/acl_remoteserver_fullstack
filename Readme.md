@@ -10,3 +10,4 @@ ISSUES
 9-Blok eklemede sıkıntı var. listeleme - state management kontrol et
 10- Tüm listelemeleri kontrol et - veri akışını düzenle
 11- show* 'ları düzenle listelerdeki
+12- listeler clearAll redux ekle
