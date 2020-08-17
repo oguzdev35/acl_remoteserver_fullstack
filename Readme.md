@@ -6,3 +6,6 @@ ISSUES
 5- Seçeneklere All sekmesi ekle
 6-Load EKranlarını ayarlar
 7-Get_Block ve Get_person action'larını kontrol et
+8-localstorage - redux-persistence ayarla - sessionstorage'a geç
+9-Blok eklemede sıkıntı var. listeleme - state management kontrol et
+10- Tüm listelemeleri kontrol et - veri akışını düzenle

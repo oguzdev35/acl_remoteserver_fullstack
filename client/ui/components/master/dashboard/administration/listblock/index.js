@@ -41,10 +41,6 @@ export default (props) => {
         setSelectedPlace(event.target.value);
     }
 
-    // React.useEffect( () => {
-    //     setSelectedPlace(globalState.places[0]._id);
-    // }, [])
-
     return (
         <div className={classes.root}>
             <Title text="Kayıtlı Yer Listesi" />

@@ -34,7 +34,6 @@ export default (props) => {
                 userId: globalState.users.find(({places}) => places.includes(selectedPlace))._id
             }));
         }
-
     }, [selectedPlace])
 
     const handleChange = event => {
