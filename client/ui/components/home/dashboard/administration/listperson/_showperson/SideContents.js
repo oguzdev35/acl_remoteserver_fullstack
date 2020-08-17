@@ -16,13 +16,14 @@ const useStyles = makeStyles( (theme) => ({
 }))
 
 export default props => {
-
+    
+    const { personId } = props;
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
             <div className={classes.button}>
-                <EditPersonInfoButton />
+                <EditPersonInfoButton personId={personId} />
             </div>
             <div className={classes.button}>
                 <ChangePlaceButton />

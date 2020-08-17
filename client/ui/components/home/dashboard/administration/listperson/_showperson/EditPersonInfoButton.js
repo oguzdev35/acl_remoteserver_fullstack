@@ -11,6 +11,9 @@ import {
     Typography, Paper
 } from '@material-ui/core';
 import MuiTableCell from "@material-ui/core/TableCell";
+import { useStore, useDispatch } from 'react-redux';
+
+import { updatePerson } from '../../../../../../../store/actions/person.action';
 
 const TableCell = withStyles({
     root: {
@@ -56,26 +59,28 @@ const formElements = [
 
 export default props => {
 
+    const { personId } = props;
     const classes = useStyles();
+    const dispatch = useDispatch();
     const [open, setOpen] = React.useState(false);
-    const [initialValues, setInitialValues] = React.useState({});
+    const globalState = useStore().getState();
 
-    const resetInitialValues = () => {
+
+    const getInitialValues = (_globalState) => {
         let newInitialValues = {};
 
+        const person = _globalState.persons.find(({_id}) => _id == personId);
+
         formElements.forEach( elem => {
-            newInitialValues[`${elem.varName}`]
+            newInitialValues[`${elem.varName}`] = person[`${elem.varName}`]
         });
 
-        setInitialValues(newInitialValues);
+        return newInitialValues
     }
 
-    React.useEffect( () => {
-        resetInitialValues()
-    }, [])
 
     const formik = useFormik({
-        initialValues: initialValues,
+        initialValues: getInitialValues(globalState),
         onSubmit: values => {
             const updatedPerson = {
                 personTagId: values.personTagId,
@@ -88,6 +93,12 @@ export default props => {
                 email: values.email
             };
             console.log(updatedPerson);
+            const placeId = globalState.places.find(({persons}) => persons.includes(personId))._id;
+            const userId = globalState.user._id;
+            dispatch(
+                updatePerson({updatedPerson: updatedPerson, userId: userId, placeId: placeId, personId: personId})
+            );
+            setOpen(false)
         }
     })
 
@@ -113,57 +124,58 @@ export default props => {
                 open={open}
                 onClose={handleClose}
             >
-                <DialogTitle id="person-info-edit">Personel Bilgilerini Düzenle</DialogTitle>
-                <DialogContent>
-                    <form 
-                        className={classes.form}
-                        onSubmit={formik.handleSubmit}
-                    >
-                        <TableContainer component={Paper}>
-                            <Table>
-                                <TableBody>
-                                    {formElements.map(({id, varName, type, label}) => {
-                                        return (
-                                            <TableRow key={id}>
-                                                <TableCell
-                                                    style={{width: '8vw'}}
-                                                    align="left"
-                                                >
-                                                    <Typography className={classes.label}>
-                                                        {label} :
-                                                    </Typography>
-                                                </TableCell>
-                                                <TableCell
-                                                    colSpan={4}
-                                                    // style={{width: '50vw'}}
-                                                >
-                                                    <TextField
-                                                        id={varName}
-                                                        variant="standard"
-                                                        margin="dense"
-                                                        fullWidth
-                                                        className={classes.form}
-                                                        onChange={formik.handleChange}
-                                                        value={formik.values[`${varName}`] || ''}
-                                                        type={varName}
-                                                    />
-                                                </TableCell>
-                                            </TableRow>
-                                        )
-                                    })}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </form>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>
-                        Kaydet
-                    </Button>
-                    <Button onClick={handleClose}>
-                        Kapat
-                    </Button>
-                </DialogActions>
+                <form 
+                    className={classes.form}
+                    onSubmit={formik.handleSubmit}
+                >
+                    <DialogTitle id="person-info-edit">Personel Bilgilerini Düzenle</DialogTitle>
+                    <DialogContent>
+
+                            <TableContainer component={Paper}>
+                                <Table>
+                                    <TableBody>
+                                        {formElements.map(({id, varName, label}) => {
+                                            return (
+                                                <TableRow key={id}>
+                                                    <TableCell
+                                                        style={{width: '10vw'}}
+                                                        align="left"
+                                                    >
+                                                        <Typography className={classes.label}>
+                                                            {label} :
+                                                        </Typography>
+                                                    </TableCell>
+                                                    <TableCell
+                                                        colSpan={4}
+                                                        // style={{width: '50vw'}}
+                                                    >
+                                                        <TextField
+                                                            id={varName}
+                                                            variant="outlined"
+                                                            margin="dense"
+                                                            fullWidth
+                                                            className={classes.form}
+                                                            onChange={formik.handleChange}
+                                                            value={formik.values[`${varName}`] || ''}
+                                                            type={varName}
+                                                        />
+                                                    </TableCell>
+                                                </TableRow>
+                                            )
+                                        })}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button type="submit">
+                            Kaydet
+                        </Button>
+                        <Button onClick={handleClose}>
+                            Kapat
+                        </Button>
+                    </DialogActions>
+                </form>
             </Dialog>
         </React.Fragment>
     )

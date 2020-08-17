@@ -61,7 +61,7 @@ export default props => {
                         xs={12}
                         style={{minHeight: '60vh', padding: '1vw'}}
                     >
-                        <SideContents />
+                        <SideContents personId={personId} />
                     </Grid>
                 </Grid>
                 <Grid
