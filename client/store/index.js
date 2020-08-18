@@ -15,6 +15,7 @@ import placeReducer from './reducers/place.reducer';
 import blockReducer from './reducers/block.reducer';
 import notificationReducer from './reducers/notification.reducer';
 import doorReducer from './reducers/door.reducer';
+import ruleReducer from './reducers/rule.reducer';
 
 // import middlewares
 import userMiddleware from './middlewares/user.middleware';
@@ -28,6 +29,7 @@ import usersMiddleware from './middlewares/users.middleware';
 import placeMiddleware from './middlewares/place.middleware';
 import blockMiddleware from './middlewares/block.middleware';
 import doorMiddleware from './middlewares/door.middleware';
+import ruleMiddleware from './middlewares/rule.middleware';
 
 // state persistance configuration
 const rootPersistConfig = {
@@ -47,6 +49,7 @@ const rootReducer = combineReducers({
     doors: doorReducer,
     blocks: blockReducer,
     persons: personReducer,
+    rules: ruleReducer,
     ui: uiReducer,
     notification: notificationReducer
 });
@@ -60,6 +63,7 @@ const featureMiddleware = [
     doorMiddleware,
     blockMiddleware,
     personMiddleware,
+    ruleMiddleware,
     usersMiddleware
 ];
 
