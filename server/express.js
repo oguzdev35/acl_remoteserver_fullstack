@@ -45,7 +45,7 @@ app.use(cors()); // we permit cross-origin requests, according to our decision t
 // serve static files(i.e bundle files, images, etc...) on `dist` folder
 app.use('/dist', express.static(path.join(CWD, 'dist')));
 
-// Routes for client administration dashboard
+// Routes
 import userRoutes from './routes/user.route';
 import authRoutes from './routes/auth.route';
 import doorRoutes from './routes/door.route';
@@ -54,6 +54,7 @@ import accessRoutes from './routes/access.route';
 import logRoutes from './routes/log.route';
 import blockRoutes from './routes/block.route';
 import placeRoutes from './routes/place.route';
+import ruleRoutes from './routes/rule.route';
 app.use('/', userRoutes);
 app.use('/', authRoutes);
 app.use('/', doorRoutes);
@@ -62,6 +63,7 @@ app.use('/', accessRoutes);
 app.use('/', logRoutes);
 app.use('/', blockRoutes);
 app.use('/', placeRoutes);
+app.use('/', ruleRoutes);
 
 // SPA Template will be served at root path.
 // We use especially HTTP status code 200, because status code 200 

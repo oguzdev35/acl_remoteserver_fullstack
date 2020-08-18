@@ -1,0 +1,28 @@
+POST http://localhost:2000/api/rules HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "personTagIds": ["100001", "100002", "100003"],
+    "doorTagIds": ["1001", "1002", "1003"],
+    "dateInterval": {
+        "from": "11.11.11",
+        "to":  "12.12.12"
+    },
+    "allow": true
+}
+
+###
+POST http://localhost:2000/api/rules HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "personTagIds": ["100001", "100002", "100003"],
+    "doorTagIds": ["1001", "1002", "1003"],
+    "clockInterval": {
+        "from": "11.11.11",
+        "to":  "12.12.12"
+    },
+    "allow": true
+}
