@@ -1,3 +1,5 @@
+import 'react-day-picker/lib/style.css';
+import 'moment/locale/tr';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -11,6 +13,12 @@ import {
     Checkbox, FormGroup, NativeSelect
 } from '@material-ui/core';
 import { useDispatch, useStore, useSelector } from 'react-redux';
+
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import MomentLocaleUtils, {
+    formatDate,
+    parseDate,
+  } from 'react-day-picker/moment';
 
 import { listPlace } from '../../../../../../../store/actions/place.action';
 import { listBlock } from '../../../../../../../store/actions/block.action';
@@ -130,7 +138,18 @@ function BlockAndDoorSelect(props){
 
 function DateIntervalPick(props){
     return (
-        <>Date Interval</>
+        <div>
+            <DayPickerInput
+                formatDate={formatDate}
+                parseDate={parseDate}
+                format="LL"
+                placeholder={`${formatDate(new Date(), 'LL', 'tr')}`}
+                dayPickerProps={{
+                    locale: 'tr',
+                    localeUtils: MomentLocaleUtils
+                }}
+            />
+        </div>
     )
 
 }
