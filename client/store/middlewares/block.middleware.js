@@ -1,6 +1,6 @@
 import { 
     GET_BLOCK, LIST_BLOCK, 
-    ASSIGN_BLOCK, UPDATE_BLOCK,
+    UPDATE_BLOCK,
     DELETE_BLOCK, CREATE_BLOCK, 
     BLOCK, LOAD_BLOCK, REMOVE_BLOCK,
     SET_BLOCK, setBlock, setBlocks,
@@ -52,17 +52,6 @@ export default store => next => action => {
             url = `/api/blocks/${action.payload.placeId}/${action.payload.userId}`;
             console.log(url)
             next(apiRequest({body: action.payload.newBlock, method: 'POST', url: url, headers: headers, feature: BLOCK, docAction: action.docAction}));
-            next(setLoader({state: true, feature: BLOCK}));
-            break;
-        case ASSIGN_BLOCK:
-            headers = {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${secretToken}`,
-                'x-app-id': `${appId}`
-            };
-            url = `/api/blocks/${userId}`;
-            next(apiRequest({body: action.payload, method: 'POST', url: url, headers: headers, feature: BLOCK, docAction: action.docAction}));
             next(setLoader({state: true, feature: BLOCK}));
             break;
 

@@ -1,6 +1,6 @@
 import { 
   GET_USER, LIST_USER, 
-  ASSIGN_USER, UPDATE_USER,
+  UPDATE_USER,
   DELETE_USER, CREATE_USER, 
   USERS, LOAD_USER, REMOVE_USER,
   SET_USER, setUser, setUsers,
@@ -51,16 +51,6 @@ export default store => next => action => {
                 'x-app-id': `${appId}`
             };
             url = `/api/users`;
-            next(apiRequest({body: action.payload, method: 'POST', url: url, headers: headers, feature: USERS, docAction: action.docAction}));
-            next(setLoader({state: true, feature: USERS}));
-            break;
-        case ASSIGN_USER:
-            headers = {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${secretToken}` 
-            };
-            url = `/api/persons/${userId}`;
             next(apiRequest({body: action.payload, method: 'POST', url: url, headers: headers, feature: USERS, docAction: action.docAction}));
             next(setLoader({state: true, feature: USERS}));
             break;

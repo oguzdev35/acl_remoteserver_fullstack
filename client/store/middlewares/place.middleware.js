@@ -1,6 +1,6 @@
 import { 
     GET_PLACE, LIST_PLACE, 
-    ASSIGN_PLACE, UPDATE_PLACE,
+    UPDATE_PLACE,
     DELETE_PLACE, CREATE_PLACE, 
     PLACE, LOAD_PLACE, REMOVE_PLACE,
     SET_PLACE, setPlace, setPlaces,
@@ -51,17 +51,6 @@ export default store => next => action => {
             };
             url = `/api/places/${action.payload.userId}`;
             next(apiRequest({body: action.payload.newPlace, method: 'POST', url: url, headers: headers, feature: PLACE, docAction: action.docAction}));
-            next(setLoader({state: true, feature: PLACE}));
-            break;
-        case ASSIGN_PLACE:
-            headers = {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${secretToken}`,
-                'x-app-id': `${appId}`
-            };
-            url = `/api/places/${userId}`;
-            next(apiRequest({body: action.payload, method: 'POST', url: url, headers: headers, feature: PLACE, docAction: action.docAction}));
             next(setLoader({state: true, feature: PLACE}));
             break;
 

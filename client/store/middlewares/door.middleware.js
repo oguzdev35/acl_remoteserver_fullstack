@@ -1,6 +1,6 @@
 import { 
   GET_DOOR, LIST_DOOR, 
-  ASSIGN_DOOR, UPDATE_DOOR,
+  UPDATE_DOOR,
   DELETE_DOOR, CREATE_DOOR, 
   DOOR, LOAD_DOOR, REMOVE_DOOR,
   SET_DOOR, setDoor, setDoors,
@@ -51,16 +51,6 @@ export default store => next => action => {
           };
           url = `/api/doors/${action.payload.blockId}/${action.payload.placeId}/${action.payload.userId}`;
           next(apiRequest({body: action.payload.newDoor, method: 'POST', url: url, headers: headers, feature: DOOR, docAction: action.docAction}));
-          next(setLoader({state: true, feature: DOOR}));
-          break;
-      case ASSIGN_DOOR:
-          headers = {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json',
-              'Authorization': `Bearer ${secretToken}` 
-          };
-          url = `/api/doors/${userId}`;
-          next(apiRequest({body: action.payload, method: 'POST', url: url, headers: headers, feature: DOOR, docAction: action.docAction}));
           next(setLoader({state: true, feature: DOOR}));
           break;
 
