@@ -29,7 +29,7 @@ export default props => {
                 <ChangePlaceButton />
             </div>
             <div className={classes.button}>
-                <DoorAuthorizationButton />
+                <DoorAuthorizationButton personId={personId}/>
             </div>
             <div className={classes.button}>
                 <DeletePersonButton />
