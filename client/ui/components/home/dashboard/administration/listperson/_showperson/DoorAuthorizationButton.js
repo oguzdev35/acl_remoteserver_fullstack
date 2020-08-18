@@ -1,5 +1,13 @@
+import 'date-fns';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+  KeyboardTimePicker,
+  DatePicker
+} from '@material-ui/pickers';
 import {
     Button, Stepper, Step,
     StepLabel, StepContent,
@@ -128,6 +136,102 @@ function BlockAndDoorSelect(props){
     )
 }
 
+function DateIntervalPick(props){
+
+    const {
+        selectedDateFrom,
+        selectedDateTo,
+        setSelectedDateFrom,
+        setSelectedDateTo
+    } = props;
+
+    const [selectedDate, handleDateChange] = React.useState(new Date());
+    return (
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+             <KeyboardDatePicker
+                margin="normal"
+                id="date-picker-dialog-1"
+                label="Başlangıç Tarihini Belirleyiniz"
+                format="MM/dd/yyyy"
+                value={selectedDateFrom}
+                onChange={setSelectedDateFrom}
+                KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                }}
+                style={{margin: '2vw'}}
+            />
+            <KeyboardDatePicker
+                margin="normal"
+                id="date-picker-dialog-2"
+                label="Bitiş Tarihini Belirleyiniz"
+                format="MM/dd/yyyy"
+                value={selectedDateTo}
+                onChange={setSelectedDateTo}
+                KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                }}
+                style={{margin: '2vw'}}
+            />
+            <DatePicker
+                views={["day"]}
+                label="Year only"
+                value={selectedDate}
+                onChange={handleDateChange}
+            />
+        </MuiPickersUtilsProvider>
+    )
+
+}
+
+function DaysInWeekPick(props){
+    const [selectedDate, handleDateChange] = React.useState(new Date());
+    return (
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <DatePicker
+                views={["year"]}
+                label="Year only"
+                value={selectedDate}
+                onChange={handleDateChange}
+            />
+        </MuiPickersUtilsProvider>
+    )
+}
+
+function ClockIntervalPick(props){
+
+    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+
+    const handleDateChange = (date) => {
+      setSelectedDate(date);
+    };
+    return (
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardTimePicker
+                margin="normal"
+                id="time-picker"
+                label="Başlangıç Zamanı"
+                value={selectedDate}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                    'aria-label': 'change time',
+                }}
+                style={{margin: '2vw'}}
+            />     
+            <KeyboardTimePicker
+                margin="normal"
+                id="time-picker"
+                label="Bitiş Zamanı"
+                value={selectedDate}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                    'aria-label': 'change time',
+                }}
+                style={{margin: '2vw'}}
+            />       
+        </MuiPickersUtilsProvider>
+    )
+}
+
 function getSteps() {
     return ['Personelin Yetkilendirileceği Kapıları Seçiniz', 'Tarih Belirleyiniz', 'Saat Belirleyiniz'];
 }
@@ -135,6 +239,10 @@ function getSteps() {
 function getStepContent(step, personId, places) {
 
     const [selectedDoors, setSelectedDoors] = React.useState([]);
+
+
+    const [selectedDateFrom, setSelectedDateFrom] = React.useState(new Date(Date.now()));
+    const [selectedDateTo, setSelectedDateTo] = React.useState(new Date(Date.now()));
 
     const dispatch = useDispatch();
     const globalState = useStore().getState();
@@ -147,6 +255,7 @@ function getStepContent(step, personId, places) {
         }));
     }, [])
 
+
     switch (step) {
         case 0:
             return <BlockAndDoorSelect 
@@ -156,13 +265,17 @@ function getStepContent(step, personId, places) {
                         setSelectedDoors={setSelectedDoors}
                         selectedDoors={selectedDoors}
                     />
+            break;
         case 1:
-        return 'An ad group contains one or more ads which target a shared set of keywords.';
+            return <DateIntervalPick 
+                        selectedDateFrom={selectedDateFrom}
+                        selectedDateTo={selectedDateTo}
+                        setSelectedDateFrom={setSelectedDateFrom}
+                        setSelectedDateTo={setSelectedDateTo}
+                    />;
+            break;
         case 2:
-        return `Try out different ad text to see what brings in the most customers,
-                and learn how to enhance your ads using features like ad extensions.
-                If you run into any problems with your ads, find out how to tell if
-                they're running and how to resolve approval issues.`;
+        return <ClockIntervalPick />
         default:
         return 'Unknown step';
     }

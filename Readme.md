@@ -13,3 +13,4 @@ ISSUES
 12- listeler clearAll redux ekle
 13- Personel resim ekle - multipart/form-data'yı implement et express'e
 14- Buttonlarda türkçe karakter sorunu var düzelt
+15- Date picker ve Time picker'ların localizasyonunu yap
