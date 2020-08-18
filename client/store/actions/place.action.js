@@ -7,7 +7,6 @@ export const LIST_PLACE = `${PLACE} LIST`;
 export const CREATE_PLACE = `${PLACE} CREATE`;
 export const UPDATE_PLACE = `${PLACE} UPDATE`;
 export const DELETE_PLACE = `${PLACE} DELETE`;
-export const ASSIGN_PLACE = `${PLACE} ASSIGN`;
 
 
 export const SET_PLACE = `${PLACE} SET`;
@@ -46,11 +45,6 @@ export const  deletePlace = (payload) => ({
     docAction: REMOVE_PLACE
 });
 
-export const assignPlace = (payload) => ({
-    type: ASSIGN_PLACE,
-    payload: payload,
-    docAction: SET_PLACE
-});
 
 //////////
 

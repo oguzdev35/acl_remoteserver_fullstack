@@ -7,7 +7,6 @@ export const LIST_DOOR = `${DOOR} LIST`;
 export const CREATE_DOOR = `${DOOR} CREATE`;
 export const UPDATE_DOOR = `${DOOR} UPDATE`;
 export const DELETE_DOOR = `${DOOR} DELETE`;
-export const ASSIGN_DOOR = `${DOOR} ASSIGN`;
 
 export const SET_DOOR = `${DOOR} SET`;
 export const LOAD_DOOR = `${DOOR} LOAD`;
@@ -42,12 +41,6 @@ export const  deleteDoor = (payload) => ({
     type: DELETE_DOOR,
     payload: payload,
     docAction: REMOVE_DOOR
-});
-
-export const assignDoor = (payload) => ({
-    type: ASSIGN_DOOR,
-    payload: payload,
-    docAction: SET_DOOR
 });
 
 //////////

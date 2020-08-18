@@ -1,7 +1,6 @@
 import { 
     GET_PERSON, LIST_PERSON, 
-    ASSIGN_PERSON, UPDATE_PERSON,
-    DELETE_PERSON, CREATE_PERSON, 
+    UPDATE_PERSON,DELETE_PERSON, CREATE_PERSON, 
     PERSON, LOAD_PERSON, REMOVE_PERSON,
     SET_PERSON, setPerson, setPersons,
     removePerson
@@ -51,16 +50,6 @@ export default store => next => action => {
             };
             url = `/api/persons/${action.payload.placeId}/${action.payload.userId}`;
             next(apiRequest({body: action.payload.newPerson, method: 'POST', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
-            next(setLoader({state: true, feature: PERSON}));
-            break;
-        case ASSIGN_PERSON:
-            headers = {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${secretToken}` 
-            };
-            url = `/api/persons/${userId}`;
-            next(apiRequest({body: action.payload, method: 'POST', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
 

@@ -7,7 +7,6 @@ export const LIST_BLOCK = `${BLOCK} LIST`;
 export const CREATE_BLOCK = `${BLOCK} CREATE`;
 export const UPDATE_BLOCK = `${BLOCK} UPDATE`;
 export const DELETE_BLOCK = `${BLOCK} DELETE`;
-export const ASSIGN_BLOCK = `${BLOCK} ASSIGN`;
 
 
 export const SET_BLOCK = `${BLOCK} SET`;
@@ -44,12 +43,6 @@ export const  deleteBlock = (payload) => ({
     type: DELETE_BLOCK,
     payload: payload,
     docAction: REMOVE_BLOCK
-});
-
-export const assignBlock = (payload) => ({
-    type: ASSIGN_BLOCK,
-    payload: payload,
-    docAction: SET_BLOCK
 });
 
 //////////

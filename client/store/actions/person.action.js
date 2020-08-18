@@ -7,7 +7,6 @@ export const LIST_PERSON = `${PERSON} LIST`;
 export const CREATE_PERSON = `${PERSON} CREATE`;
 export const UPDATE_PERSON = `${PERSON} UPDATE`;
 export const DELETE_PERSON = `${PERSON} DELETE`;
-export const ASSIGN_PERSON = `${PERSON} ASSIGN`;
 
 export const SET_PERSON = `${PERSON} SET`;
 export const LOAD_PERSON = `${PERSON} LOAD`;
@@ -44,11 +43,6 @@ export const  deletePerson = (payload) => ({
     docAction: REMOVE_PERSON
 });
 
-export const assignPerson = (payload) => ({
-    type: ASSIGN_PERSON,
-    payload: payload,
-    docAction: SET_PERSON
-});
 
 //////////
 
