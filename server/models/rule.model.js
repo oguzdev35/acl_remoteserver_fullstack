@@ -1,10 +1,6 @@
 import mongoose from 'mongoose';
 
 const RuleSchema = new mongoose.Schema({
-    person: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Person'
-    },
     department: {
           type: mongoose.Schema.ObjectId,
           ref: 'Department'
