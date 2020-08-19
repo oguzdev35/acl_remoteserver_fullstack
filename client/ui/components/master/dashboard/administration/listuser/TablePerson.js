@@ -18,6 +18,8 @@ import DeleteButton from './DeleteButton';
 import EditButton from './EditButton';
 import ShowUser from './ShowUser';
 
+import { formatDate } from '../../../../../../utils';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         marginTop: theme.spacing(2)
@@ -140,7 +142,7 @@ export default () => {
                                 <ShowUser username={user.username} userId={user._id} />
                             </TableCell>
                             <TableCell align="left">
-                                {user.createdAt}
+                                {formatDate(user.createdAt)}
                             </TableCell>
                             <TableCell align="left">
                                 <EditButton userId={user._id} />

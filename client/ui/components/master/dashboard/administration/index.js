@@ -65,15 +65,15 @@ const contents = [
   },
   {
     idx: 1, label: 'Kullanıcı Listesi', 
-    Component: contentInjection(ListUser)
+    Component: contentInjection(ListUser, ['users'])
   },
   {
     idx: 2, label: 'Yer Kayıt',
-    Component: contentInjection(AddPlace)
+    Component: contentInjection(AddPlace, ['users'])
   },
   {
     idx: 3, label: 'Yer Listesi',
-    Component: contentInjection(ListPlace)
+    Component: contentInjection(ListPlace, ['users'])
   },
   {
     idx: 4, label: 'Blok Kayıt',
