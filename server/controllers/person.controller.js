@@ -110,5 +110,5 @@ const remove = (req, res) => {
 export default {
     create, list, personByID, 
     read, update, remove,
-    , inPlace
+    inPlace
 };
