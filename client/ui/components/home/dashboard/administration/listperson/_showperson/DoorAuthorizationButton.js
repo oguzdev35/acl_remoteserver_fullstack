@@ -1,5 +1,4 @@
 import 'react-day-picker/lib/style.css';
-import 'moment/locale/tr';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -10,15 +9,20 @@ import {
     DialogActions, InputLabel,
     MenuItem, FormControl, Select,
     FormLabel, FormControlLabel, FormHelperText,
-    Checkbox, FormGroup, NativeSelect
+    Checkbox, FormGroup, NativeSelect,
+    Grid, TextField, List, ListItem,
+    ListItemText, ListItemIcon
 } from '@material-ui/core';
 import { useDispatch, useStore, useSelector } from 'react-redux';
 
-import DayPickerInput from 'react-day-picker/DayPickerInput';
-import MomentLocaleUtils, {
-    formatDate,
-    parseDate,
-  } from 'react-day-picker/moment';
+import Helmet from 'react-helmet';
+import DayPicker, { DateUtils } from 'react-day-picker';
+
+import moment from "moment";
+import TimePicker from 'react-times';
+// use material theme
+import 'react-times/css/material/default.css';
+import 'react-times/css/classic/default.css';
 
 import { listPlace } from '../../../../../../../store/actions/place.action';
 import { listBlock } from '../../../../../../../store/actions/block.action';
@@ -46,6 +50,17 @@ const useStyles = makeStyles( (theme) => ({
     formControlDoor: {
         margin: theme.spacing(3),
     },
+    formControl: {
+        margin: theme.spacing(3)
+    },
+    dateinterval: {
+        margin: theme.spacing(1)
+    },
+    daySwitchList: {
+        width: '100%',
+        maxWidth: 360,
+        backgroundColor: theme.palette.background.paper,
+    }
 }));
 
 function BlockAndDoorSelect(props){
@@ -137,43 +152,256 @@ function BlockAndDoorSelect(props){
 }
 
 function DateIntervalPick(props){
+
+    const classes = useStyles();
+
+    const {
+        startDate,
+        endDate,
+        setStartDate,
+        setEndDate,
+    } = props;
+
+    const [enteredTo, setEnteredTo] = React.useState(null);
+
+    const isSelectingFirstDay = (from, to, day) => {
+        const isBeforeFirstDay = from && DateUtils.isDayBefore(day, from);
+        const isRangeSelected = from && to;
+        return !from || isBeforeFirstDay || isRangeSelected;
+    }
+    
+    const handleResetClick = () => {
+        setStartDate(null);
+        setEnteredTo(null);
+        setEndDate(null);
+    }
+   
+
+    const handleDayClick = (day) =>  {
+        if (startDate && endDate && day >= startDate && day <= endDate) {
+            handleResetClick();
+            return;
+        }
+        if (isSelectingFirstDay(startDate, endDate, day)) {
+            setStartDate(day);
+            setEndDate(null);
+            setEnteredTo(null);
+
+        } else {
+            setEndDate(day);
+            setEnteredTo(day);
+        }
+    }
+
+    const handleDayMouseEnter = (day) => {
+        if (!isSelectingFirstDay(startDate, endDate, day)) {
+            setEnteredTo(day);
+        }
+    }
+
+    const modifiers = { start: startDate, end: enteredTo };
+    const disabledDays = { before: startDate };
+    const selectedDays = [startDate, { from: startDate, to: enteredTo }];
+
     return (
-        <div>
-            <DayPickerInput
-                formatDate={formatDate}
-                parseDate={parseDate}
-                format="LL"
-                placeholder={`${formatDate(new Date(), 'LL', 'tr')}`}
-                dayPickerProps={{
-                    locale: 'tr',
-                    localeUtils: MomentLocaleUtils
-                }}
-            />
-        </div>
+        <Grid 
+            container 
+            className={classes.dateinterval}
+            spacing={2}
+        >
+            <Grid item xs={5}>
+                <DayPicker
+                    className="Range"
+                    numberOfMonths={1}
+                    fromMonth={startDate}
+                    selectedDays={selectedDays}
+                    disabledDays={disabledDays}
+                    modifiers={modifiers}
+                    onDayClick={handleDayClick}
+                    onDayMouseEnter={handleDayMouseEnter}
+                />
+                <Helmet>
+                    <style>{`
+                        .Range .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+                            background-color: #f0f8ff !important;
+                            color: #4a90e2;
+                        }
+                        .Range .DayPicker-Day {
+                            border-radius: 0 !important;
+                        }
+                    `}</style>
+                </Helmet>
+            </Grid>
+            <Grid item xs={5}>
+                {startDate && endDate && (
+                        <Button 
+                            style={{margin: '2vw'}}
+                            variant="outlined"  
+                            onClick={handleResetClick}
+                        >
+                            İşlemi Tekrarlayın
+                        </Button>
+                    )}
+                <Typography>
+                    {!startDate && !endDate && 'Lütfen başlangıç gününü seçiniz.'}
+                    {startDate && !endDate && 'Lütfen bitiş gününü seçiniz.'}
+                    {startDate &&
+                        endDate && <div>
+                            <TextField 
+                                label="Başlangıç Tarihi"
+                                value={startDate.toLocaleDateString()}
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                                variant="outlined"
+                                style={{margin: '2vw'}}
+                            />
+                            <TextField 
+                                label="Bitiş Tarihi"
+                                value={endDate.toLocaleDateString()}
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                                variant="outlined"
+                                style={{margin: '2vw'}}
+                            />
+                            </div>
+                        // `Selected from ${startDate.toLocaleDateString()} to
+                        //     ${endDate.toLocaleDateString()}`
+                    }{' '}
+                </Typography>
+            </Grid>
+        </Grid>
     )
 
 }
 
-function DaysInWeekPick(props){
-    const [selectedDate, handleDateChange] = React.useState(new Date());
+function OnlyOneDay(props){
+    const classes = useStyles();
+
+    const {
+        oneDate,
+        setOneDate,
+    } = props;
+
+
+    // const onChange = date => {
+    //     setOneDate(date)
+    // };
+
+    const handleDayClick = (day, {selected}) =>{
+        if(!selected){
+            setOneDate(day);
+        }else {
+            setOneDate(undefined)
+        }
+    }
+
     return (
-        <> DaysInWeekPick</>
+        <Grid 
+            container 
+            className={classes.dateinterval}
+            spacing={2}
+        >
+            <Grid item xs={5}>
+                <DayPicker
+                    selectedDays={oneDate}
+                    onDayClick={handleDayClick}
+                />
+            </Grid>
+            <Grid item xs={5}>
+                <TextField
+                    style={{margin: '2vw'}}
+                    id="selected-date"
+                    label="Seçilen Tarihi"
+                    value={oneDate ? oneDate.toLocaleDateString(): "Please select a day"}
+                    variant="outlined"
+                />
+            </Grid>
+        </Grid>
     )
+   
+}
+
+const days = [
+    {idx: 0, text: 'Pazartesi'},
+    {idx: 1, text: 'Salı'},
+    {idx: 2, text: 'Çarşamba'},
+    {idx: 3, text: 'Perşembe'},
+    {idx: 4, text: 'Cuma'},
+    {idx: 5, text: 'Cumartesi'},
+    {idx: 6, text: 'Pazar'}
+]
+
+function DaysInWeekPick(props){
+    const classes = useStyles();
+    const {
+        selectedDates,
+        setSelectedDates
+    } = props;
+  
+    const handleToggle = (value) => () => {
+      const currentIndex = selectedDates.indexOf(value);
+      const newChecked = [...selectedDates];
+  
+      if (currentIndex === -1) {
+        newChecked.push(value);
+      } else {
+        newChecked.splice(currentIndex, 1);
+      }
+  
+      setSelectedDates(newChecked);
+    };
+
+    return (
+        <List className={classes.root}>
+          {days.map(({idx, text}) => {
+            const labelId = `${text}-${idx}`;
+    
+            return (
+              <ListItem key={idx} role={undefined} dense button onClick={handleToggle(idx)}>
+                <ListItemIcon>
+                  <Checkbox
+                    edge="start"
+                    checked={selectedDates.indexOf(idx) !== -1}
+                    tabIndex={-1}
+                    disableRipple
+                    inputProps={{ 'aria-labelledby': labelId }}
+                  />
+                </ListItemIcon>
+                <ListItemText id={labelId} primary={text} />
+              </ListItem>
+            );
+          })}
+        </List>
+      );
 }
 
 function DateSelectionMain(props){
 
+    const {
+        startDate,
+        endDate,
+        setStartDate,
+        setEndDate,
+        datePickingMethod,
+        setDatePickingMethod,
+        selectedDates,
+        setSelectedDates,
+        oneDate,
+        setOneDate
+    } = props;
+
     const classes = useStyles();
-    const [state, setState] = React.useState("");
 
     const handleChange = (event) => {
-        setState(event.target.value);
+        setDatePickingMethod(event.target.value);
     };
     return (
         <React.Fragment>
             <FormControl className={classes.formControl}>
                 <NativeSelect
-                    value={state.age}
+                    value={datePickingMethod}
                     onChange={handleChange}
                     name="Yöntem"
                     className={classes.selectEmpty}
@@ -182,11 +410,23 @@ function DateSelectionMain(props){
                 <option value="">Seçiniz</option>
                 <option value={1}>Tarih Aralığı Belirle</option>
                 <option value={2}>Haftanın Belirli Günleri</option>
+                <option value={3}>Tek Bir Gün Seç</option>
                 </NativeSelect>
                 <FormHelperText>Tarih Belirleme Yöntemi</FormHelperText>
 
             </FormControl>
-            { state == 1 ? <DateIntervalPick /> : state == 2 ? <DaysInWeekPick /> : <React.Fragment>
+            { datePickingMethod == 1 ? <DateIntervalPick 
+                startDate={startDate}
+                endDate={endDate}
+                setStartDate={setStartDate}
+                setEndDate={setEndDate} 
+            /> : datePickingMethod == 2 ? <DaysInWeekPick 
+                selectedDates={selectedDates}
+                setSelectedDates={setSelectedDates}
+            /> : datePickingMethod == 3 ? <OnlyOneDay 
+                oneDate={oneDate}
+                setOneDate={setOneDate}
+            /> : <React.Fragment>
                     <Typography>Lütfen Tarih Belirleme Yöntemi Seçiniz!</Typography>
                 </React.Fragment>
                 }
@@ -194,11 +434,33 @@ function DateSelectionMain(props){
     )
 }
 
-function ClockIntervalPick(props){
-    return (
-        <>Clock Interval</>
-    )
+class ClockIntervalPick extends React.Component {
+    onTimeChange(options) {
+      // do something
+    }
+   
+    onFocusChange(focusStatue) {
+      // do something
+    }
+   
+    render() {
+      return <Grid container direction="row">
+            <Grid item xs={3} alignItems="center">
+                hello
+            </Grid>
+            <Grid item xs={3}>
+                <TimePicker
+                    theme="classic"
+                    withoutIcon
+                    onFocusChange={this.onFocusChange.bind(this)}
+                    onTimeChange={this.onTimeChange.bind(this)}
+                />
+            </Grid>
+      </Grid>
+    }
+  
 }
+
 
 function getSteps() {
     return ['Personelin Yetkilendirileceği Kapıları Seçiniz', 'Tarih Belirleyiniz', 'Saat Belirleyiniz'];
@@ -207,10 +469,6 @@ function getSteps() {
 function getStepContent(step, personId, places) {
 
     const [selectedDoors, setSelectedDoors] = React.useState([]);
-
-
-    const [selectedDateFrom, setSelectedDateFrom] = React.useState(new Date(Date.now()));
-    const [selectedDateTo, setSelectedDateTo] = React.useState(new Date(Date.now()));
 
     const dispatch = useDispatch();
     const globalState = useStore().getState();
@@ -221,8 +479,19 @@ function getStepContent(step, personId, places) {
             placeId: places.find(({persons}) => persons.includes(personId))._id,
             userId: globalState.user._id
         }));
-    }, [])
+    }, []);
 
+    // 1 -> interval 2-> days in week 3 -> specific day
+    const [datePickingMethod, setDatePickingMethod] = React.useState("");
+
+    const [startDate, setStartDate] = React.useState(null);
+    const [endDate, setEndDate] = React.useState(null);
+
+    const [selectedDates, setSelectedDates] = React.useState([]);
+
+    const [oneDate, setOneDate] = React.useState(new Date());
+
+    const [clockValue, setClockValue] = React.useState(moment());
 
     switch (step) {
         case 0:
@@ -235,10 +504,24 @@ function getStepContent(step, personId, places) {
                     />
             break;
         case 1:
-            return <DateSelectionMain />
+            return <DateSelectionMain 
+                startDate={startDate}
+                endDate={endDate}
+                setStartDate={setStartDate}
+                setEndDate={setEndDate}
+                datePickingMethod={datePickingMethod} 
+                setDatePickingMethod={setDatePickingMethod}
+                selectedDates={selectedDates}
+                setSelectedDates={setSelectedDates}
+                oneDate={oneDate}
+                setOneDate={setOneDate}
+            />
             break;
         case 2:
-            return <ClockIntervalPick />;
+            return <ClockIntervalPick 
+                clockValue={clockValue}
+                setClockValue={setClockValue}
+            />;
             break;
         default:
         return 'Unknown step';
