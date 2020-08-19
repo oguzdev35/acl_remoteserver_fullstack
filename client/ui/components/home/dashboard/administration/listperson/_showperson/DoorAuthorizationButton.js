@@ -20,6 +20,12 @@ import DayPicker, { DateUtils } from 'react-day-picker';
 
 import moment from "moment";
 
+import DatePicker from "react-datepicker";
+import { registerLocale, setDefaultLocale } from  "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import tr from 'date-fns/locale/tr';
+registerLocale('tr', tr)
+
 import { listPlace } from '../../../../../../../store/actions/place.action';
 import { listBlock } from '../../../../../../../store/actions/block.action';
 import { listDoor } from '../../../../../../../store/actions/door.action';
@@ -430,8 +436,51 @@ function DateSelectionMain(props){
     )
 }
 
-function ClockIntervalPick(){
-    return <>fd</>
+function ClockIntervalPick(props){
+    
+    const {
+        clockValueStart,
+        setClockValueStart,
+        clockValueEnd,
+        setClockValueEnd
+    } = props;
+
+    return (
+        <Grid container direction="column" spacing={3} style={{margin: '1vh'}}>
+            <Grid item>
+                <Typography display="inline">
+                    Başlangıç Saati: &nbsp;&nbsp;
+                </Typography>
+                <DatePicker
+                    selected={clockValueStart}
+                    onChange={date => setClockValueStart(date)}
+                    showTimeSelect
+                    showTimeSelectOnly
+                    timeIntervals={15}
+                    timeCaption="Saat"
+                    dateFormat="h:mm aa"
+                    locale="tr"     
+                            
+                />
+            </Grid>
+            <Grid item>
+                <Typography display="inline">
+                    Bitiş Saati: &nbsp;&nbsp;
+                </Typography>
+                <DatePicker
+                    selected={clockValueEnd}
+                    onChange={date => setClockValueEnd(date)}
+                    showTimeSelect
+                    showTimeSelectOnly
+                    timeIntervals={15}
+                    timeCaption="Saat"
+                    dateFormat="h:mm aa"
+                    locale="tr"     
+                            
+                />
+            </Grid>
+        </Grid>
+    )
 }
 
 
@@ -465,7 +514,9 @@ function getStepContent(step, personId, places) {
 
     const [oneDate, setOneDate] = React.useState(new Date());
 
-    const [clockValue, setClockValue] = React.useState(moment());
+    const [clockValueStart, setClockValueStart] = React.useState(new Date());
+    const [clockValueEnd, setClockValueEnd] = React.useState(new Date());
+
 
     switch (step) {
         case 0:
@@ -493,12 +544,14 @@ function getStepContent(step, personId, places) {
             break;
         case 2:
             return <ClockIntervalPick 
-                clockValue={clockValue}
-                setClockValue={setClockValue}
+                clockValueStart={clockValueStart}
+                setClockValueStart={setClockValueStart}
+                clockValueEnd={clockValueEnd}
+                setClockValueEnd={setClockValueEnd}
             />;
             break;
         default:
-        return 'Unknown step';
+            return 'Bilinmeyen bir adım';
     }
 }
 
@@ -527,7 +580,9 @@ function VerticalLinearStepper(props) {
 
     React.useEffect( () => {
         dispatch(listPlace({userId: globalState.user._id}));
-    }, [])
+    }, []);
+
+    
   
     return (
       <Dialog
@@ -569,16 +624,16 @@ function VerticalLinearStepper(props) {
             </Stepper>
             {activeStep === steps.length && (
                 <Paper square elevation={0} className={classes.resetContainer}>
-                    <Typography>All steps completed - you&apos;re finished</Typography>
-                    <Button onClick={handleReset} className={classes.button}>
-                    Reset
-                    </Button>
+                    <Typography></Typography>
                 </Paper>
             )}
         </DialogContent>
         <DialogActions>
             <Button onClick={handleClose}>
                 Kaydet
+            </Button>
+            <Button onClick={handleReset}>
+                Yeniden Başla
             </Button>
             <Button onClick={handleClose}>
                 Kapat
