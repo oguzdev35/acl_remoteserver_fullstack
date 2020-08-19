@@ -54,6 +54,22 @@ const placeByID = (req, res, next, id) => {
         }))
 }
 
+const bodyID = (req, res, next) => {
+    const id = req.body.meta.placeId;
+    Place.findById(id)
+        .then( place => {
+            if(!place)
+                return res.status(406).json({
+                    'error': "Place not found"
+                })
+            req.place = place;
+            next();
+        })
+        .catch( err => res.status(400).json({
+            'error': "Place not able to be retrived"
+        }))
+}
+
 const inUser = (req, res, next) => {
     const user = req.profile;
     const place = req.place;
@@ -102,5 +118,5 @@ const remove = (req, res) => {
 
 export default {
     create, list, placeByID, read, 
-    update, remove, inUser
+    update, remove, inUser, bodyID
 };

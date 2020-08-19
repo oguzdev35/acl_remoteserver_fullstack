@@ -57,6 +57,22 @@ const doorByID = (req, res, next, id) => {
       }))
 }
 
+const bodyID = (req, res, next) => {
+  const id = req.body.meta.doorId;
+  Door.findById(id)
+      .then( door => {
+          if(!door)
+              return res.status(406).json({
+                  'error': "Door not found"
+              })
+          req.door = door;
+          next();
+      })
+      .catch( err => res.status(400).json({
+          'error': "Door not able to be retrived"
+      }))
+}
+
 const inBlock = (req, res, next) => {
   const block = req.block;
   const door = req.door;
@@ -105,5 +121,5 @@ const remove = (req, res) => {
 
 export default {
   create, list, doorByID, read, 
-  update, remove, inBlock
+  update, remove, inBlock, bodyID
 };

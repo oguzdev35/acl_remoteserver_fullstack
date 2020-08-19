@@ -36,6 +36,23 @@ const userByID = (req, res, next, id) => {
         }))
 }
 
+const bodyID = (req, res, next) => {
+    const id = req.body.meta.userId;
+    console.log(id)
+    User.findById(id)
+        .then( user => {
+            if(!user)
+                return res.status(406).json({
+                    'error': "User not found"
+                })
+            req.profile = user;
+            next();
+        })
+        .catch( err => res.status(400).json({
+            'error': "User not able to be retrived"
+        }))
+}
+
 const read = (req, res) => {
     const user = req.profile;
     user.secretToken = undefined;
@@ -80,5 +97,7 @@ const remove = (req, res) => {
 
 
 export default {
-    create, list, userByID, read, update, remove
+    create, list, userByID, 
+    read, update, remove,
+    bodyID
 };

@@ -57,6 +57,22 @@ const personByID = (req, res, next, id) => {
         }))
 }
 
+const bodyID = (req, res, next) => {
+    const id = req.body.meta.personId;
+    Person.findById(id)
+        .then( person => {
+            if(!person)
+                return res.status(406).json({
+                    'error': "Person not found"
+                })
+            req.person = person;
+            next();
+        })
+        .catch( err => res.status(400).json({
+            'error': "Person not able to be retrived"
+        }))
+}
+
 const inPlace = (req, res, next) => {
     const place = req.place;
     const person = req.person;
@@ -109,5 +125,5 @@ const remove = (req, res) => {
 export default {
     create, list, personByID, 
     read, update, remove,
-    inPlace
+    inPlace, bodyID
 };

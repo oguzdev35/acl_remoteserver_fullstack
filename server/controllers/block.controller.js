@@ -55,6 +55,23 @@ const blockByID = (req, res, next, id) => {
         }))
 }
 
+const bodyID = (req, res, next) => {
+    const id = req.body.meta.blockId;
+    Block.findById(id)
+        .then( block => {
+            if(!block)
+                return res.status(406).json({
+                    'error': "Block not found"
+                })
+            req.block = block;
+            next();
+        })
+        .catch( err => res.status(400).json({
+            'error': "Block not able to be retrived"
+        }))
+}
+
+
 const inPlace = (req, res, next) => {
     const place = req.place;
     const block = req.block;
@@ -105,5 +122,5 @@ const remove = (req, res) => {
 
 export default {
     create, list, blockByID, read, 
-    update, remove, inPlace
+    update, remove, inPlace, bodyID
 };

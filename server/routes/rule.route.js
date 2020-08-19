@@ -5,17 +5,53 @@ import userCtrl from '../controllers/user.controller';
 import placeCtrl from '../controllers/place.controller';
 import doorCtrl from '../controllers/door.controller';
 import personCtrl from '../controllers/person.controller';
+import departmentCtrl from '../controllers/department.controller';
 
 const router = express.Router();
 
-router.route('/api/rules/:personId/:doorId/:placeId/:userId')
-    .post(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.inPlace, ruleCtrl.create)
-    .get(authCtrl.requireSignin, authCtrl.hasAuthorization, placeCtrl.inUser, personCtrl.inPlace, ruleCtrl.list)
 
+router.route('/api/rules/person')
+    .post(
+        userCtrl.bodyID,
+        placeCtrl.bodyID,
+        personCtrl.bodyID,
+        authCtrl.requireSignin, 
+        authCtrl.hasAuthorization, 
+        placeCtrl.inUser,
+        personCtrl.inPlace,
+        ruleCtrl.create
+    )
+    .get(
+        userCtrl.bodyID,
+        placeCtrl.bodyID,
+        personCtrl.bodyID,
+        authCtrl.requireSignin, 
+        authCtrl.hasAuthorization, 
+        placeCtrl.inUser,
+        personCtrl.inPlace,
+        ruleCtrl.list
+    )
 
-router.param('userId', userCtrl.userByID);
-router.param('personId', personCtrl.personByID);
-router.param('placeId', placeCtrl.placeByID);
-router.param('doorId', doorCtrl.doorByID);
+router.route('/api/rules/department')
+    .post(
+        userCtrl.bodyID,
+        placeCtrl.bodyID,
+        departmentCtrl.bodyID,
+        authCtrl.requireSignin, 
+        authCtrl.hasAuthorization, 
+        placeCtrl.inUser,
+        departmentCtrl.inPlace,
+        ruleCtrl.create
+    )
+    .get(
+        userCtrl.bodyID,
+        placeCtrl.bodyID,
+        departmentCtrl.bodyID,
+        authCtrl.requireSignin, 
+        authCtrl.hasAuthorization, 
+        placeCtrl.inUser,
+        departmentCtrl.inPlace,
+        ruleCtrl.list
+    )
 
 export default router;

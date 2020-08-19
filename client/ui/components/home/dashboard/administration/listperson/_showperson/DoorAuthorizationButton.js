@@ -18,7 +18,6 @@ import { useDispatch, useStore, useSelector } from 'react-redux';
 import Helmet from 'react-helmet';
 import DayPicker, { DateUtils } from 'react-day-picker';
 
-import moment from "moment";
 
 import DatePicker from "react-datepicker";
 import { registerLocale, setDefaultLocale } from  "react-datepicker";
@@ -29,6 +28,7 @@ registerLocale('tr', tr)
 import { listPlace } from '../../../../../../../store/actions/place.action';
 import { listBlock } from '../../../../../../../store/actions/block.action';
 import { listDoor } from '../../../../../../../store/actions/door.action';
+import { createRule } from '../../../../../../../store/actions/rule.action';
 
 
 const useStyles = makeStyles( (theme) => ({
@@ -244,7 +244,7 @@ function DateIntervalPick(props){
                             İşlemi Tekrarlayın
                         </Button>
                     )}
-                <Typography>
+                <Typography component={'span'} variant={'body2'}>
                     {!startDate && !endDate && 'Lütfen başlangıç gününü seçiniz.'}
                     {startDate && !endDate && 'Lütfen bitiş gününü seçiniz.'}
                     {startDate &&
@@ -489,7 +489,8 @@ function getSteps() {
     return ['Personelin Yetkilendirileceği Kapıları Seçiniz', 'Tarih Belirleyiniz', 'Saat Belirleyiniz'];
 }
   
-function getStepContent(step, personId, places) {
+function getStepContent(step, personId, places, rulePayload, setRulePayload) {
+
 
     const [selectedDoors, setSelectedDoors] = React.useState([]);
 
@@ -516,6 +517,33 @@ function getStepContent(step, personId, places) {
 
     const [clockValueStart, setClockValueStart] = React.useState(new Date());
     const [clockValueEnd, setClockValueEnd] = React.useState(new Date());
+
+    React.useEffect( () => {
+        setRulePayload({
+            data: {
+                doors: selectedDoors,
+                datemethod: datePickingMethod,
+                dateInterval: {
+                    from: startDate,
+                    to: endDate
+                },
+                daysInWeek: selectedDates,
+                clockInterval: {
+                    from: clockValueStart,
+                    to: clockValueEnd
+                },
+                oneDay: oneDate,
+                allow: false, // ayarla
+            },
+            meta: {
+                personId: personId,
+                placeId: places.find(({persons}) => persons.includes(personId))._id,
+                userId: globalState.user._id
+            }
+        })
+    }, [selectedDoors, datePickingMethod, startDate, 
+        endDate, selectedDates, oneDate, clockValueStart, clockValueEnd])
+
 
 
     switch (step) {
@@ -564,7 +592,9 @@ function VerticalLinearStepper(props) {
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
     
-    const places = useSelector( state => state.places)
+    const places = useSelector( state => state.places);
+
+    const [rulePayload, setRulePayload] = React.useState({});
   
     const handleNext = () => {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -576,13 +606,19 @@ function VerticalLinearStepper(props) {
   
     const handleReset = () => {
       setActiveStep(0);
+      setRulePayload({});
     };
+    
+    const handleSave = () => {
+        console.log(rulePayload);
+        dispatch(createRule(rulePayload));
+    }
 
     React.useEffect( () => {
         dispatch(listPlace({userId: globalState.user._id}));
     }, []);
 
-    
+    console.log(rulePayload)
   
     return (
       <Dialog
@@ -598,21 +634,21 @@ function VerticalLinearStepper(props) {
                     <Step key={label}>
                     <StepLabel>{label}</StepLabel>
                     <StepContent>
-                        {getStepContent(index, personId, places)}
+                        {getStepContent(index, personId, places, rulePayload, setRulePayload)}
                         <div className={classes.actionsContainer}>
                         <div>
                             <Button
-                            disabled={activeStep === 0}
-                            onClick={handleBack}
-                            className={classes.button}
+                                disabled={activeStep === 0}
+                                onClick={handleBack}
+                                className={classes.button}
                             >
                             Geri
                             </Button>
                             <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={handleNext}
-                            className={classes.button}
+                                variant="contained"
+                                color="primary"
+                                onClick={handleNext}
+                                className={classes.button}
                             >
                             {activeStep === steps.length - 1 ? 'Bitir' : 'İleri'}
                             </Button>
@@ -629,7 +665,7 @@ function VerticalLinearStepper(props) {
             )}
         </DialogContent>
         <DialogActions>
-            <Button onClick={handleClose}>
+            <Button onClick={handleSave}>
                 Kaydet
             </Button>
             <Button onClick={handleReset}>

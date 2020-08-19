@@ -49,8 +49,8 @@ import {
                 'Authorization': `Bearer ${secretToken}`,
                 'x-app-id': `${appId}`
             };
-            url = `/api/rules/${action.payload.personId}/${action.payload.doorId}/${action.payload.placeId}/${action.payload.userId}`;
-            next(apiRequest({body: action.payload.newRule, method: 'POST', url: url, headers: headers, feature: RULE, docAction: action.docAction}));
+            url = `/api/rules/person`;
+            next(apiRequest({body: action.payload, method: 'POST', url: url, headers: headers, feature: RULE, docAction: action.docAction}));
             next(setLoader({state: true, feature: RULE}));
             break;
   

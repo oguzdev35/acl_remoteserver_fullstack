@@ -58,6 +58,23 @@ const departmentByID = (req, res, next, id) => {
         }))
 }
 
+const bodyID = (req, res, next) => {
+    const id = req.body.meta.departmentId;
+    Department.findById(id)
+        .then( department => {
+            if(!department)
+                return res.status(406).json({
+                    'error': "Department not found"
+                })
+            
+            req.department = department;
+            next();
+        })
+        .catch( err => res.status(400).json({
+            'error': "Department not able to be retrived"
+        }))
+}
+
 const inPlace = (req, res, next) => {
     const place = req.place;
     const department = req.department;
@@ -109,5 +126,5 @@ const remove = (req, res) => {
 export default {
     create, list, departmentByID, 
     read, update, remove,
-    inPlace
+    inPlace, bodyID
 };
