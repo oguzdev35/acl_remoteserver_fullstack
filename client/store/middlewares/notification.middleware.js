@@ -7,7 +7,7 @@ export default () => next => action => {
 
         // enrich the original payload with an id
         const notification = {
-            id, message: action.payload
+            id, message: action.payload.message, type: action.payload.type
         };
 
         // fire a new action with the enriched payload

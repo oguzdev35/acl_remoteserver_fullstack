@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     trim: true,
-    required: 'Name is required.'
+    required: 'Kullanıcı adı zorunlu alandır.'
   },
   isMaster: {
     type: Boolean,

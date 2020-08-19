@@ -11,6 +11,7 @@ export default ({dispatch}) => next => action => {
             .then( ({data}) => data)
             .then( response => dispatch(apiSuccess({response, feature, docAction})))
             .catch( error => {
+                console.log(error.response.data)
                 dispatch(apiError({error, feature}))
             })
     }
