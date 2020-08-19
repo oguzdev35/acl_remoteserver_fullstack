@@ -24,7 +24,7 @@ const list = (req, res) => {
     const user = req.profile;
     const isMaster = req.isMaster;
     const auth = req.auth;
-    Place.find().select('name address logs createdAt updatedAt blocks persons')
+    Place.find().select('name address logs createdAt updatedAt blocks persons departments')
         .then( places => {
             if(isMaster && auth._id == user._id){
                 return res.status(200).json(places)
@@ -59,7 +59,6 @@ const inUser = (req, res, next) => {
     const place = req.place;
 
     if(!user.places.includes(place._id) && !req.isMaster){
-        console.log('I am here')
         return res.status(403).json({
             'error': "User is not authorized"
         });

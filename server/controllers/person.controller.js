@@ -49,7 +49,6 @@ const personByID = (req, res, next, id) => {
                 return res.status(406).json({
                     'error': "Person not found"
                 })
-            person.populate('doors', '_id');
             req.person = person;
             next();
         })

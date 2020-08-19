@@ -19,10 +19,6 @@ import Helmet from 'react-helmet';
 import DayPicker, { DateUtils } from 'react-day-picker';
 
 import moment from "moment";
-import TimePicker from 'react-times';
-// use material theme
-import 'react-times/css/material/default.css';
-import 'react-times/css/classic/default.css';
 
 import { listPlace } from '../../../../../../../store/actions/place.action';
 import { listBlock } from '../../../../../../../store/actions/block.action';
@@ -434,32 +430,10 @@ function DateSelectionMain(props){
     )
 }
 
-class ClockIntervalPick extends React.Component {
-    onTimeChange(options) {
-      // do something
-    }
-   
-    onFocusChange(focusStatue) {
-      // do something
-    }
-   
-    render() {
-      return <Grid container direction="row">
-            <Grid item xs={3} alignItems="center">
-                hello
-            </Grid>
-            <Grid item xs={3}>
-                <TimePicker
-                    theme="classic"
-                    withoutIcon
-                    onFocusChange={this.onFocusChange.bind(this)}
-                    onTimeChange={this.onTimeChange.bind(this)}
-                />
-            </Grid>
-      </Grid>
-    }
-  
+function ClockIntervalPick(){
+    return <>fd</>
 }
+
 
 
 function getSteps() {

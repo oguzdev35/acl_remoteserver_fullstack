@@ -8,6 +8,7 @@ import autoMergeLevel1  from 'redux-persist/lib/stateReconciler/autoMergeLevel1'
 // import reducers
 import userReducer from './reducers/user.reducer';
 import personReducer from './reducers/person.reducer';
+import departmentReducer from './reducers/department.reducer';
 import uiReducer from './reducers/ui.reducer';
 import appIdReducer from './reducers/appId.reducer';
 import usersReducer from './reducers/users.reducer';
@@ -20,6 +21,7 @@ import ruleReducer from './reducers/rule.reducer';
 // import middlewares
 import userMiddleware from './middlewares/user.middleware';
 import personMiddleware from './middlewares/person.middleware';
+import departmentMiddleware from './middlewares/department.middleware';
 import apiMiddleware from './middlewares/api.middleware';
 import normalizeMiddleware from './middlewares/normalize.middleware';
 import notificationMiddleware from './middlewares/notification.middleware';
@@ -49,6 +51,7 @@ const rootReducer = combineReducers({
     doors: doorReducer,
     blocks: blockReducer,
     persons: personReducer,
+    departments: departmentReducer,
     rules: ruleReducer,
     ui: uiReducer,
     notification: notificationReducer
@@ -63,6 +66,7 @@ const featureMiddleware = [
     doorMiddleware,
     blockMiddleware,
     personMiddleware,
+    departmentMiddleware,
     ruleMiddleware,
     usersMiddleware
 ];

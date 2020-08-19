@@ -4,7 +4,7 @@ import dbErrorHandler from '../helpers/dbErrorHandler';
 
 
 const create = (req, res) => {
-    const department = new Person(req.body);
+    const department = new Department(req.body);
     const place = req.place;
     department.save()
       .then( () => {
@@ -49,8 +49,8 @@ const departmentByID = (req, res, next, id) => {
                 return res.status(406).json({
                     'error': "Department not found"
                 })
-            department.populate('persons', '_id');
-            req.person = person;
+            
+            req.department = department;
             next();
         })
         .catch( err => res.status(400).json({
