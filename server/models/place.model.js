@@ -29,6 +29,12 @@ const PlaceSchema = new mongoose.Schema({
             ref: 'Person'
         }
     ],
+    departments: [
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Department'
+        }
+    ],
     logs: [
         {
           type: mongoose.Schema.ObjectId,

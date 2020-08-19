@@ -1,16 +1,16 @@
-import Person from '../models/person.model';
+import Department from '../models/department.model';
 import extend from 'lodash/extend';
 import dbErrorHandler from '../helpers/dbErrorHandler';
 
 
 const create = (req, res) => {
-    const person = new Person(req.body);
+    const department = new Person(req.body);
     const place = req.place;
-    person.save()
+    department.save()
       .then( () => {
-        place.persons.push(person);
+        place.departments.push(department);
         place.save()
-          .then( () => res.status(200).json(person))
+          .then( () => res.status(200).json(department))
           .catch( err => res.status(400).json({
               'error': dbErrorHandler.getErrorMessage(err)
           }))
@@ -26,14 +26,14 @@ const list = (req, res) => {
     const place = req.place;
     const isMaster = req.isMaster;
     const auth = req.auth;
-    Person.find()
-        .select('personTagId firstName lastName phone1 phone2 address1 address2 email createdAt updatedAt doors logs')
-        .then( persons => {
+    Department.find()
+        .select('name persons')
+        .then( departments => {
             if(isMaster && auth._id == user._id){
-                return res.status(200).json(persons)
+                return res.status(200).json(departments)
             }
             return res.status(200).json(
-                persons.filter( person => place.persons.includes(person._id))
+                departments.filter( department => place.departments.includes(department._id))
             )
         })
       .catch( err => res.status(400).json({
@@ -42,27 +42,27 @@ const list = (req, res) => {
 }
 
 
-const personByID = (req, res, next, id) => {
-    Person.findById(id)
-        .then( person => {
-            if(!person)
+const departmentByID = (req, res, next, id) => {
+    Department.findById(id)
+        .then( department => {
+            if(!department)
                 return res.status(406).json({
-                    'error': "Person not found"
+                    'error': "Department not found"
                 })
-            person.populate('doors', '_id');
+            department.populate('persons', '_id');
             req.person = person;
             next();
         })
         .catch( err => res.status(400).json({
-            'error': "Person not able to be retrived"
+            'error': "Department not able to be retrived"
         }))
 }
 
 const inPlace = (req, res, next) => {
     const place = req.place;
-    const person = req.person;
+    const department = req.department;
     
-    if(!place.persons.includes(person.id)){
+    if(!place.departments.includes(department.id)){
         return res.status(403).json({
             'error': "User is not authorized"
         });
@@ -72,31 +72,30 @@ const inPlace = (req, res, next) => {
 }
 
 const read = (req, res) => {
-    let person = req.person;
-    return res.status(200).json(person);
+    let department = req.department;
+    return res.status(200).json(department);
 }
 
 const update = (req, res) => {
-    let person = req.person;
-    person = extend(person, req.body);
-    person.updated = Date.now();
+    let department = req.department;
+    department = extend(department, req.body);
+    department.updated = Date.now();
 
-    person.save()
-        .then( () => res.status(200).json(person))
+    department.save()
+        .then( () => res.status(200).json(department))
         .catch( err => res.status(400).json({
             'error': dbErrorHandler.getErrorMessage(err)
         }));
 }
 
-
 const remove = (req, res) => {
-    let person = req.person;
+    let department = req.department;
     const place = req.place;
-    person.remove()
-        .then( deletedPerson => {
-          place.persons.pull(deletedPerson);
+    department.remove()
+        .then( deletedDepartment => {
+          place.departments.pull(deletedDepartment);
           place.save()
-            .then( () => res.status(200).json(deletedPerson))
+            .then( () => res.status(200).json(deletedDepartment))
             .catch( err => res.status(400).json({
                 'error': dbErrorHandler.getErrorMessage(err)
             }))
@@ -108,7 +107,7 @@ const remove = (req, res) => {
 
 
 export default {
-    create, list, personByID, 
+    create, list, departmentByID, 
     read, update, remove,
-    , inPlace
+    inPlace
 };
