@@ -1,16 +1,20 @@
 import mongoose from 'mongoose';
 
 const RuleSchema = new mongoose.Schema({
-    personTagId: {
-        type: String,
-        trim: true,
-        required: 'Person ID is required',
+    person: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Person'
     },
-    doorTagId: {
-        type: String,
-        trim: true,
-        required: 'Door ID is required',         
+    department: {
+          type: mongoose.Schema.ObjectId,
+          ref: 'Department'
     },
+    doors: [
+        {
+          type: mongoose.Schema.ObjectId,
+          ref: 'Log'
+        }
+    ],
     _fromDate: String,
     _toDate: String,
     _fromClock: String,
