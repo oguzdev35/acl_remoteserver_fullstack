@@ -9,7 +9,7 @@ import Title from './Title';
 import TablePerson from './TablePerson';
 import SelectPlace from './SelectPlace';
 
-import { listPerson } from '../../../../../../store/actions/person.action';
+import { listPerson, clearPerson } from '../../../../../../store/actions/person.action';
 
 
 const useStyles = makeStyles( (theme) => ({
@@ -39,6 +39,13 @@ export default (props) => {
     const handleChange = event => {
         setSelectedPlace(event.target.value);
     }
+
+    React.useEffect( () => {
+        setSelectedPlace("")
+        if(selectedPlace == ""){
+            dispatch(clearPerson());
+        }
+    }, [])
 
     return (
         <div className={classes.root}>

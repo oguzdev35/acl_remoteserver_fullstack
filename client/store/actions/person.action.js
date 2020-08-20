@@ -11,6 +11,7 @@ export const DELETE_PERSON = `${PERSON} DELETE`;
 export const SET_PERSON = `${PERSON} SET`;
 export const LOAD_PERSON = `${PERSON} LOAD`;
 export const REMOVE_PERSON = `${PERSON} REMOVE`;
+export const CLEAR_PERSON = `${PERSON} CLEAR`;
 
 // action creators
 export const getPerson = (payload) => ({
@@ -62,4 +63,9 @@ export const removePerson = ({person, normalizeKey}) => ({
     type: REMOVE_PERSON,
     payload: person,
     meta: {normalizeKey, feature: PERSON}
+});
+
+export const clearPerson = () => ({
+    type: CLEAR_PERSON,
+    meta: {feature: PERSON}
 });

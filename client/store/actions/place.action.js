@@ -12,7 +12,7 @@ export const DELETE_PLACE = `${PLACE} DELETE`;
 export const SET_PLACE = `${PLACE} SET`;
 export const LOAD_PLACE = `${PLACE} LOAD`;
 export const REMOVE_PLACE = `${PLACE} REMOVE`;
-export const CLEAR_PLACE = `${PLACE} CLEAR_PLACE`;
+export const CLEAR_PLACE = `${PLACE} CLEAR`;
 
 // action creators
 export const getPlace = (payload) => ({

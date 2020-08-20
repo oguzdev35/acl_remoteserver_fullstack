@@ -12,7 +12,7 @@ export const DELETE_BLOCK = `${BLOCK} DELETE`;
 export const SET_BLOCK = `${BLOCK} SET`;
 export const LOAD_BLOCK = `${BLOCK} LOAD`;
 export const REMOVE_BLOCK = `${BLOCK} REMOVE`;
-export const CLEAR_BLOCK = `${BLOCK} CLEAR_BLOCK`;
+export const CLEAR_BLOCK = `${BLOCK} CLEAR`;
 
 // action creators
 export const getBlock = (payload) => ({
