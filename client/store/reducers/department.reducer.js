@@ -1,4 +1,6 @@
-import { SET_DEPARTMENT, REMOVE_DEPARTMENT, LOAD_DEPARTMENT } from '../actions/department.action';
+import { 
+    SET_DEPARTMENT, REMOVE_DEPARTMENT, LOAD_DEPARTMENT, CLEAR_DEPARTMENT
+} from '../actions/department.action';
 
 const initialState = [];
 
@@ -13,6 +15,8 @@ export default (departments = initialState, action) => {
             return departments.filter( department => department._id != action.payload._id);
         case LOAD_DEPARTMENT:
             return action.payload;
+        case CLEAR_DEPARTMENT:
+            return [];
         default:
             return departments;
     }

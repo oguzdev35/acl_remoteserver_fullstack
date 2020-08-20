@@ -9,7 +9,7 @@ import Title from './Title';
 import TableDepartment from './TableDepartment';
 import SelectPlace from './SelectPlace';
 
-import { listDepartment } from '../../../../../../store/actions/department.action';
+import { listDepartment, clearDepartment } from '../../../../../../store/actions/department.action';
 
 
 const useStyles = makeStyles( (theme) => ({
@@ -39,6 +39,13 @@ export default (props) => {
     const handleChange = event => {
         setSelectedPlace(event.target.value);
     }
+
+    React.useEffect( () => {
+        setSelectedPlace("")
+        if(selectedPlace == ""){
+            dispatch(clearDepartment());
+        }
+    }, [])
 
     return (
         <div className={classes.root}>

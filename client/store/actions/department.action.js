@@ -11,6 +11,7 @@ export const DELETE_DEPARTMENT = `${DEPARTMENT} DELETE`;
 export const SET_DEPARTMENT = `${DEPARTMENT} SET`;
 export const LOAD_DEPARTMENT = `${DEPARTMENT} LOAD`;
 export const REMOVE_DEPARTMENT = `${DEPARTMENT} REMOVE`;
+export const CLEAR_DEPARTMENT = `${DEPARTMENT} CLEAR`
 
 // action creators
 export const getDepartment = (payload) => ({
@@ -62,4 +63,9 @@ export const removeDepartment = ({department, normalizeKey}) => ({
     type: REMOVE_DEPARTMENT,
     payload: department,
     meta: {normalizeKey, feature: DEPARTMENT}
+});
+
+export const clearDepartment = () => ({
+    type: CLEAR_DEPARTMENT,
+    meta: {feature: DEPARTMENT}
 });
