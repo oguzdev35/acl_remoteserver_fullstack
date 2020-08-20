@@ -3,13 +3,20 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "personTagIds": ["100001", "100002", "100003"],
-    "doorTagIds": ["1001", "1002", "1003"],
-    "dateInterval": {
-        "from": "11.11.11",
-        "to":  "12.12.12"
+    "data": {
+        "doors": [
+            "5f3eb94382bda00a38d6e4c0", 
+            "5f3eb95882bda00a38d6e4c2"
+        ],
+        "dateType": 3,
+        "oneDay": "2020-11-18"
     },
-    "allow": true
+    "meta": {
+        "userId": "5f3eb8d282bda00a38d6e4b9",
+        "placeId": "5f3eb8e382bda00a38d6e4ba",
+        "departmentId": "5f3eb9ce82bda00a38d6e4c9"
+    }
+
 }
 
 ###

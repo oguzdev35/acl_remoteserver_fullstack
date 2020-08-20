@@ -4,9 +4,13 @@ import dbErrorHandler from '../helpers/dbErrorHandler';
 
 
 const create = (req, res) => {
-  const rule = new Rule(req.body);
+  let rule = new Rule(req.body.data);
+  const department = req.department;
+  rule = extend(rule, {department: department._id});
   rule.save()
-    .then( () => res.status(200).json(rule))
+    .then( (rule) => {
+        res.status(200).json(rule)
+    })
     .catch( err => {
       res.status(400).json({
         'error': dbErrorHandler.getErrorMessage(err)

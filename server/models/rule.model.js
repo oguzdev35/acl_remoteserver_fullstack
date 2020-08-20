@@ -8,20 +8,21 @@ const RuleSchema = new mongoose.Schema({
     doors: [
         {
           type: mongoose.Schema.ObjectId,
-          ref: 'Log'
+          ref: 'Door'
         }
     ],
     dateType: {
         type: String,
         required: 'Tarih belirleme yöntemini belirtmek zorunludur.'
     },
-    _fromDate: String,
-    _toDate: String,
-    _fromClock: String,
-    _toClock: String,
+    _fromDate: Date,
+    _toDate: Date,
+    _fromClock: Date,
+    _toClock: Date,
     daysInWeek: [
         {type: String}
     ],
+    oneDay: Date,
     createdAt: {
         type: Date,
         default: Date.now

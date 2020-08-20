@@ -13,8 +13,6 @@ router.route('/api/rules')
     .post(
         userCtrl.bodyID,
         placeCtrl.bodyID,
-        blockCtrl.bodyID,
-        doorCtrl.bodyID,
         departmentCtrl.bodyID,
         authCtrl.requireSignin, 
         authCtrl.hasAuthorization, 
