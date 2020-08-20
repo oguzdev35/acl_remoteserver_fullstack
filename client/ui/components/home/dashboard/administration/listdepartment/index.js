@@ -6,10 +6,10 @@ import { useDispatch, useStore } from 'react-redux';
 
 
 import Title from './Title';
-import TableBlock from './TableBlock';
+import TableDepartment from './TableDepartment';
 import SelectPlace from './SelectPlace';
 
-import { listBlock, clearBlock } from '../../../../../../store/actions/block.action';
+import { listDepartment, clearDepartment } from '../../../../../../store/actions/department.action';
 
 
 const useStyles = makeStyles( (theme) => ({
@@ -29,12 +29,11 @@ export default (props) => {
 
     React.useEffect( () => {
         if(selectedPlace != "" && selectedPlace != undefined){
-            dispatch(listBlock({
+            dispatch(listDepartment({
                 placeId: selectedPlace, 
                 userId: globalState.user._id
             }));
         }
-
     }, [selectedPlace])
 
     const handleChange = event => {
@@ -44,15 +43,15 @@ export default (props) => {
     React.useEffect( () => {
         setSelectedPlace("")
         if(selectedPlace == ""){
-            dispatch(clearBlock());
+            dispatch(clearDepartment());
         }
     }, [])
 
     return (
         <div className={classes.root}>
-            <Title text="Kayıtlı Blok Listesi" />
+            <Title text="Kayıtlı Departman Listesi" />
             <SelectPlace selectedPlace={selectedPlace} handleChange={handleChange} />
-            <TableBlock />
+            <TableDepartment />
         </div>
     )
 }

@@ -44,6 +44,8 @@ import ListBlock from './listblock';
 import AddPerson from './addperson';
 import ListPerson from './listperson';
 import ListDoor from './listdoor';
+import AddDepartment from './adddepartment';
+import ListDepartment from './listdepartment';
 
 const contents = [
   {
@@ -65,6 +67,14 @@ const contents = [
   {
     idx: 4, label: 'Personel Listesi',
     Component: contentInjection(ListPerson, ['places'])
+  },
+  {
+    idx: 5, label: 'Departman Kayıt',
+    Component: contentInjection(AddDepartment, ['places'])
+  },
+  {
+    idx: 6, label: 'Departman Listesi',
+    Component: contentInjection(ListDepartment, ['places'])
   },
 ];
 

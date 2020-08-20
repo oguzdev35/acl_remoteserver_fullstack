@@ -10,7 +10,7 @@ import TableDoor from './TableDoor';
 import SelectPlace from './SelectPlace';
 import SelectBlock from './SelectBlock';
 
-import { listDoor } from '../../../../../../store/actions/door.action';
+import { listDoor, clearDoor } from '../../../../../../store/actions/door.action';
 import { listBlock } from '../../../../../../store/actions/block.action';
 
 
@@ -52,6 +52,14 @@ export default (props) => {
         }))
 
     }
+
+    React.useEffect( () => {
+        setSelectedPlace("")
+        setSelectedBlock("");
+        if(selectedPlace == "" && selectedBlock == ""){
+            dispatch(clearDoor());
+        }
+    }, [])
 
     return (
         <div className={classes.root}>

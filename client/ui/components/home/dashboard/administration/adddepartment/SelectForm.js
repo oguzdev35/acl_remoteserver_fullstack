@@ -31,7 +31,6 @@ export default (props) => {
 
     React.useEffect( () => {
         if(selectedPlace){
-            console.log(selectedPlace)
             let placeId = places.find(({name}) => name == selectedPlace)._id;
             let userId = user._id;
             formik.setFieldValue('placeId', placeId);
