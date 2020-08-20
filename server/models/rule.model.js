@@ -11,6 +11,10 @@ const RuleSchema = new mongoose.Schema({
           ref: 'Log'
         }
     ],
+    dateType: {
+        type: String,
+        required: 'Tarih belirleme yöntemini belirtmek zorunludur.'
+    },
     _fromDate: String,
     _toDate: String,
     _fromClock: String,

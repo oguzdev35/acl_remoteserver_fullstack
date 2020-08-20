@@ -104,11 +104,11 @@ const update = (req, res) => {
 
 const remove = (req, res) => {
   let door = req.door;
-  const user = req.profile;
+  const block = req.block;
   door.remove()
       .then( deletedDoor => {
-        user.doors.pull(deletedDoor);
-        user.save()
+        block.doors.pull(deletedDoor);
+        block.save()
           .then( () => res.status(200).json(deletedDoor))
           .catch( err => res.status(400).json({
               'error': dbErrorHandler.getErrorMessage(err)
