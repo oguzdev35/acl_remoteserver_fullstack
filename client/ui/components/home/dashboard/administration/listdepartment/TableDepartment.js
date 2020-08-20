@@ -14,8 +14,6 @@ import {
 } from '@material-ui/icons';
 import { useSelector } from 'react-redux';
 
-import DeleteButton from './DeleteButton';
-import EditButton from './EditButton';
 import ShowDepartment from './ShowDepartment';
 
 const useStyles = makeStyles((theme) => ({
@@ -124,10 +122,8 @@ export default () => {
             <Table className={classes.table}>
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell>Departman İsmi</StyledTableCell>
+                        <StyledTableCell>Departman Adı</StyledTableCell>
                         <StyledTableCell>Kayıt&nbsp;Tarihi</StyledTableCell>
-                        <StyledTableCell align="left">Düzenle</StyledTableCell>
-                        <StyledTableCell align="left">Sil</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -144,12 +140,6 @@ export default () => {
                             </TableCell>
                             <TableCell align="left">
                                 {department.createdAt}
-                            </TableCell>
-                            <TableCell align="left">
-                                <EditButton departmentId={department._id} />
-                            </TableCell>
-                            <TableCell align="left">
-                                <DeleteButton departmentId={department._id} />
                             </TableCell>
                         </TableRow>
                     ))}

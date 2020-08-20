@@ -47,6 +47,7 @@ export default (props) => {
         }
     }, [])
 
+
     return (
         <div className={classes.root}>
             <Title text="Kayıtlı Departman Listesi" />

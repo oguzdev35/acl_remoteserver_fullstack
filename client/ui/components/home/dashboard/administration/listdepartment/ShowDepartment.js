@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import ShowDepartmentFullScreenDialog from './ShowDepartmentFullScreenDialog';
+import ShowDepartmentFullScreenDialog from './_showdepartment';
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -29,7 +29,7 @@ export default props => {
         <React.Fragment>
             <FormControl className={classes.formControl} fullWidth>
                 <InputLabel id="place-department-select-helper-label">
-                    Yer adı
+                    Departman adı
                 </InputLabel>
                 <Select
                     labelId="place-department-select-helper-label"
@@ -48,7 +48,7 @@ export default props => {
                         ))
                     }
                 </Select>
-                <FormHelperText>Yer adı seçiniz</FormHelperText>
+                <FormHelperText>Departman adı seçiniz</FormHelperText>
             </FormControl>
         </React.Fragment>
     )
