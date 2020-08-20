@@ -47,6 +47,12 @@ const PersonSchema = new mongoose.Schema({
   updatedAt: {
     type: Date
   },
+  departments: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Department'
+    }
+  ],
   logs: [
     {
       type: mongoose.Schema.ObjectId,

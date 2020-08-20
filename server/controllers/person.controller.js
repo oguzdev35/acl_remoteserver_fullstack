@@ -1,5 +1,6 @@
 import Person from '../models/person.model';
 import extend from 'lodash/extend';
+import Department from '../models/department.model';
 import dbErrorHandler from '../helpers/dbErrorHandler';
 
 
@@ -122,8 +123,53 @@ const remove = (req, res) => {
 }
 
 
+const assign = (req, res) => {
+    let person = req.person;
+    let department = req.department;
+    
+    person.departments.push(department);
+    department.persons.push(person);
+    person.save()
+        .then( async () => {
+            try {
+                await department.save();
+            } catch (error) {
+                return res.status(400).json({
+                    'error': 'Personelin Departman ataması sırasında bir hata oluştu'
+                })
+            }
+        })
+        .then( () => res.status(200).json(person) )
+        .catch( err => res.status(400).json({
+            'error': 'Personelin Departman ataması sırasında bir hata oluştu'
+        }));
+}
+
+const revoke = (req, res) => {
+    let person = req.person;
+    let department = req.department;
+    
+    person.departments.pull(department.id);
+    department.persons.pull(person.id);
+    person.save()
+        .then( async () => {
+            try {
+                await department.save();
+            } catch (error) {
+                return res.status(400).json({
+                    'error': 'Personelin Departmandan silinmesi sırasında bir hata oluştu'
+                })
+            }
+        })
+        .then( () => res.status(200).json(person) )
+        .catch( err => res.status(400).json({
+            'error': 'Personelin Departmandan silinmesi sırasında bir hata oluştu'
+        }));
+}
+
 export default {
     create, list, personByID, 
     read, update, remove,
-    inPlace, bodyID
+    inPlace, bodyID, assign,
+    revoke
 };

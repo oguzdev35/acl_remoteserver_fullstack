@@ -122,9 +122,54 @@ const remove = (req, res) => {
         }));
 }
 
+const assign = (req, res) => {
+    let person = req.person;
+    let department = req.department;
+    
+    person.departments.push(department);
+    department.persons.push(person);
+    department.save()
+        .then( async () => {
+            try {
+                await person.save();
+            } catch (error) {
+                return res.status(400).json({
+                    'error': 'Departmanın personel ataması sırasında bir hata oluştu'
+                })
+            }
+        })
+        .then( () => res.status(200).json(department) )
+        .catch( err => res.status(400).json({
+            'error': 'Departmanın personel ataması sırasında bir hata oluştu'
+        }));
+};
+
+
+const revoke = (req, res) => {
+    let person = req.person;
+    let department = req.department;
+    
+    person.departments.pull(department);
+    department.persons.pull(person);
+    department.save()
+        .then( async () => {
+            try {
+                await person.save();
+            } catch (error) {
+                return res.status(400).json({
+                    'error': 'Departmandan personel silinmesi sırasında bir hata oluştu'
+                })
+            }
+        })
+        .then( () => res.status(200).json(department) )
+        .catch( err => res.status(400).json({
+            'error': 'Departmandan personel silinmesi sırasında bir hata oluştu'
+        }));
+}
 
 export default {
     create, list, departmentByID, 
     read, update, remove,
-    inPlace, bodyID
+    inPlace, bodyID, assign,
+    revoke
 };
