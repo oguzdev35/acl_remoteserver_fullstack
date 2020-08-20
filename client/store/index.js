@@ -54,7 +54,7 @@ const rootReducer = combineReducers({
     departments: departmentReducer,
     rules: ruleReducer,
     ui: uiReducer,
-    notification: notificationReducer
+    notifications: notificationReducer
 });
 
 const persistedRootReducer = persistReducer(rootPersistConfig, rootReducer);

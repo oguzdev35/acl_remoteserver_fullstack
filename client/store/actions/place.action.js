@@ -12,6 +12,7 @@ export const DELETE_PLACE = `${PLACE} DELETE`;
 export const SET_PLACE = `${PLACE} SET`;
 export const LOAD_PLACE = `${PLACE} LOAD`;
 export const REMOVE_PLACE = `${PLACE} REMOVE`;
+export const CLEAR_PLACE = `${PLACE} CLEAR_PLACE`;
 
 // action creators
 export const getPlace = (payload) => ({
@@ -64,4 +65,9 @@ export const removePlace = ({place, normalizeKey}) => ({
     type: REMOVE_PLACE,
     payload: place,
     meta: {normalizeKey, feature: PLACE}
+});
+
+export const clearPlace = () => ({
+    type: CLEAR_PLACE,
+    meta: {feature: PLACE}
 });

@@ -1,80 +1,28 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import { useSnackbar } from 'notistack';
+import { useSelector } from 'react-redux';
 
-const useStyles = makeStyles((theme) => ({
-  close: {
-    padding: theme.spacing(0.5),
-  },
-}));
 
-export default function ConsecutiveSnackbars() {
-  const [snackPack, setSnackPack] = React.useState([]);
-  const [open, setOpen] = React.useState(false);
-  const [messageInfo, setMessageInfo] = React.useState(undefined);
+export default () => {
 
-  React.useEffect(() => {
-    if (snackPack.length && !messageInfo) {
-      // Set a new snack when we don't have an active one
-      setMessageInfo({ ...snackPack[0] });
-      setSnackPack((prev) => prev.slice(1));
-      setOpen(true);
-    } else if (snackPack.length && messageInfo && open) {
-      // Close an active snack when a new one is added
-      setOpen(false);
-    }
-  }, [snackPack, messageInfo, open]);
+  const notifications = useSelector( state => state.notifications);
+  const [prevId, setPrevId] = React.useState(0);
 
-  const handleClick = (message) => () => {
-    setSnackPack((prev) => [...prev, { message, key: new Date().getTime() }]);
-  };
+  const { enqueueSnackbar } = useSnackbar();
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpen(false);
-  };
+  React.useEffect( () => {
+    notifications.forEach( notification => {
+      const {message, type, id} = notification;
+      if(id != prevId){
+        // variant could be success, error, warning, info, or default
+        enqueueSnackbar(message, { variant: type });
+        setPrevId(id);
+      }
+    })
+  }, [notifications])
 
-  const handleExited = () => {
-    setMessageInfo(undefined);
-  };
-
-  const classes = useStyles();
   return (
-    <div>
-      <Button onClick={handleClick('Message A')}>Show message A</Button>
-      <Button onClick={handleClick('Message B')}>Show message B</Button>
-      <Snackbar
-        key={messageInfo ? messageInfo.key : undefined}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        onExited={handleExited}
-        message={messageInfo ? messageInfo.message : undefined}
-        action={
-          <React.Fragment>
-            <Button color="secondary" size="small" onClick={handleClose}>
-              UNDO
-            </Button>
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              className={classes.close}
-              onClick={handleClose}
-            >
-              <CloseIcon />
-            </IconButton>
-          </React.Fragment>
-        }
-      />
-    </div>
+    <React.Fragment>
+    </React.Fragment>
   );
 }

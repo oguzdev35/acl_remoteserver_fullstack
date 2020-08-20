@@ -12,7 +12,7 @@ export default () => next => action => {
 
         // fire a new action with the enriched payload
         // note: the payload is an object
-        next(setNotification({message: notification, feature: action.meta.feature}));
+        next(setNotification({notification, feature: action.meta.feature}));
 
         // dispatch a clear action after a given time
         setTimeout(() => {

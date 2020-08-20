@@ -96,7 +96,8 @@ export default store => next => action => {
             next(setLoader({state: false, feature: USERS}));
             break;
         case `${USERS} ${API_ERROR}`:
-            next(setNotification({message: action.payload.response.data.error, type: 'error', feature: USERS}))
+            
+            next(setNotification({notification: {message: action.payload.response.data.error, type: 'error'}, feature: USERS}))
             next(setLoader({state: false, feature: USERS}))
             break;
         default:

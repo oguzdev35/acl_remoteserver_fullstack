@@ -19,7 +19,7 @@ import { createUser } from '../../../../../../store/actions/users.action';
 const useStyles = makeStyles( (theme) => ({
     root: {
         margin: theme.spacing(2),
-        minWidth: '30vw'
+        minWidth: '70vw'
     },
     forms: {
         marginTop: theme.spacing(1)

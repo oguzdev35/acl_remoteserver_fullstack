@@ -1,168 +1,75 @@
 import React from 'react';
-import {
-    TableCell, Typography, TextField,
-    Button, Dialog, DialogActions, 
-    DialogContent, DialogTitle, 
-    InputLabel, Input, MenuItem, FormControl,
-    Select
-} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import {
+    TextField, TableCell
+} from '@material-ui/core';
 import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        marginTop: theme.spacing(2),
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
     },
-    dialog: {
-        minWidth: '40vw'
-    },
-    label: {
-        display: 'inline',
-        width: '30vw',
-        marginRight: theme.spacing(2),
-        marginLeft: theme.spacing(1),
-    },
-    form: {
-        display: 'inline',
-    },
-    help: {
-        display: 'inline',
-        marginLeft: theme.spacing(1)
-    },
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap'
-    },
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120
-    }
+  },
 }));
 
 export default (props) => {
 
-    const users = useSelector(state => state.users);
-
     const {
-        label, required, varName, formik, buttonText
+        label, required, varName, formik
     } = props;
     const classes = useStyles();
 
+    const users = useSelector(state => state.users);
 
-    const [dialog, setDialog] = React.useState(false);
     const [items, setItems] = React.useState([]);
     const [selectedUser, setSelectedUser] = React.useState('');
-
 
     React.useEffect( () => {
         switch(varName){
             case 'users':
-
-                setItems(users.map(({_id, username}) => {
-                    return {
-                        _id, username
-                    }
-                }));
+                setItems(users.map(({username}) => username));
+                break;
+            default:
+                break;
         }
     }, [])
 
     React.useEffect( () => {
         if(selectedUser._id){
-            formik.setFieldValue('userId', selectedUser._id)
+            formik.setFieldValue('userId', users.find(({username}) => username == selectedUser))
         }
     }, [selectedUser])
 
-    const handleChangeText = event => {
-        setSelectedUser(
-            items.find(({username}) => username == event.target.value) || {username: event.target.value, _id: ''}
-        )
-    };
-
-    const handleChangeSelect = event => {
-        setSelectedUser(event.target.value || {username: '', _id: ''});
+    const handleChange = event => {
+        console.log(event.target.value)
+        setSelectedUser(event.target.value);
     }
 
-    const handleClickOpen = () => {
-        setDialog(true);
-    };
-
-    const handleClose = () => {
-        setDialog(false);
-    };
-
-    return <React.Fragment>
-        <React.Fragment>
-            <TableCell 
-                style={{width: '16vw'}}
-                align="right"
-            >
-                <Typography className={classes.label}>
-                    {label} : 
-                </Typography>
-            </TableCell>
-            <TableCell 
-                colSpan={2}
-                style={{width: '40w'}}
-            >
-                <TextField 
-                    id={varName}
-                    variant="standard"
-                    margin="dense"
+    return (
+        <TableCell 
+            style={{width: '16vw'}}
+            align="right"
+        >
+                <TextField
+                    id="outlined-select-currency-native"
+                    select
+                    label={label}
+                    required={required}
                     fullWidth
-                    className={classes.form}
-                    onChange={handleChangeText}
-                    value={selectedUser.username || ""}
-                    type={varName}
-                />  
-            </TableCell>
-            <TableCell colSpan={3}>
-                <Button onClick={handleClickOpen}>{buttonText}</Button>
-                <Dialog 
-                    disableBackdropClick 
-                    disableEscapeKeyDown 
-                    open={dialog}
-                    onClose={handleClose}
-                    className={classes.dialog}
+                    value={selectedUser}
+                    onChange={handleChange}
+                    SelectProps={{
+                        native: true,
+                    }}
+                    variant="outlined"
                 >
-                    <DialogTitle>Kullanıcı Seçiniz</DialogTitle>
-                    <DialogContent className={classes.dialog}>
-                        <form className={classes.container}>
-                            <FormControl className={classes.formControl} fullWidth>
-                                <InputLabel htmlFor="user-dialog-non-native-label">Kullanıcı</InputLabel>
-                                <Select
-                                    labelId="user-dialog-non-native-label"
-                                    id="user-dialog-non-native"
-                                    value={selectedUser}
-                                    onChange={handleChangeSelect}
-                                    input={<Input />}
-                                >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    {items.map((item) => {
-                                            return (
-                                                <MenuItem 
-                                                    key={item._id}
-                                                    value={item}
-                                                >{item.username}</MenuItem>
-                                            )
-                                        })
-                                    }
-                                </Select>
-                            </FormControl>
-                        </form>
-                    </DialogContent>
-                    <Button onClick={handleClose} color="primary" >
-                        Vazgeç
-                    </Button>
-                    <Button onClick={handleClose} color="primary"  >
-                        Seç
-                    </Button>
-                </Dialog>
-                { required && <Typography className={classes.help}>
-                    * gerekli
-                </Typography>}
-            </TableCell>
-        </React.Fragment>
-    </React.Fragment>
+                    {items.map((item) => (
+                        <option key={item} value={item}>
+                        {item}
+                        </option>
+                    ))}
+                </TextField>
+        </TableCell>
+    );
 }

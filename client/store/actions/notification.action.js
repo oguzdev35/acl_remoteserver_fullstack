@@ -3,9 +3,9 @@ export const SET_NOTIFICATION = 'SET NOTIFICATION';
 export const REMOVE_NOTIFICATION = 'REMOVE_NOTIFICATION';
 
 // action creators
-export const setNotification = ({message, type, feature}) => ({
+export const setNotification = ({notification, feature}) => ({
     type: `${feature} ${SET_NOTIFICATION}`,
-    payload: {message, type},
+    payload: notification,
     meta: {feature}
 });
 

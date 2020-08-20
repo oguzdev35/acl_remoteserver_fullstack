@@ -9,7 +9,7 @@ import Title from './Title';
 import TablePlace from './TablePlace';
 import SelectUser from './SelectUser';
 
-import { listPlace } from '../../../../../../store/actions/place.action';
+import { listPlace, clearPlace } from '../../../../../../store/actions/place.action';
 
 
 const useStyles = makeStyles( (theme) => ({
@@ -30,7 +30,17 @@ export default (props) => {
         if(selectedUser != "" && selectedUser != undefined){
             dispatch(listPlace({userId: selectedUser}))
         }
+        if(selectedUser == ""){
+            dispatch(clearPlace());
+        }
     }, [selectedUser])
+
+    React.useEffect( () => {
+        setSelectedUser("")
+        if(selectedUser == ""){
+            dispatch(clearPlace());
+        }
+    }, [])
 
     const handleChange = event => {
         setSelectedUser(event.target.value);
