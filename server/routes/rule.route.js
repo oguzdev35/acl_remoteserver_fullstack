@@ -14,8 +14,8 @@ router.route('/api/rules')
         userCtrl.bodyID,
         placeCtrl.bodyID,
         departmentCtrl.bodyID,
-        authCtrl.requireSignin, 
-        authCtrl.hasAuthorization, 
+        // authCtrl.requireSignin, 
+        // authCtrl.hasAuthorization, 
         placeCtrl.inUser,
         departmentCtrl.inPlace,
         ruleCtrl.create

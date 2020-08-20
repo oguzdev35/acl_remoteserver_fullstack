@@ -48,6 +48,7 @@
     "lodash": "^4.17.19",
     "material-ui-image": "^3.2.3",
     "moment": "^2.27.0",
+    "moment-timezone": "^0.5.31",
     "mongoose": "^5.9.28",
     "notistack": "^0.9.17",
     "path": "^0.12.7",

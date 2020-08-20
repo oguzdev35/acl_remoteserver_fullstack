@@ -1,2 +1,9 @@
-POST http://localhost:2000/api/access/5f325d9c717ac519885e85da/5f325dab717ac519885e85db/5f3254dd517dd31a08e1bb45
+POST http://localhost:2000/api/access
 Accept: application/json
+Content-Type: application/json
+
+{
+  "personTagId": "201",
+  "doorTagId": "101",
+  "dateInput": "2011-10-01T22:00:00.000Z"
+}

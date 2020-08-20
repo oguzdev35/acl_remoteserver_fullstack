@@ -9,7 +9,11 @@ Accept: application/json
             "5f3eb95882bda00a38d6e4c2"
         ],
         "dateType": 3,
-        "oneDay": "2020-11-18"
+        "oneDay": "2011-10-05T14:48:00.000Z",
+        "clockInterval": {
+            "to": ["23", "00"],
+            "from": ["10", "15"]
+        }
     },
     "meta": {
         "userId": "5f3eb8d282bda00a38d6e4b9",
@@ -25,11 +29,51 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "personTagIds": ["100001", "100002", "100003"],
-    "doorTagIds": ["1001", "1002", "1003"],
-    "clockInterval": {
-        "from": "11.11.11",
-        "to":  "12.12.12"
+    "data": {
+        "doors": [
+            "5f3eb94382bda00a38d6e4c0", 
+            "5f3eb95882bda00a38d6e4c2"
+        ],
+        "dateType": 1,
+        "dateInterval":{
+            "to": "2011-10-05T14:48:00.000Z",
+            "from": "2011-10-01T14:48:00.000Z"
+        },
+        "clockInterval": {
+            "to": ["23", "00"],
+            "from": ["10", "15"]
+        }
     },
-    "allow": true
+    "meta": {
+        "userId": "5f3eb8d282bda00a38d6e4b9",
+        "placeId": "5f3eb8e382bda00a38d6e4ba",
+        "departmentId": "5f3eb9ce82bda00a38d6e4c9"
+    }
+
+}
+
+###
+POST http://localhost:2000/api/rules HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "data": {
+        "doors": [
+            "5f3eb94382bda00a38d6e4c0", 
+            "5f3eb95882bda00a38d6e4c2"
+        ],
+        "dateType": 2,
+        "daysInWeek":[1,2,5],
+        "clockInterval": {
+            "to": ["23", "00"],
+            "from": ["10", "15"]
+        }
+    },
+    "meta": {
+        "userId": "5f3eb8d282bda00a38d6e4b9",
+        "placeId": "5f3eb8e382bda00a38d6e4ba",
+        "departmentId": "5f3eb9ce82bda00a38d6e4c9"
+    }
+
 }

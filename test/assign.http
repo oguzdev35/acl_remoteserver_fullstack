@@ -1,13 +1,13 @@
-DELETE  http://localhost:2000/api/persons/revoke HTTP/1.1
+POST   http://localhost:2000/api/persons/assign HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
 {
     "meta": {
-        "userId": "5f3cd9d53fe10c4318ccabd8",
-        "placeId": "5f3cd9e83fe10c4318ccabd9",
-        "personId": "5f3e8c0a99833d262c710272",
-        "departmentId": "5f3e57247a012e32dcbd4c86"
+        "userId": "5f3eb8d282bda00a38d6e4b9",
+        "placeId": "5f3eb8e382bda00a38d6e4ba",
+        "personId": "5f3eb99e82bda00a38d6e4c6",
+        "departmentId": "5f3eb9ce82bda00a38d6e4c9"
     }
 }
 

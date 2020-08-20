@@ -17,10 +17,10 @@ const RuleSchema = new mongoose.Schema({
     },
     _fromDate: Date,
     _toDate: Date,
-    _fromClock: Date,
-    _toClock: Date,
+    _fromClock: Array,
+    _toClock: Array,
     daysInWeek: [
-        {type: String}
+        {type: Number}
     ],
     oneDay: Date,
     createdAt: {
