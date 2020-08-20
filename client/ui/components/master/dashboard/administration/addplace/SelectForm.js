@@ -36,8 +36,9 @@ export default (props) => {
     }, [])
 
     React.useEffect( () => {
-        if(selectedUser._id){
-            formik.setFieldValue('userId', users.find(({username}) => username == selectedUser))
+        if(selectedUser){
+            console.log(selectedUser)
+            formik.setFieldValue('userId', users.find(({username}) => username == selectedUser)._id)
         }
     }, [selectedUser])
 
@@ -64,6 +65,9 @@ export default (props) => {
                     }}
                     variant="outlined"
                 >
+                    <option value="">
+                        
+                    </option>
                     {items.map((item) => (
                         <option key={item} value={item}>
                         {item}

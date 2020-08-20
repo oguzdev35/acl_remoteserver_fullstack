@@ -7,7 +7,6 @@ import Content from './Content';
 
 import { listUser } from '../../../../../store/actions/users.action';
 import { listPlace } from '../../../../../store/actions/place.action';
-import { listBlock } from '../../../../../store/actions/block.action';
 
 const useStyles = makeStyles( theme => ({
   root: {
@@ -77,7 +76,7 @@ const contents = [
   },
   {
     idx: 4, label: 'Blok Kayıt',
-    Component: contentInjection(AddBlock, ['places', 'users'])
+    Component: contentInjection(AddBlock, ['places'])
   },
   {
     idx: 5, label: 'Blok Listesi',

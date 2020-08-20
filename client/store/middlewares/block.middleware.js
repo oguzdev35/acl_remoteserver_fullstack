@@ -98,7 +98,7 @@ export default store => next => action => {
             next(setLoader({state: false, feature: BLOCK}));
             break;
         case `${BLOCK} ${API_ERROR}`:
-            next(setNotification({message: action.payload, feature: BLOCK}))
+            next(setNotification({notification: {message: action.payload.response.data.error, type: 'error'}, feature: BLOCK}))
             next(setLoader({state: false, feature: BLOCK}))
             break;
         default:

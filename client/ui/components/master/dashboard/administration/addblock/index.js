@@ -72,6 +72,7 @@ export default () => {
             const placeId = values.placeId;
             const userId = values.userId;
             dispatch(createBlock({newBlock: newBlock, placeId: placeId, userId: userId}));
+            console.log("place: " + placeId + "user" + userId)
             formik.setValues(initialValues);
         }
     });

@@ -9,7 +9,7 @@ import Title from './Title';
 import TableBlock from './TableBlock';
 import SelectPlace from './SelectPlace';
 
-import { listBlock } from '../../../../../../store/actions/block.action';
+import { clearBlock, listBlock } from '../../../../../../store/actions/block.action';
 
 
 const useStyles = makeStyles( (theme) => ({
@@ -36,6 +36,13 @@ export default (props) => {
         }
 
     }, [selectedPlace])
+
+    React.useEffect( () => {
+        setSelectedPlace("")
+        if(selectedPlace == ""){
+            dispatch(clearBlock());
+        }
+    }, [])
 
     const handleChange = event => {
         setSelectedPlace(event.target.value);

@@ -12,6 +12,7 @@ export const DELETE_BLOCK = `${BLOCK} DELETE`;
 export const SET_BLOCK = `${BLOCK} SET`;
 export const LOAD_BLOCK = `${BLOCK} LOAD`;
 export const REMOVE_BLOCK = `${BLOCK} REMOVE`;
+export const CLEAR_BLOCK = `${BLOCK} CLEAR_BLOCK`;
 
 // action creators
 export const getBlock = (payload) => ({
@@ -63,4 +64,9 @@ export const removeBlock = ({block, normalizeKey}) => ({
     type: REMOVE_BLOCK,
     payload: block,
     meta: {normalizeKey, feature: BLOCK}
+});
+
+export const clearBlock = () => ({
+    type: CLEAR_BLOCK,
+    meta: {feature: BLOCK}
 });
