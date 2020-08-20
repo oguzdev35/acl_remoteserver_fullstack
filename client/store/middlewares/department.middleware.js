@@ -95,7 +95,7 @@ export default store => next => action => {
             next(setLoader({state: false, feature: DEPARTMENT}));
             break;
         case `${DEPARTMENT} ${API_ERROR}`:
-            next(setNotification({message: action.payload, feature: DEPARTMENT}))
+            next(setNotification({notification: {message: action.payload.response.data.error, type: 'error'}, feature: DEPARTMENT}))
             next(setLoader({state: false, feature: DEPARTMENT}))
             break;
         default:

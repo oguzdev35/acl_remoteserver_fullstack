@@ -11,6 +11,7 @@ export const DELETE_DOOR = `${DOOR} DELETE`;
 export const SET_DOOR = `${DOOR} SET`;
 export const LOAD_DOOR = `${DOOR} LOAD`;
 export const REMOVE_DOOR = `${DOOR} REMOVE`;
+export const CLEAR_DOOR = `${DOOR} CLEAR`;
 
 // action creators
 export const getDoor = (payload) => ({
@@ -61,4 +62,9 @@ export const removeDoor = ({door, normalizeKey}) => ({
     type: REMOVE_DOOR,
     payload: door,
     meta: {normalizeKey, feature: DOOR}
+});
+
+export const clearDoor = () => ({
+    type: CLEAR_DOOR,
+    meta: {feature: DOOR}
 });
