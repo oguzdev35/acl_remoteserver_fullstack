@@ -2,9 +2,9 @@ const getUniqueErrorMessage = err => {
   let output;
   try {
       let fieldName = err.message.substring(err.message.lastIndexOf('.$') + 2, err.message.lastIndexOf('_1'));
-      output = fieldName.charAt(0).toUpperCase() + fieldName.slice(1) + " already exists";
+      output = fieldName.charAt(0).toUpperCase() + fieldName.slice(1) + " sistemimizde kayıtlıdır.";
   } catch (err) {
-      output = "Unique field already exists.";
+      output = "Bu veri sistemimizde kayıtlıdır.";
   }
   return output;
 }
@@ -18,7 +18,7 @@ const getErrorMessage = err => {
               message = getUniqueErrorMessage(err)
               break
           default:
-              message = 'Something went wrong'
+              message = 'Veritabanı hatası. Lütfen yetkili kişiye bildiriniz.'
       }
   } else {
       for (let errName in err.errors){

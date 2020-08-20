@@ -4,13 +4,13 @@ const DoorSchema = new mongoose.Schema({
   doorTagId: {
     type: String,
     trim: true,
-    required: 'Door ID is required',
-    unique: 'Door ID already exists'
+    required: 'Kapı ID numarasının belirtilmesi zorunludur.',
+    unique: 'Kapı ID numarası sistemimizde kayıtlı bulunmaktadır.'
   },
   name: {
     type: String,
     trim: true,
-    required: 'Door name is required'
+    required: 'Kapı isminin belirtilmesi zorunludur.'
   },
   createdAt: {
     type: Date,

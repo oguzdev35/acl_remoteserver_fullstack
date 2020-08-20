@@ -47,13 +47,13 @@ const doorByID = (req, res, next, id) => {
       .then( door => {
           if(!door)
               return res.status(406).json({
-                  'error': "Door not found"
+                  'error': "Kapı ismi sistemimizde bulunamamıştır."
               })
           req.door = door;
           next();
       })
       .catch( err => res.status(400).json({
-          'error': "Door not able to be retrived"
+          'error': "Departman ismini ararken sistemimizde bir sorun oluştu."
       }))
 }
 
@@ -63,13 +63,13 @@ const bodyID = (req, res, next) => {
       .then( door => {
           if(!door)
               return res.status(406).json({
-                  'error': "Door not found"
+                  'error': "Kapı ismi sistemimizde bulunamamıştır."
               })
           req.door = door;
           next();
       })
       .catch( err => res.status(400).json({
-          'error': "Door not able to be retrived"
+          'error': "Departman ismini ararken sistemimizde bir sorun oluştu."
       }))
 }
 
@@ -79,7 +79,7 @@ const inBlock = (req, res, next) => {
 
   if(!block.doors.includes(door.id)){
     return res.status(403).json({
-      'error': "User is not authorized"
+      'error': "Kullanıcı yetkili değil."
     });
   }
 

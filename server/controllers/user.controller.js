@@ -26,13 +26,13 @@ const userByID = (req, res, next, id) => {
         .then( user => {
             if(!user)
                 return res.status(406).json({
-                    'error': "User not found"
+                    'error': "Belirtilen kullanıcı sistemimizde bulunamamıştır."
                 })
             req.profile = user;
             next();
         })
         .catch( err => res.status(400).json({
-            'error': "User not able to be retrived"
+            'error': "Kullanıcıyı sorgularken sistemimizde bir sorun oluştu."
         }))
 }
 
@@ -43,13 +43,13 @@ const bodyID = (req, res, next) => {
         .then( user => {
             if(!user)
                 return res.status(406).json({
-                    'error': "User not found"
+                    'error': "Belirtilen kullanıcı sistemimizde bulunamamıştır."
                 })
             req.profile = user;
             next();
         })
         .catch( err => res.status(400).json({
-            'error': "User not able to be retrived"
+            'error': "Kullanıcıyı sorgularken sistemimizde bir sorun oluştu"
         }))
 }
 

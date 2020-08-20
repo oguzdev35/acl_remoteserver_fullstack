@@ -47,14 +47,14 @@ const departmentByID = (req, res, next, id) => {
         .then( department => {
             if(!department)
                 return res.status(406).json({
-                    'error': "Department not found"
+                    'error': "Departman ismi sistemimizde bulunamamıştır."
                 })
             
             req.department = department;
             next();
         })
         .catch( err => res.status(400).json({
-            'error': "Department not able to be retrived"
+            'error': "Departman ismini ararken sistemimizde bir sorun oluştu."
         }))
 }
 
@@ -64,14 +64,14 @@ const bodyID = (req, res, next) => {
         .then( department => {
             if(!department)
                 return res.status(406).json({
-                    'error': "Department not found"
+                    'error': "Departman ismi sistemimizde bulunamamıştır."
                 })
             
             req.department = department;
             next();
         })
         .catch( err => res.status(400).json({
-            'error': "Department not able to be retrived"
+            'error': "Departman ismini ararken sistemimizde bir sorun oluştu."
         }))
 }
 
@@ -81,7 +81,7 @@ const inPlace = (req, res, next) => {
     
     if(!place.departments.includes(department.id)){
         return res.status(403).json({
-            'error': "User is not authorized"
+            'error': "Kullanıcı yetkili değil"
         });
     }
 

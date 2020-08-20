@@ -9,18 +9,18 @@ const signin = (req, res) => {
     const queryCondition = email ? {'email': email} : username ? {'username': username} : null;
 
     if(!queryCondition) return res.status(400).json({
-        'error': 'Email or password required.'
+        'error': 'Email adresi veya şifre gerekli.'
     });
 
     User.findOne(queryCondition)
         .then( user => {
             if(!user)
                 return res.status(401).json({
-                    'error': "User not found"
+                    'error': "Kullanıcı sistemimizde bulunamadı."
                 });
             if(!user.authenticate(password))
                 return res.status(401).json({
-                    'error': `${queryCondition.email ? 'Email' : 'Username'} and password don't match.`
+                    'error': `${queryCondition.email ? 'Email' : 'Kullanıcı adı'} ve şifre eşleşmedi.`
                 });
             const token = jwt.sign({_id: user._id}, config.jwtSecret);
 
@@ -33,11 +33,11 @@ const signin = (req, res) => {
                     res.json(user)
                 })
                 .catch( err => res.status(400).json({
-                    'error': "User's sessionToken is not able to be updated"
+                    'error': "Kullanıcı oturumu gerçekleştirilemedi."
                 }))
         })
         .catch( err => res.status(401).json({
-            'error': "Could not sign in"
+            'error': "Kullanıcı giriş yapamadı. Tekrar deneyiniz."
         }));
 };
 
@@ -50,11 +50,11 @@ const signout = (req, res) => {
             user.save()
                 .then( () => res.status(200).json(user))
                 .catch( err => res.status(400).json({
-                    'error': 'User cannot signed out'
+                    'error': 'Kullanıcı çıkış yapamadı'
                 }));
         })
         .catch( err => res.status(406).json({
-            'error': 'Username not found'
+            'error': 'Kullanıcı sistemimizde bulunamadı.'
         }));
 
 };
@@ -74,7 +74,7 @@ const requireMaster = (req, res, next) => {
         .then( user => {
             if(!user) {
                 return res.status(406).json({
-                    'error': "User not found"
+                    'error': "Kullanıcı sistemimizde bulunamadı"
                 });
             }
             if(appID == config.appID && user.isMaster){
@@ -96,7 +96,7 @@ const hasAuthorization = (req, res, next) => {
     const authorized = req.isMaster || (req.profile  && req.auth && (req.profile._id == req.auth._id));
     if(!authorized){
         return res.status(403).json({
-            'error': "User is not authorized"
+            'error': "Kullanıcı yetkili değildir."
         });
     }
     next();

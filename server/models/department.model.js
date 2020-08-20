@@ -4,7 +4,7 @@ const DepartmentSchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
-    required: 'First Name is required'
+    required: 'Departman ismi belirtmeniz zorunludur.'
   },
   createdAt: {
     type: Date,

@@ -14,8 +14,8 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     trim: true,
-    unique: 'Bu Email adresi zaten kayıtlı.',
-    match: [/.+\@.+\..+/, "Please fill a valid email address"],
+    unique: 'Bu Email adresi sistemimizde kayıtlı bulunmaktadır.',
+    match: [/.+\@.+\..+/, "Geçerli email adresi belirtiniz."],
     required: 'Email adresi belirtmeniz zorunludur.'
   },
   createdAt: {

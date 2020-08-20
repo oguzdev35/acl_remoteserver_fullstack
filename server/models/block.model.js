@@ -4,7 +4,7 @@ const BlockSchema = new mongoose.Schema({
     name: {
         type: String,
         trim: true,
-        required: 'Block name is required' 
+        required: 'Blok ismi belirtmeniz zorunludur.' 
     },
     createdAt: {
         type: Date,

@@ -45,13 +45,13 @@ const blockByID = (req, res, next, id) => {
         .then( block => {
             if(!block)
                 return res.status(406).json({
-                    'error': "Block not found"
+                    'error': "Belirtilen Blok ismi sistemimizde bulunamamıştır"
                 })
             req.block = block;
             next();
         })
         .catch( err => res.status(400).json({
-            'error': "Block not able to be retrived"
+            'error': "Blok ismini ararken sistemimizde bir sorun oluştu."
         }))
 }
 
@@ -61,13 +61,13 @@ const bodyID = (req, res, next) => {
         .then( block => {
             if(!block)
                 return res.status(406).json({
-                    'error': "Block not found"
+                    'error': "Belirtilen Blok ismi sistemimizde bulunamamıştır"
                 })
             req.block = block;
             next();
         })
         .catch( err => res.status(400).json({
-            'error': "Block not able to be retrived"
+            'error': "Blok ismini ararken sistemimizde bir sorun oluştu."
         }))
 }
 
@@ -77,9 +77,8 @@ const inPlace = (req, res, next) => {
     const block = req.block;
 
     if(!place.blocks.includes(block._id)){
-        console.log('blockcontroller - inplace')
         return res.status(403).json({
-            'error': "User is not authorized"
+            'error': "Kullanıcı yetkili değil."
         });
     }
 

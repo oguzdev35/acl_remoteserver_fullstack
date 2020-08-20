@@ -4,23 +4,23 @@ const PersonSchema = new mongoose.Schema({
   personTagId: {
     type: String,
     trim: true,
-    required: 'Person ID is required',
-    unique: 'Person ID already exists'
+    required: 'Personel ID numarasının belirtilmesi zorunludur.',
+    unique: 'Personel ID numarası sistemimizde kayıtlıdır.'
   },
   firstName: {
     type: String,
     trim: true,
-    required: 'First Name is required'
+    required: 'Personel isminin belirtilmesi zorunludur.'
   },
   lastName: {
     type: String,
     trim: true,
-    required: 'Last Name is required'
+    required: 'Personel soyisminin belirtilmesi zorunludur'
   },
   phone1: {
     type: String,
     trim: true,
-    required: 'Telephone number is required'
+    required: 'En az bir adet telefon numarasının belirtilmesi zorunludur'
   },
   phone2: {
     type: String,
@@ -29,7 +29,7 @@ const PersonSchema = new mongoose.Schema({
   address1: {
     type: String,
     trim: true,
-    required: 'Address is required'
+    required: 'En az bir adet kişi adresinin belirtilmesi zorunludur.'
   },
   address2: {
     type: String,
@@ -38,7 +38,7 @@ const PersonSchema = new mongoose.Schema({
   email: {
     type: String,
     trim: true,
-    match: [/.+\@.+\..+/, "Please fill a valid email address"],
+    match: [/.+\@.+\..+/, "Lütfen geçerli bir email adresi giriniz"],
   },
   createdAt: {
     type: Date,

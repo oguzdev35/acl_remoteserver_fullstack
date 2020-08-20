@@ -77,9 +77,9 @@ app.get('*', (req, res) => {
 // Catch unauthorised errors
 app.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
-    res.status(401).json({"error" : err.name + ": " + err.message})
+    res.status(401).json({"error" : "Kullanıcı girişi gereklidir."})
   }else if (err) {
-    res.status(400).json({"error" : err.name + ": " + err.message})
+    res.status(400).json({"error" : "Kullanıcı girişi gereklidir. Lütfen yetkiliye bildiriniz."})
     console.log(err)
   }
 })

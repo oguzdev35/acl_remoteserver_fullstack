@@ -44,13 +44,13 @@ const placeByID = (req, res, next, id) => {
         .then( place => {
             if(!place)
                 return res.status(406).json({
-                    'error': "Place not found"
+                    'error': "Yer ismi sistemimizde bulunamamıştır."
                 })
             req.place = place;
             next();
         })
         .catch( err => res.status(400).json({
-            'error': "Place not able to be retrived"
+            'error': "Yer ismi ararken sistemimizde bir sorun oluştu."
         }))
 }
 
@@ -60,13 +60,13 @@ const bodyID = (req, res, next) => {
         .then( place => {
             if(!place)
                 return res.status(406).json({
-                    'error': "Place not found"
+                    'error': "Yer ismi sistemimizde bulunamamıştır."
                 })
             req.place = place;
             next();
         })
         .catch( err => res.status(400).json({
-            'error': "Place not able to be retrived"
+            'error': "Yer ismi ararken sistemimizde bir sorun oluştu."
         }))
 }
 

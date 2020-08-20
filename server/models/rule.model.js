@@ -18,10 +18,6 @@ const RuleSchema = new mongoose.Schema({
     daysInWeek: [
         {type: String}
     ],
-    allow: {
-        type: Boolean,
-        required: 'Allow field is required'
-    },
     createdAt: {
         type: Date,
         default: Date.now

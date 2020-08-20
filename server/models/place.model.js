@@ -4,7 +4,7 @@ const PlaceSchema = new mongoose.Schema({
     name: {
         type: String,
         trim: true,
-        required: 'Place name is required'
+        required: 'Yer isminin girilmesi zorunludur'
     },
     address: {
         type: String,

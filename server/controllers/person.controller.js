@@ -47,13 +47,13 @@ const personByID = (req, res, next, id) => {
         .then( person => {
             if(!person)
                 return res.status(406).json({
-                    'error': "Person not found"
+                    'error': "Belirtilen Personel sistemimizde bulunamamıştır."
                 })
             req.person = person;
             next();
         })
         .catch( err => res.status(400).json({
-            'error': "Person not able to be retrived"
+            'error': "Personel kayıtlarını sorgularken sistemimizde bir sorun oluştu."
         }))
 }
 
@@ -63,13 +63,13 @@ const bodyID = (req, res, next) => {
         .then( person => {
             if(!person)
                 return res.status(406).json({
-                    'error': "Person not found"
+                    'error': "Belirtilen Personel sistemimizde bulunamamıştır."
                 })
             req.person = person;
             next();
         })
         .catch( err => res.status(400).json({
-            'error': "Person not able to be retrived"
+            'error': "Personel kayıtlarını sorgularken sistemimizde bir sorun oluştu."
         }))
 }
 
@@ -79,7 +79,7 @@ const inPlace = (req, res, next) => {
     
     if(!place.persons.includes(person.id)){
         return res.status(403).json({
-            'error': "User is not authorized"
+            'error': "Kullanıcı yetkili değil"
         });
     }
 
