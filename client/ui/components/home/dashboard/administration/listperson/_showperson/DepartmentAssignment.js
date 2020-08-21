@@ -9,6 +9,7 @@ import {
 import { useDispatch, useSelector, useStore } from 'react-redux';
 
 import { listDepartment } from '../../../../../../../store/actions/department.action';
+import { listPlace } from '../../../../../../../store/actions/place.action';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,10 +44,9 @@ function union(a, b) {
 function TransferList(props) {
   
   const {
-    handleClose, open, personalId, placeId
+    handleClose, open, personId, userId
   } = props;
 
-  const userId = useStore().getState().user._id;
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -57,12 +57,15 @@ function TransferList(props) {
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
 
+
+  const places = useSelector( state => state.places);
+
   React.useEffect( () => {
     dispatch(listDepartment({
       userId: userId,
-      placeId: placeId
+      placeId: places.find(({persons}) => persons.includes(personId))._id
     }))
-  }, [])
+  }, [places])
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -183,9 +186,12 @@ function TransferList(props) {
 
 export default props => {
 
-  const {personalId} = props;
+  const {personId} = props;
+
+  const dispatch = useDispatch();
 
   const [open, setOpen] = React.useState(false);
+  const userId = useStore().getState().user._id;
 
   const handleOpen = () => {
       setOpen(true);
@@ -194,6 +200,10 @@ export default props => {
   const handleClose = () => {
       setOpen(false);
   }
+
+  React.useEffect( () => {
+    dispatch(listPlace({userId: userId}));
+  }, [])
 
   return (
       <React.Fragment>
@@ -204,9 +214,10 @@ export default props => {
               Personel Departman Ataması Yap
           </Button>
           <TransferList 
-              personalId={personalId} 
+              personId={personId} 
               open={open} 
-              handleClose={handleClose} 
+              handleClose={handleClose}
+              userId={userId}
           />
       </React.Fragment>
   )
