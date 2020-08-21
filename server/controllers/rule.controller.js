@@ -4,15 +4,17 @@ import dbErrorHandler from '../helpers/dbErrorHandler';
 
 
 const create = (req, res) => {
+  const place = req.place;
   let rule = new Rule(req.body.data);
   const department = req.department;
   rule = extend(rule, {department: department._id});
   rule.save()
     .then( (rule) => {
-        res.status(200).json(rule)
+        place.rules.push(rule);
+        return res.status(200).json(rule)
     })
     .catch( err => {
-      res.status(400).json({
+      return res.status(400).json({
         'error': dbErrorHandler.getErrorMessage(err)
       })
     });
@@ -22,13 +24,14 @@ const list = (req, res) => {
   const user = req.profile;
   const auth = req.auth;
   const isMaster = req.isMaster;
+  const place = req.place;
   Rule.find()
     .then( rules => {
         if(isMaster && auth._id == user._id){
             return res.status(200).json(rules)
         }
         return res.status(200).json(
-            rules.filter( rule => block.rules.includes(rule._id))
+            rules.filter( rule => place.rules.includes(rule._id))
         )
     })
     .catch( err => res.status(400).json({
@@ -68,6 +71,19 @@ const bodyID = (req, res, next) => {
       }))
 }
 
+const inPlace = (req, res, next) => {
+    const place = req.place;
+    const rule = req.rule;
+
+    if(!place.rules.includes(rule._id)){
+        return res.status(403).json({
+            'error': "Kullanıcı yetkili değil."
+        });
+    }
+
+    next();
+}
+
 const read = (req, res) => {
   return res.status(200).json(req.rule);
 }
@@ -86,8 +102,12 @@ const update = (req, res) => {
 
 const remove = (req, res) => {
   let rule = req.rule;
+  const place = req.place;
   rule.remove()
-      .then( deletedRule => res.status(200).json(deletedRule))
+      .then( deletedRule => {
+          place.rules.pull(deletedRule._id)
+          return res.status(200).json(deletedRule)
+        })
       .catch( err => res.status(400).json({
           'error': dbErrorHandler.getErrorMessage(err)
       }));
@@ -95,5 +115,5 @@ const remove = (req, res) => {
 
 export default {
   create, list, ruleByID, read, 
-  update, remove, bodyID
+  update, remove, bodyID, inPlace
 };

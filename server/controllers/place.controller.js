@@ -24,7 +24,7 @@ const list = (req, res) => {
     const user = req.profile;
     const isMaster = req.isMaster;
     const auth = req.auth;
-    Place.find().select('name address logs createdAt updatedAt blocks persons departments')
+    Place.find().select('name rules address logs createdAt updatedAt blocks persons departments')
         .then( places => {
             if(isMaster && auth._id == user._id){
                 return res.status(200).json(places)

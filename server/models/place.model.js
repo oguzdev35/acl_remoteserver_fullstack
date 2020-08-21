@@ -35,6 +35,12 @@ const PlaceSchema = new mongoose.Schema({
             ref: 'Department'
         }
     ],
+    rules: [
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Rule'
+        }
+    ],
 });
 
 export default mongoose.model('Place', PlaceSchema);
