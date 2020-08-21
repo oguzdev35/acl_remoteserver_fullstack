@@ -7,7 +7,6 @@ import {
     Grid
 } from '@material-ui/core';
 
-import SideContents from './SideContents';
 import MainContent from './MainContent';
 
 const useStyles = makeStyles( (theme) => ({
@@ -30,27 +29,12 @@ export default props => {
                 spacing={0}
                 className={classes.root}
             >
-                <Grid 
-                    style={{minHeight: '90vh'}}
-                    container 
-                    item 
-                    xs={3} 
-                    spacing={0}
-                >
-                    <Grid
-                        item
-                        xs={12}
-                        style={{minHeight: '60vh', padding: '1vw'}}
-                    >
-                        <SideContents departmentId={departmentId} />
-                    </Grid>
-                </Grid>
                 <Grid
                     style={{ minHeight: '90vh', marginTop: '1vw'}}
                     container
                     item
-                    xs={9}
-                    spacing={0}
+                    xs={12}
+                    spacing={1}
                 >
                     <MainContent department={department} />
                 </Grid>

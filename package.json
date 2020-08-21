@@ -46,6 +46,7 @@
     "helmet": "^4.0.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.19",
+    "material-table": "^1.68.1",
     "material-ui-image": "^3.2.3",
     "moment": "^2.27.0",
     "moment-timezone": "^0.5.31",

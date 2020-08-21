@@ -5,12 +5,11 @@ const RuleSchema = new mongoose.Schema({
           type: mongoose.Schema.ObjectId,
           ref: 'Department'
     },
-    doors: [
-        {
+    door: {
           type: mongoose.Schema.ObjectId,
           ref: 'Door'
-        }
-    ],
+    }
+    ,
     dateType: {
         type: String,
         required: 'Tarih belirleme yöntemini belirtmek zorunludur.'

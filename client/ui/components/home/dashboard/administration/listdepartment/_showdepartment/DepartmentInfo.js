@@ -22,13 +22,15 @@ const _labels = {
 
 export default props => {
     const { department } = props;
+    let _department = Object.assign({}, department);
+    _department.persons = undefined;
     const classes = useStyles();
     return (
         <TableContainer>
             <Table size="small">
                 <TableBody>
-                    {Object.entries(department).filter(item => item[0] != '_id' ).map((item, idx) => {
-                        // return _labels[item[0]]
+                    {Object.entries(_department).filter(item => item[0] != '_id' ).map((item, idx) => {
+                        
                         return (
                             <TableRow key={idx} hover className={classes.tablerow}>
                                 <TableCell component="th" scope="row">

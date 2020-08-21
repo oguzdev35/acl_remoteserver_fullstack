@@ -29,7 +29,6 @@ const useStyles = makeStyles( (theme) => ({
         display: 'flex',
         flexDirection: 'column',
         margin: 'auto',
-        width: 'fit-content'
     },
     formControl: {
         marginTop: theme.spacing(2),
@@ -37,12 +36,6 @@ const useStyles = makeStyles( (theme) => ({
     },
     formControlLabel: {
         marginTop: theme.spacing(1)
-    },
-    label: {
-        display: 'inline',
-        width: '5vw',
-        marginRight: theme.spacing(2),
-        marginLeft: theme.spacing(1),
     },
 }));
 
@@ -107,7 +100,7 @@ export default props => {
             </Button>
             <Dialog
                 fullWidth={true}
-                maxWidth="sm"
+                maxWidth="md"
                 open={open}
                 onClose={handleClose}
             >
@@ -125,19 +118,12 @@ export default props => {
                                             return (
                                                 <TableRow key={id}>
                                                     <TableCell
-                                                        style={{width: '10vw'}}
-                                                        align="left"
-                                                    >
-                                                        <Typography className={classes.label}>
-                                                            {label} :
-                                                        </Typography>
-                                                    </TableCell>
-                                                    <TableCell
-                                                        colSpan={4}
-                                                        // style={{width: '50vw'}}
+                                                        colSpan={10}
+                                                        style={{width: '50vw'}}
                                                     >
                                                         <TextField
                                                             id={varName}
+                                                            label={label}
                                                             variant="outlined"
                                                             margin="dense"
                                                             fullWidth
