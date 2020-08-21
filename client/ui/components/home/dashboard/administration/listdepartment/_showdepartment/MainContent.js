@@ -11,6 +11,7 @@ import {
 
 import DepartmentInfo from './DepartmentInfo';
 import AccessControlTableDateInterval from './AccessControlTableDateInterval';
+import DoorAuthorizationButton from './DoorAuthorizationButton';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,6 +31,7 @@ export default props => {
 
     return (
         <div className={classes.root}>
+            <DoorAuthorizationButton departmentId={department._id}  />
             <Accordion>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -49,7 +51,7 @@ export default props => {
                 <Typography className={classes.heading}>Departman Geçiş Kuralları(Tarih Aralıklı)</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <AccessControlTableDateInterval />
+                    <AccessControlTableDateInterval department={department} />
                 </AccordionDetails>
             </Accordion>    
             <Accordion>

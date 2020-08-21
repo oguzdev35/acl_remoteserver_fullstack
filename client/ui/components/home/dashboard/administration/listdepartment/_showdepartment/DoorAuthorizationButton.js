@@ -699,7 +699,7 @@ export default props => {
                 variant="outlined"
                 onClick={handleOpen}
             >
-                Kapı Yetkilendirme
+                Yetki Kuralı Ekle
             </Button>
             <VerticalLinearStepper 
                 departmentId={departmentId} 
