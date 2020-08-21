@@ -1,20 +1,19 @@
 import { 
     GET_RULE, LIST_RULE, 
-    UPDATE_RULE,
-    DELETE_RULE, CREATE_RULE, 
+    UPDATE_RULE,DELETE_RULE, CREATE_RULE, 
     RULE, LOAD_RULE, REMOVE_RULE,
     SET_RULE, setRule, setRules,
-    removeRule
-  } from '../actions/rule.action';
-  import { API_ERROR, API_SUCCESS, apiRequest } from '../actions/api.action';
-  import { setLoader } from '../actions/ui.action';
-  import { setNotification } from '../actions/notification.action';
-  
-  let headers = {};
-  let url = '';
-  let ruleId = '';
-  
-  export default store => next => action => {
+    removeRule,
+} from '../actions/rule.action';
+import { API_ERROR, API_SUCCESS, apiRequest } from '../actions/api.action';
+import { setLoader } from '../actions/ui.action';
+import { setNotification } from '../actions/notification.action';
+
+let headers = {};
+let url = '';
+let ruleId = '';
+
+export default store => next => action => {
     const secretToken = store.getState().user.secretToken;
     const userId = store.getState().user._id;
     const appId = store.getState().appId;
@@ -27,7 +26,7 @@ import {
                 'Authorization': `Bearer ${secretToken}`,
                 'x-app-id': `${appId}`
             };
-            url = `/api/rules`;
+            url = `/api/rules/${action.payload.placeId}/${action.payload.userId}`;
             next(apiRequest({body: action.payload, method: 'GET', url: url, headers: headers, feature: RULE, docAction: action.docAction}));
             next(setLoader({state: true, feature: RULE}));
             break;
@@ -49,11 +48,11 @@ import {
                 'Authorization': `Bearer ${secretToken}`,
                 'x-app-id': `${appId}`
             };
-            url = `/api/rules`;
-            next(apiRequest({body: action.payload, method: 'POST', url: url, headers: headers, feature: RULE, docAction: action.docAction}));
+            url = `/api/rules/${action.payload.placeId}/${action.payload.userId}`;
+            next(apiRequest({body: action.payload.newRule, method: 'POST', url: url, headers: headers, feature: RULE, docAction: action.docAction}));
             next(setLoader({state: true, feature: RULE}));
             break;
-  
+
         case UPDATE_RULE:
             ruleId = action.payload.ruleId;
             headers = {
@@ -66,9 +65,8 @@ import {
             next(apiRequest({body: action.payload.updatedRule, method: 'PUT', url: url, headers: headers, feature: RULE, docAction: action.docAction}));
             next(setLoader({state: true, feature: RULE}));
             break;
-  
+
         case DELETE_RULE:
-            ruleId = action.payload.ruleId;
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -79,7 +77,6 @@ import {
             next(apiRequest({body: null, method: 'DELETE', url: url, headers: headers, feature: RULE, docAction: action.docAction}));
             next(setLoader({state: true, feature: RULE}));
             break;
-  
         case `${RULE} ${API_SUCCESS}`:
             switch(action.meta.docAction){
                 case SET_RULE:
@@ -97,11 +94,10 @@ import {
             next(setLoader({state: false, feature: RULE}));
             break;
         case `${RULE} ${API_ERROR}`:
-            next(setNotification({message: action.payload, feature: RULE}))
+            next(setNotification({notification: {message: action.payload.response.data.error, type: 'error'}, feature: RULE}))
             next(setLoader({state: false, feature: RULE}))
             break;
         default:
             break;
     }
-  }
-  
+}
