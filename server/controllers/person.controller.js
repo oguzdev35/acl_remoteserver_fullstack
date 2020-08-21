@@ -28,7 +28,7 @@ const list = (req, res) => {
     const isMaster = req.isMaster;
     const auth = req.auth;
     Person.find()
-        .select('personTagId firstName lastName phone1 phone2 address1 address2 email createdAt updatedAt doors logs')
+        .select('personTagId firstName lastName phone1 phone2 address1 address2 email createdAt updatedAt doors logs departments')
         .then( persons => {
             if(isMaster && auth._id == user._id){
                 return res.status(200).json(persons)

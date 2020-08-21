@@ -4,12 +4,14 @@ import {
   Dialog, DialogTitle, DialogContent,
   Grid, List, Card , CardHeader,
   ListItem, ListItemText, ListItemIcon,
-  Checkbox, Button, Divider
+  Checkbox, Button, Divider, DialogActions
 } from '@material-ui/core';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 
 import { listDepartment } from '../../../../../../../store/actions/department.action';
 import { listPlace } from '../../../../../../../store/actions/place.action';
+import { listPerson } from '../../../../../../../store/actions/person.action';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,13 +61,25 @@ function TransferList(props) {
 
 
   const places = useSelector( state => state.places);
+  const departments = useSelector( state => state.departments);
+  const persons = useSelector(state => state.persons)
 
   React.useEffect( () => {
     dispatch(listDepartment({
       userId: userId,
       placeId: places.find(({persons}) => persons.includes(personId))._id
     }))
-  }, [places])
+    dispatch(listPerson({
+      userId: userId,
+      placeId: places.find(({persons}) => persons.includes(personId))._id
+    }))
+  }, [places]);
+
+  React.useEffect( () => {
+    const person = persons.find(({_id}) => _id == personId);
+    setLeft(departments.filter(({_id}) => person.departments.includes(_id)).map(({name}) => name));
+    setRight(departments.filter(({_id}) => !person.departments.includes(_id)).map(({name}) => name));
+  }, [departments, persons]);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -102,6 +116,17 @@ function TransferList(props) {
     setChecked(not(checked, rightChecked));
   };
 
+  const handleSave = () => {
+    ///
+    handleClose();
+  }
+
+  const handleReset = () => {
+    const person = persons.find(({_id}) => _id == personId);
+    setLeft(departments.filter(({_id}) => person.departments.includes(_id)).map(({name}) => name));
+    setRight(departments.filter(({_id}) => !person.departments.includes(_id)).map(({name}) => name));
+  }
+
   const customList = (title, items) => (
     <Card>
       <CardHeader
@@ -133,7 +158,7 @@ function TransferList(props) {
                   inputProps={{ 'aria-labelledby': labelId }}
                 />
               </ListItemIcon>
-              <ListItemText id={labelId} primary={`List item ${value + 1}`} />
+              <ListItemText id={labelId} primary={value} />
             </ListItem>
           );
         })}
@@ -180,6 +205,17 @@ function TransferList(props) {
           <Grid item>{customList('Seçilenler', right)}</Grid>
         </Grid>
       </DialogContent>
+      <DialogActions>
+            <Button onClick={handleSave}>
+                Kaydet
+            </Button>
+            <Button onClick={handleReset}>
+                Yeniden Başla
+            </Button>
+            <Button onClick={handleClose}>
+                Kapat
+            </Button>
+        </DialogActions>
     </Dialog>
   );
 }

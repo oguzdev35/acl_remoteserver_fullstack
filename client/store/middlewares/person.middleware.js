@@ -3,7 +3,8 @@ import {
     UPDATE_PERSON,DELETE_PERSON, CREATE_PERSON, 
     PERSON, LOAD_PERSON, REMOVE_PERSON,
     SET_PERSON, setPerson, setPersons,
-    removePerson
+    removePerson,
+    ASSIGN_PERSON
 } from '../actions/person.action';
 import { API_ERROR, API_SUCCESS, apiRequest } from '../actions/api.action';
 import { setLoader } from '../actions/ui.action';
@@ -77,7 +78,17 @@ export default store => next => action => {
             next(apiRequest({body: null, method: 'DELETE', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
-
+        case ASSIGN_PERSON:
+            headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${secretToken}`,
+                'x-app-id': `${appId}`
+            };
+            url = `/api/persons/${action.payload.personId}/${action.payload.placeId}/${action.payload.userId}`;
+            next(apiRequest({body: null, method: 'DELETE', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
+            next(setLoader({state: true, feature: PERSON}));
+            break;
         case `${PERSON} ${API_SUCCESS}`:
             switch(action.meta.docAction){
                 case SET_PERSON:
