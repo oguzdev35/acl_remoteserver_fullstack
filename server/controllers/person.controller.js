@@ -127,8 +127,8 @@ const assign = (req, res) => {
     let person = req.person;
     let department = req.department;
     
-    person.departments.push(department);
-    department.persons.push(person);
+    person.departments.push(department._id);
+    department.persons.push(person._id);
     person.save()
         .then( async () => {
             try {

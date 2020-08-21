@@ -10,7 +10,7 @@ import { useDispatch, useSelector, useStore } from 'react-redux';
 
 import { listDepartment } from '../../../../../../../store/actions/department.action';
 import { listPlace } from '../../../../../../../store/actions/place.action';
-import { listPerson } from '../../../../../../../store/actions/person.action';
+import { listPerson, assignPerson } from '../../../../../../../store/actions/person.action';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -117,7 +117,27 @@ function TransferList(props) {
   };
 
   const handleSave = () => {
-    ///
+    const person = persons.find(({_id}) => _id == personId);
+    left.filter(({_id}) => person.departments.includes(_id)).forEach( department => {
+      dispatch(revokePerson({
+        meta: {
+          userId: userId,
+          placeId: places.find(({persons}) => persons.includes(personId))._id,
+          personId: personId,
+          departmentId: departments.find(({name}) => name == department)._id
+        }
+      }))
+    })
+    right.filter(({_id}) => !person.departments.includes(_id)).forEach( department => {
+      dispatch(assignPerson({
+        meta: {
+          userId: userId,
+          placeId: places.find(({persons}) => persons.includes(personId))._id,
+          personId: personId,
+          departmentId: departments.find(({name}) => name == department)._id
+        }
+      }))
+    })
     handleClose();
   }
 

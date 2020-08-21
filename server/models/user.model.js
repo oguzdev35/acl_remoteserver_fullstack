@@ -35,12 +35,6 @@ const UserSchema = new mongoose.Schema({
       ref: 'Place'
     }
   ],
-  logs: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Log'
-    }
-  ],
   salt: String,
   secretToken: String
 });

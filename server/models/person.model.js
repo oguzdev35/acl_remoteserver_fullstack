@@ -53,12 +53,6 @@ const PersonSchema = new mongoose.Schema({
       ref: 'Department'
     }
   ],
-  logs: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Log'
-    }
-  ]
 });
 
 PersonSchema

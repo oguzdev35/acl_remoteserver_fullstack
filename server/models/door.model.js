@@ -19,12 +19,6 @@ const DoorSchema = new mongoose.Schema({
   updatedAt: {
     type: Date
   },
-  logs: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Log'
-    }
-  ]
 });
 
 export default mongoose.model('Door', DoorSchema);

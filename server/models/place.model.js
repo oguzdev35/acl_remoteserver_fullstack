@@ -35,12 +35,6 @@ const PlaceSchema = new mongoose.Schema({
             ref: 'Department'
         }
     ],
-    logs: [
-        {
-          type: mongoose.Schema.ObjectId,
-          ref: 'Log'
-        }
-      ]
 });
 
 export default mongoose.model('Place', PlaceSchema);

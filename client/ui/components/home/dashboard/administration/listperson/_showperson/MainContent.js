@@ -10,6 +10,7 @@ import {
 
 
 import PersonInfo from './PersonInfo';
+import WhichDepartments from './WhichDepartments';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,13 +46,10 @@ export default props => {
                     expandIcon={<ExpandMoreIcon />}
                     id="person-authorization"
                 >
-                <Typography className={classes.heading}>Yetkiler</Typography>
+                <Typography className={classes.heading}>Bağlı Olduğu Departmanlar</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                        sit amet blandit leo lobortis eget.
-                    </Typography>
+                    <WhichDepartments person={person} />
                 </AccordionDetails>
             </Accordion>    
             <Accordion>

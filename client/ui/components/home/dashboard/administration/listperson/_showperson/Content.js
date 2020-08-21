@@ -17,17 +17,6 @@ const useStyles = makeStyles( (theme) => ({
     }
 }))
 
-const formElements = [
-    {varName: 'personTagId', id: 0, type: 'text', label: 'PersonId'},
-    {varName: 'firstName', id: 1, type: 'text', label: 'İsim'},
-    {varName: 'lastName', id: 2, type: 'text', label: 'Soyisim'},
-    {varName: 'phone1', id: 3, type: 'text', label: 'Telefon-1'},
-    {varName: 'phone2', id: 4, type: 'text', label: 'Telefon-2'},
-    {varName: 'address1', id: 5, type: 'text', label: 'Adres-1'},
-    {varName: 'address2', id: 6, type: 'text', label: 'Adres-2'},
-    {varName: 'email', id: 7, type: 'text', label: 'Email'}
-];
-
 
 
 export default props => {

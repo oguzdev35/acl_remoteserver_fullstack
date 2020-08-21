@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import ChangePlaceButton from './ChangePlaceButton';
 import DepartmentAssignment from './DepartmentAssignment';
 import EditPersonInfoButton from './EditPersonInfoButton';
 import DeletePersonButton from './DeletePersonButton';
@@ -26,13 +25,10 @@ export default props => {
                 <EditPersonInfoButton personId={personId} />
             </div>
             <div className={classes.button}>
-                <ChangePlaceButton />
-            </div>
-            <div className={classes.button}>
                 <DepartmentAssignment personId={personId}/>
             </div>
             <div className={classes.button}>
-                <DeletePersonButton />
+                <DeletePersonButton personId={personId} />
             </div>
         </div>
     )

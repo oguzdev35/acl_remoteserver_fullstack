@@ -8,6 +8,7 @@ export const CREATE_PERSON = `${PERSON} CREATE`;
 export const UPDATE_PERSON = `${PERSON} UPDATE`;
 export const DELETE_PERSON = `${PERSON} DELETE`;
 export const ASSIGN_PERSON = `${PERSON} ASSIGN`;
+export const REVOKE_PERSON = `${PERSON} REVOKE`;
 
 export const SET_PERSON = `${PERSON} SET`;
 export const LOAD_PERSON = `${PERSON} LOAD`;
@@ -20,6 +21,13 @@ export const assignPerson = (payload) => ({
     payload: payload,
     docAction: SET_PERSON
 });
+
+export const revokePerson = (payload) => ({
+    type: REVOKE_PERSON,
+    payload: payload,
+    docAction: SET_PERSON
+});
+
 export const getPerson = (payload) => ({
     type: GET_PERSON,
     payload: payload,

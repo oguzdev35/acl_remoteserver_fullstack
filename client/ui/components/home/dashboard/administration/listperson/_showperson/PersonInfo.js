@@ -5,6 +5,10 @@ import {
     TableContainer, TableRow, Paper
 } from '@material-ui/core';
 
+import { useStore, useDispatch, useSelector } from 'react-redux';
+
+import { listPlace } from '../../../../../../../store/actions/place.action';
+
 const useStyles = makeStyles((theme) => ({
     label: {
         margin: theme.spacing(1)
@@ -30,13 +34,32 @@ const _labels = {
 
 export default props => {
     const { person } = props;
+    const userId = useStore().getState().user._id;
+    const places = useSelector( state => state.places );
+    const [placeName, setPlaceName] = React.useState("");
+    let _person = Object.assign({}, person);
+    _person.departments = undefined;
     const classes = useStyles();
+    const dispatch = useDispatch();
+    
+    React.useEffect( () => {
+        dispatch(listPlace({
+            userId: userId
+        }))
+    }, [])
+
+    React.useEffect(() => {
+        if(places){
+            const _placeName = places.find(({persons}) => persons.includes(person._id)).name;
+            setPlaceName(_placeName)
+        }
+    }, [places])
+
     return (
         <TableContainer>
             <Table size="small">
                 <TableBody>
-                    {Object.entries(person).filter(item => item[0] != '_id' ).map((item, idx) => {
-                        // return _labels[item[0]]
+                    {Object.entries(_person).filter(item => item[0] != '_id' ).map((item, idx) => {
                         return (
                             <TableRow key={idx} hover className={classes.tablerow}>
                                 <TableCell component="th" scope="row">
@@ -47,6 +70,12 @@ export default props => {
                         )
                     })
                     }
+                    <TableRow hover className={classes.tablerow}>
+                        <TableCell component="th" scope="row">
+                            Çalıştığı Yer
+                        </TableCell>
+                        <TableCell align="right">{placeName}</TableCell>
+                    </TableRow>
                 </TableBody>
             </Table>
         </TableContainer>

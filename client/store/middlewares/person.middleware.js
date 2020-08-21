@@ -4,7 +4,7 @@ import {
     PERSON, LOAD_PERSON, REMOVE_PERSON,
     SET_PERSON, setPerson, setPersons,
     removePerson,
-    ASSIGN_PERSON
+    ASSIGN_PERSON, REVOKE_PERSON
 } from '../actions/person.action';
 import { API_ERROR, API_SUCCESS, apiRequest } from '../actions/api.action';
 import { setLoader } from '../actions/ui.action';
@@ -85,8 +85,19 @@ export default store => next => action => {
                 'Authorization': `Bearer ${secretToken}`,
                 'x-app-id': `${appId}`
             };
-            url = `/api/persons/${action.payload.personId}/${action.payload.placeId}/${action.payload.userId}`;
-            next(apiRequest({body: null, method: 'DELETE', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
+            url = `/api/persons/assign`;
+            next(apiRequest({body: action.payload, method: 'POST', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
+            next(setLoader({state: true, feature: PERSON}));
+            break;
+        case REVOKE_PERSON:
+            headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${secretToken}`,
+                'x-app-id': `${appId}`
+            };
+            url = `/api/persons/revoke`;
+            next(apiRequest({body: action.payload, method: 'DELETE', url: url, headers: headers, feature: PERSON, docAction: action.docAction}));
             next(setLoader({state: true, feature: PERSON}));
             break;
         case `${PERSON} ${API_SUCCESS}`:

@@ -19,12 +19,6 @@ const BlockSchema = new mongoose.Schema({
             ref: 'Door'
         }
     ],
-    logs: [
-        {
-            type: mongoose.Schema.ObjectId,
-            ref: 'Log'
-        }
-    ]
 })
 
 export default mongoose.model('Block', BlockSchema);
